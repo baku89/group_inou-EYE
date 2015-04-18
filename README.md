@@ -1,1 +1,1 @@
-empty
+for g_i e
