@@ -34,6 +34,7 @@ updateSettings = ->
 	settings.name 	= $('#name').val()
 	settings.dir 	= $('#dir').val()
 	settings.url 	= $('#url').val()
+	settings.travelMode = $('input[name=travel]:checked').val()
 	settings.lookat	= $('#lookat').val()
 	settings.step	= $('#step').val()
 	settings.heading= $('input[name=heading]:checked').val()
@@ -65,10 +66,12 @@ create = ->
 			<button class='action' data-index='#{index}'>Cancel</button>
 			<p>requesting route..<br></p>
 			<progress max='1' value='0'>ダウンロード中</progress>
+			<div id='map-#{index}' style='width: 48%; height: 0; padding-top: 26%; background:gray; display: inline-block;'></div>
 		</li>
 	")
 
 	hyperlapse = new GSVHyperlapse( settings )
+	hyperlapse.setMap( $("#map-#{index}")[0] )
 	hyperlapse.create()
 
 	$("#task-#{index} button").on 'click', ->

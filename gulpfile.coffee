@@ -1,3 +1,4 @@
+module.exports = gulp
 #----------------------------------------
 gulp 	= require 'gulp'
 coffee 	= require 'gulp-coffee'

@@ -2,6 +2,8 @@ Number.prototype.toRad = () -> @ * Math.PI / 180
 
 Number.prototype.toDeg = () -> @ * 180 / Math.PI
 
+API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
+
 pointOnLine = (t, a, b) ->
 	lat1 = a.lat().toRad()
 	lng1 = a.lng().toRad()
@@ -58,6 +60,15 @@ class GSVHyperlapse
 		@quality = args.quality
 		@bCancel = false
 
+		if args.travelMode == 'driving'
+			@travelMode = google.maps.DirectionsTravelMode.DRIVING
+		else if args.travelMode == 'walking'
+			@travelMode = google.maps.DirectionsTravelMode.WALKING
+
+	setMap: (elm) ->
+		@mapElm = elm
+
+
 	# methods
 	trace: (args...) ->
 		console.log "[#{@name}]", args...
@@ -79,14 +90,14 @@ class GSVHyperlapse
 		@origin         = new google.maps.LatLng( result[1], result[2] )
 		@destination	= new google.maps.LatLng( result[3], result[4] )
 		@centroid       = new google.maps.LatLng( result[5], result[6] )
-		@zoom           = result[7]
+		@zoom           = parseInt(result[7])
 
 		@trace "origin: " + @origin, "destination: " + @destination
 
 		req =
 			origin: @origin
 			destination: @destination
-			travelMode: google.maps.DirectionsTravelMode.WALKING #DRIVING
+			travelMode: @travelMode
 
 
 		# parse waypoint from data
@@ -108,6 +119,12 @@ class GSVHyperlapse
 		@trace "request:", req
 
 		_self = @
+
+		# create map
+		@map = new google.maps.Map @mapElm,
+			center: @centroid
+			zoom: @zoom
+			mapTypeId: google.maps.MapTypeId.ROADMAP
 
 		GSVHyperlapse.dirService.route req, (res, status) ->
 			if status == google.maps.DirectionsStatus.OK
@@ -163,6 +180,14 @@ class GSVHyperlapse
 
 		@trace "points:", @rawPts.length
 		@traceBold "fetch panoramas"
+
+		# fit bound and add pin
+		@map.fitBounds( route.bounds )
+		for i, pt of @rawPts
+			marker = new google.maps.Marker
+				position: pt
+				map: @map
+				title: "#{i}"
 
 		# start parse point
 		@loader = new GSVPANO.PanoLoader
@@ -232,7 +257,7 @@ class GSVHyperlapse
 		@glsl.syncAll()
 		@glsl.render()
 
-		@trace "rotation", @loader.rotation, "pitch", @loader.pitch
+		#@trace "rotation", @loader.rotation, "pitch", @loader.pitch
 
 		_class.onPanoramaLoad.call @, @glsl.canvas, @index, @rawPts.length
 
