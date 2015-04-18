@@ -11,6 +11,7 @@ notify 	= require 'gulp-notify'
 
 # not gulp package
 bsync	= require 'browser-sync'
+del 	= require 'del'
 
 #----------------------------------------
 jadeArgs =
@@ -45,12 +46,7 @@ gulp.task 'compass', ->
 		.pipe compass compassArgs
 		.pipe gulp.dest 'public/css'
 
-# gulp.task 'connect', ->
-# 	connect.server
-# 		base: 'public'
-# 		keepalive: true
-# 		port: 8010
-# 		#bin: '/Applications/MAMP/bin/php'
+gulp.task 'clean'
 
 reload = bsync.reload
 
@@ -69,8 +65,11 @@ gulp.task 'copy', ->
 	gulp.src 'src/js/lib/*.js'
 		.pipe gulp.dest 'public/js/lib'
 
+gulp.task 'clean',
+	null
+
 #----------------------------------------
-gulp.task 'default', ['bsync'], ->
+gulp.task 'default', ['bsync', 'clean', 'jade', 'coffee', 'compass', 'copy'], ->
 	gulp.watch ['src/*.jade', 'src/shader/**'], ['jade', reload]
 	gulp.watch 'src/coffee/*.coffee', ['coffee', reload]
 	gulp.watch 'src/sass/*.sass', ['compass', reload]
