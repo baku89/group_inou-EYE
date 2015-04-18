@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- island https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2-->
+<!-- fiyorudo https://www.google.com/maps/dir/45.2225007,6.1375653/45.2246012,6.1391705/@45.2226213,6.1340457,16z/data=!3m1!4b1!4m2!4m1!3e0?hl=ja-->
+<html>
+  <head>
+    <title>GSV Generator</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+    <script src="js/lib/GSVPano.js"></script>
+    <script src="js/lib/glsl.min.js"></script>
+    <!--script(src='js/lib/hyperlapse.min.js')-->
+    <script src="js/canvas-exporter.js"></script>
+    <script src="js/GSVHyperlapse.js"></script>
+    <script src="js/gsv-generator.js"></script>
+    <link rel="stylesheet" href="css/simple-gui.css">
+    <script id="pano-rotation" type="x-shader/x-fragment">#ifdef GL_ES
+precision highp float;
+#endif
+
+#define PI 3.14159265358979323846264
+
+uniform vec2 resolution;
+uniform sampler2D original;
+uniform float pitch;
+uniform float rotation;
+
+void main (void) {
+	vec2 op = gl_FragCoord.xy / resolution.xy;
+
+	vec2 p = vec2(op.x + rotation / (PI * 2.0), op.y - pitch / (PI * 2.0));
+	p = mod(p + vec2(1.0, 1.0), vec2(1.0, 1.0));
+
+	vec4 color = texture2D(original, p);
+
+  gl_FragColor = vec4(color.r, color.g, color.b, 1.0);
+}
+    </script>
+  </head>
+  <body>
+    <nav>
+      <h1>GSV Generator</h1>
+      <dl>
+        <dt>name</dt>
+        <dd>
+          <input id="name" type="text" value="island">
+        </dd>
+        <dt>exporting dir (rel)</dt>
+        <dd>
+          <input id="dir" type="text" value="../../gsv">
+        </dd>
+        <dt>route url</dt>
+        <dd>
+          <input id="url" type="url" value="https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2">
+        </dd>
+        <dt>step(m)</dt>
+        <dd>
+          <input id="step" type="number" value="5">
+        </dd>
+        <dt>heading</dt>
+        <dd>
+          <input id="heading-1" type="radio" name="heading" value="forward">
+          <label for="heading-1">forward </label><br>
+          <input id="heading-2" type="radio" name="heading" value="latlng">
+          <label for="heading-2">specified point</label><br>
+          <input id="heading-3" type="radio" name="heading" value="absolute" checked>
+          <label for="heading-3">north</label><br>
+        </dd>
+        <dt>[optional] lookat url
+          <input id="lookat" type="text">
+        </dt>
+        <dt>proxy</dt>
+        <dd>
+          <input id="flg-proxy" type="checkbox" checked>
+          <label for="flg-proxy">export as proxy</label>
+        </dd>
+      </dl>
+      <button id="create">create</button>
+    </nav>
+    <article>
+      <dl class="tasks"></dl>
+    </article>
+  </body>
+</html>

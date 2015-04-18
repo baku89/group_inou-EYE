@@ -1,0 +1,48 @@
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script> 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+	<script type="text/javascript" src="./js/lib/GSVPano.js"></script>
+	<script type="text/javascript" src="./js/lib/hyperlapse.min.js"></script>
+	<script type="text/javascript" src="./js/canvas-exporter.js"></script>
+	<script type="text/javascript" src="./js/main.js"></script>
+
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+
+	<title>StreetView</title>
+</head>
+
+<body onload="initMap()">
+<h1>Street View Saver</h1>
+
+<div class="sidebar">
+
+	<div class="pure-form control">
+		<dl>
+			<dt>origin</dt>
+			<dd>
+				<input id="origin-lat" type="text" value="37.816480000000006">
+				<input id="origin-lng" type="text" value="-122.47825">
+			</dd>
+			<dt>destination</dt>
+			<dd>
+				<input id="dest-lat" type="text" value="37.81195">
+				<input id="dest-lng" type="text" value="-122.47773000000001">
+			</dd>
+		</dl>
+		<button id="analyze-start" class="pure-button">analyze</button>
+	</div>
+
+	<div>
+	</div>
+</div>
+
+<canvas id="panorama" style="max-width: 100%; height: auto;"></canvas>
+</body>

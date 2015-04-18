@@ -1,0 +1,1730 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"point",
+				"pointOnLine"
+			],
+			[
+				"origi",
+				"original_width"
+			],
+			[
+				"anniv",
+				"anniversaryDate"
+			],
+			[
+				"is",
+				"is-user-extended"
+			],
+			[
+				"marin",
+				"margin-top"
+			],
+			[
+				"anniver",
+				"anniversary_date"
+			],
+			[
+				"timepicker",
+				"timepickerDefaultArgs"
+			],
+			[
+				"datePicker",
+				"datepickerDefaultArgs"
+			],
+			[
+				"SITE_",
+				"SITE_ROOT_DIR"
+			],
+			[
+				"isS",
+				"isSupportedFixed"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"padd",
+				"padding-left"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"set",
+				"setAttribute"
+			],
+			[
+				"gr-column",
+				"gr-column-margin-tablet"
+			],
+			[
+				"gr-colum",
+				"gr-column-height-tablet"
+			],
+			[
+				"bord",
+				"border-box"
+			],
+			[
+				"http_bui",
+				"http_build_query"
+			],
+			[
+				"list-sty",
+				"list-style-type"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"margin",
+				"margin-right"
+			],
+			[
+				"cb",
+				"cbHoverBg"
+			],
+			[
+				"backgr",
+				"background-color"
+			],
+			[
+				"on",
+				"onLoadLightbox"
+			],
+			[
+				"lightboxBtn",
+				"lightboxBtnPrev"
+			],
+			[
+				"lightb",
+				"lightboxBtnNext"
+			],
+			[
+				"cTe",
+				"cText"
+			],
+			[
+				"ctext",
+				"cTextGray"
+			],
+			[
+				"cText",
+				"cTextGray"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/coffee/GSVHyperlapse.coffee",
+			"settings":
+			{
+				"buffer_size": 5316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/lib/GSVPano.js",
+			"settings":
+			{
+				"buffer_size": 3009,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/gsv-generator.jade",
+			"settings":
+			{
+				"buffer_size": 1963,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/shader/pano-rotation.fs",
+			"settings":
+			{
+				"buffer_size": 460,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/coffee/gsv-generator.coffee",
+			"settings":
+			{
+				"buffer_size": 2622,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "rename",
+		"selected_items":
+		[
+			[
+				"rename",
+				"File: Rename"
+			],
+			[
+				"glsl",
+				"Set Syntax: GLSL"
+			],
+			[
+				"sass",
+				"Set Syntax: Sass"
+			],
+			[
+				"new",
+				"ANF: New File"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"set syntax:php",
+				"Set Syntax: PHP"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"termi",
+				"Open in terminal"
+			],
+			[
+				"gulp",
+				"Gulp (silent)"
+			],
+			[
+				"termin",
+				"Open in terminal"
+			],
+			[
+				"markdown",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"syntax: mark",
+				"Set Syntax: Markdown Extended"
+			],
+			[
+				"grunt",
+				"Grunt"
+			],
+			[
+				"jshint",
+				"JSHint"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"project",
+				"File: Copy Path From Project"
+			],
+			[
+				"#",
+				"Snippet: #!/usr/bin/env"
+			],
+			[
+				"alignment",
+				"Preferences: Alignment File Settings – Default"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"preferen",
+				"Preferences: Settings - User"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			]
+		],
+		"width": 578.0
+	},
+	"console":
+	{
+		"height": 188.0,
+		"history":
+		[
+			"view.run_command('transmit_docksend')",
+			"run_command('transmit_docksend')",
+			"view.run_command('example')",
+			"view.run",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/mugi/Works/2015/09_eye/0b",
+		"/Users/mugi/Works/2015/09_eye/0b/src",
+		"/Users/mugi/Works/2015/09_eye/0b/src/js",
+		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib"
+	],
+	"file_history":
+	[
+		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/glsl.min.js",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/gsv-generator.jade",
+		"/Users/mugi/Works/2015/09_eye/0b/src/save.php",
+		"/Users/mugi/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
+		"/Users/mugi/Works/2015/09_eye/0b/public/gsv-generator.html",
+		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/GSVPano.js",
+		"/Users/mugi/Works/2015/09_eye/0b/src/sass/simple-gui.sass",
+		"/Users/mugi/Downloads/glsl.js-master/glsl.js",
+		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/hyperlapse.min.js",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/canvas-exporter.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/index.jade",
+		"/Users/mugi/Works/2015/09_eye/0b/group_inou-eye.sublime-project",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/sv-saver.jade",
+		"/Users/mugi/Works/2015/09_eye/0b/public/sv-saver.html",
+		"/Users/mugi/Works/2015/09_eye/0b/js/lib/GSVPano.js",
+		"/Users/mugi/Works/2015/09_eye/0b/coffee/location_card.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/coffee/main.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/location_card.html",
+		"/Users/mugi/Works/2015/09_eye/0b/assets/locations.csv",
+		"/Users/mugi/Works/2015/09_eye/0b/scss/style.scss",
+		"/Users/mugi/Works/2015/09_eye/0b/save.php",
+		"/Users/mugi/Works/2015/09_eye/0b/index.html",
+		"/Users/mugi/Works/2015/09_eye/0b/coffee/canvas-exporter.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/dest/js/lib/GSVPano.js",
+		"/Users/mugi/Works/2015/09_eye/0b/dest/js/lib/hyperlapse.min.js",
+		"/Users/mugi/Downloads/canvas2png/js/RecorderAnimation.js",
+		"/Users/mugi/Works/2015/09_eye/0b/coffee/lib.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/coffee/backup.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/dest/index.html",
+		"/Users/mugi/Works/2015/09_eye/0b/src/index.html",
+		"/Users/mugi/Works/2015/09_eye/0b/dest/css/style.scss",
+		"/Users/mugi/Works/2015/09_eye/0b/src/scss/style.scss",
+		"/Users/mugi/Works/2015/09_eye/0b/src/sass/style.scss",
+		"/Users/mugi/Works/2015/09_eye/0b/dest/css/style.css",
+		"/Users/mugi/Downloads/Hyperlapse.js-master 2/examples/simple.html",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/main.coffee",
+		"/Users/mugi/oF/v0.8.4/apps/myApps/VirtualMapper/README.md",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/pages/gfooter.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_gfooter.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/gfooter.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_post.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/help/formatter.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/iconv-lite/test/gbkFile.txt",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/grid.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/findup-sync/test/fixtures/a/foo.txt",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/form.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/flipcountdown.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/howtouse.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/base.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_site-settings.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_mixins.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/exit/.jshintrc",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/css/jscrollpane.css",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uri-path/test/main.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/iconv-lite/encodings/singlebyte.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/css/style.css",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset.php",
+		"/Users/mugi/Sites/com.one-timeoflove/todo.mdown",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/settings.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_util.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset_complete.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/index.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset copy.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/concat-stream/node_modules/readable-stream/passthrough.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/package.json",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/api/update-post.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/config.rb",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/class.post.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset_complete copy.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_enter.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/new/photo.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/func.image.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/class.db.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/api/crypt.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/new/message.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/test/compress/negate-iife.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/class.user.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/class.user.php.bak141222",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/style.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/modal.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/utils.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/api/upload-photo.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/settings.bak.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/timeline.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/timeline.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_content.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/privacy.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_layout.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/dummy.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/glob/test/pause-resume.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_modal.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/edit/photo.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/plugins/jquery.datetimepicker.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/page.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/edit/message.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_gheader.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_timeline.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_base.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/plugins/jquery.sidr.min.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_sidr.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/gheader.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/browserify-zlib/node_modules/pako/test/fixtures/gzip-headers.gz",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/head-common.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/data/0rQEWAxHv06hzjR1/db.json",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/hooker/lib/hooker.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/plugins/moment.min.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/flipcountdown.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/flipcountdown.min.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_flipcountdown.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_form.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_datetimepicker.scss",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/dateformat/lib/dateformat.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/internal-tasks/subgrunt.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/internal-tasks/bump.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/node_modules/source-map/test/source-map/test-util.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/error.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/enter.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/minimatch/test/extglob-ending-with-state-char.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/findup-sync/node_modules/glob/test/new-glob-optional-options.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/template/flipcountdown.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/browserify-zlib/test/test-zlib-invalid-input.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/glob/test/nocase-nomagic.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/chalk/node_modules/.bin/has-ansi",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/appveyor.yml"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 106.0,
+		"where_history":
+		[
+			"",
+			"test.php",
+			"test.p",
+			"test.php",
+			"",
+			"jquery.sidr.min.js",
+			"",
+			"base.js",
+			"",
+			"post-data.php",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"rotation",
+			"syncAll",
+			"render",
+			"update",
+			"@loader.canvas",
+			"frag",
+			"this.canvas = ",
+			"this.canvas",
+			"script",
+			"index",
+			"canvas",
+			"loader.load",
+			"google.maps",
+			"now",
+			"HyperlapsePoint",
+			"parsePoints",
+			"parsePoint",
+			"canvas",
+			"onPanoramaLoad",
+			"adaptTextureToZoom",
+			"zoom",
+			"mergedPanoIds",
+			"onPanoramaData",
+			"_panoClient",
+			"getPanoramaByLocation",
+			"rawPts",
+			"distBetweenPts",
+			"maxPoints",
+			"handleDirectionsRoute",
+			"raw_points",
+			"handleDirectionsRoute",
+			"zoom",
+			"canvas",
+			"getPanoramaBy",
+			"onPanoramaLoad",
+			"]",
+			"onPanoramaLoad",
+			"load",
+			"this.load",
+			"callback",
+			"PANO",
+			"GSV",
+			"GSVPano",
+			"load",
+			"this.load",
+			"composePanorama",
+			":",
+			"copy",
+			"class=\"en\"",
+			"custom--small",
+			"440",
+			"420",
+			"pl",
+			"content--page",
+			"Email",
+			"$infoStr",
+			"savePost",
+			"image",
+			"png",
+			"pwd_flg",
+			"$form",
+			"aEnableFlg",
+			"find",
+			"入力内容",
+			".post--message__excerpt-text",
+			".animate",
+			".transition",
+			".animate",
+			"moment()",
+			"$errors",
+			"\"birthday",
+			"$thumb_image",
+			"imagecreatefrom",
+			"$error",
+			"portrait",
+			"portrait_flg",
+			"flg",
+			"post_failed_flg",
+			"$_POST",
+			"youtube",
+			"pass",
+			"user",
+			"$post[",
+			"<?php echo",
+			"user_token",
+			"$user->",
+			"$user",
+			"exit()",
+			"$user",
+			"$large_max_height",
+			"$large_max_width",
+			"$thumb_max_height",
+			"$thumb_max_width",
+			"is_portrait",
+			"$is_portrait",
+			"is_portrait",
+			"portrait_flg",
+			"post_id",
+			"postID",
+			"post_id",
+			"postID",
+			"removeFlg",
+			"is_timeline",
+			"is_portrait",
+			"portrait_flg",
+			"portrait_Flg",
+			"url('/",
+			"url",
+			"url(",
+			"BASE_SUB_DIR",
+			"Location:",
+			"$user_db",
+			"get_timestamp",
+			"BASE_SUB_DIR",
+			"$Modal",
+			"modal.",
+			"fadeMover",
+			"required",
+			"/>",
+			"toggle",
+			"gheader__mobile-nav-toggle",
+			"loading.gif",
+			"$gheader",
+			"isParallaxRibbon",
+			"\"(.*)\"",
+			"\".*\"",
+			"[0-9]+px",
+			"fadeMover.gotoURL"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"DIST_BETWEEN_PTS",
+			"MAX_PTS",
+			".transition",
+			"update_failed_flg",
+			"$post",
+			"$form[",
+			"LARGE_MAX_HEIGHT",
+			"LARGE_MAX_WIDTH",
+			"THUMB_MAX_HEIGHT",
+			"THUMB_MAX_WIDTH",
+			"portrait_flg",
+			"post_id",
+			"remove_flg",
+			"timeline_flg",
+			"url('",
+			"$modal",
+			"Modal.",
+			"FadeMover",
+			"fadeMover",
+			">",
+			"isEnableParallax",
+			"$1aasdfsdfsdfsdf",
+			"$1+2",
+			"\"\"",
+			"fadeMover.goto",
+			"&password=",
+			"+ ユーザー2 URL: http://one-timeoflove.com/demo/enter?username=",
+			"+ ユーザー1 URL: http://one-timeoflove.com/demo/enter?username=",
+			"http://one-timeoflove.com/demo/enter?username=",
+			"fadeMover",
+			"/api/",
+			"IS_TOUCH_DEVICE",
+			"\"pageFade.gotoURL(",
+			"self._addDate",
+			"IS_TOUCH_DEVICE",
+			"MQ_NOT_MOBILE",
+			"gotoURL('/user/timeline');",
+			".transition(",
+			"site__wrapper",
+			"site__body",
+			"isSmartphine",
+			"content_headline",
+			"modal",
+			"content",
+			"class=\"site-wrapper\"",
+			"class=\"site-content\"",
+			"<?php get_template('post'); ?>",
+			"<?php get_template('gfooter'); ?>",
+			"<?php get_template('gheader'); ?>",
+			"<?php get_template('flipcountdown'); ?>",
+			"",
+			"lb_container",
+			"#lb_container",
+			"column-right",
+			"column-left",
+			"home.js",
+			"$post",
+			"ANNIVERSARY",
+			"KENTA",
+			"HAYA",
+			"KENTA",
+			"p_",
+			"post",
+			"<?php get_template('global-footer'); ?>",
+			"<?php get_template('global-header'); ?>",
+			"<?php get_template('header'); ?>",
+			"<?php get_template('head-common'); ?>",
+			"lb_link",
+			"active",
+			"",
+			"@include serif-bold",
+			"href=\"/user/settings",
+			"href=\"/user/timeline\"",
+			"/user/edit/",
+			"/user/new/",
+			"message_"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/coffee/GSVHyperlapse.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2027,
+								2027
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 846.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/js/lib/GSVPano.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3009,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2788,
+								2789
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 892.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/gsv-generator.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1963,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1030,
+								1030
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/shader/pano-rotation.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 460,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								296,
+								296
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/coffee/gsv-generator.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1321,
+								1321
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 355.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 183.0
+	},
+	"output.markdown":
+	{
+		"height": 98.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "group_inou-eye.sublime-project",
+	"replace":
+	{
+		"height": 72.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"gsvpano",
+				"src/js/lib/GSVPano.js"
+			],
+			[
+				"glsl.min",
+				"src/js/lib/glsl.min.js"
+			],
+			[
+				"gsv",
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
+				"gulp",
+				"gulpfile.coffee"
+			],
+			[
+				"pano-",
+				"src/shader/pano-rotation.fs"
+			],
+			[
+				"jade",
+				"src/gsv-generator.jade"
+			],
+			[
+				"",
+				"src/gsv-generator.jade"
+			],
+			[
+				"min.js",
+				"src/js/lib/glsl.min.js"
+			],
+			[
+				"simple",
+				"src/sass/simple-gui.sass"
+			],
+			[
+				"save",
+				"src/save.php"
+			],
+			[
+				"gulpfile",
+				"gulpfile.coffee"
+			],
+			[
+				"hyper",
+				"src/js/lib/hyperlapse.min.js"
+			],
+			[
+				"gsvp",
+				"src/js/lib/GSVPano.js"
+			],
+			[
+				"sv-sa",
+				"src/coffee/sv-saver.coffee"
+			],
+			[
+				"gsv-",
+				"src/gsv-generator.jade"
+			],
+			[
+				"sv-saver",
+				"src/sv-saver.jade"
+			],
+			[
+				"main.",
+				"coffee/main.coffee"
+			],
+			[
+				"main.coffe",
+				"coffee/main.coffee"
+			],
+			[
+				"location",
+				"coffee/location_card.coffee"
+			],
+			[
+				"save.php",
+				"save.php"
+			],
+			[
+				"style.scss",
+				"src/scss/style.scss"
+			],
+			[
+				"scss",
+				"dest/css/style.css"
+			],
+			[
+				"index",
+				"dest/index.html"
+			],
+			[
+				"coffee",
+				"src/coffee/main.coffee"
+			],
+			[
+				"howto",
+				"howtouse.php"
+			],
+			[
+				"_g",
+				"assets/scss/module/_gfooter.scss"
+			],
+			[
+				"gfooter",
+				"assets/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/help/formatter.js"
+			],
+			[
+				"footer",
+				"tpl/gfooter.php"
+			],
+			[
+				"how",
+				"howtouse.php"
+			],
+			[
+				"base.",
+				"assets/js/base.js"
+			],
+			[
+				"mixin",
+				"assets/scss/_mixins.scss"
+			],
+			[
+				"site-se",
+				"assets/scss/_site-settings.scss"
+			],
+			[
+				"reset.",
+				"password_reset/reset.php"
+			],
+			[
+				"complete",
+				"password_reset/reset_complete.php"
+			],
+			[
+				"password",
+				"password_reset/index.php"
+			],
+			[
+				"settings",
+				"user/settings.php"
+			],
+			[
+				"howt",
+				"howtouse.php"
+			],
+			[
+				"password_",
+				"password_reset/index.php"
+			],
+			[
+				"class.post",
+				"inc/class.post.php"
+			],
+			[
+				"new/photo",
+				"user/new/photo.php"
+			],
+			[
+				"mixi",
+				"assets/scss/_mixins.scss"
+			],
+			[
+				"util.scss",
+				"assets/scss/_util.scss"
+			],
+			[
+				"style",
+				"assets/scss/style.scss"
+			],
+			[
+				"sett",
+				"user/settings.php"
+			],
+			[
+				"new/",
+				"user/new/message.php"
+			],
+			[
+				"t",
+				"assets/js/timeline.js"
+			],
+			[
+				"form",
+				"assets/js/form.js"
+			],
+			[
+				"timeline",
+				"user/timeline.php"
+			],
+			[
+				"priva",
+				"privacy.php"
+			],
+			[
+				"modal.scss",
+				"assets/scss/module/_modal.scss"
+			],
+			[
+				"modal",
+				"assets/js/modal.js"
+			],
+			[
+				"photo",
+				"user/new/photo.php"
+			],
+			[
+				"form.js",
+				"assets/js/form.js"
+			],
+			[
+				"post.s",
+				"assets/scss/module/_post.scss"
+			],
+			[
+				"base",
+				"assets/js/base.js"
+			],
+			[
+				"timeline.scss",
+				"assets/scss/module/_timeline.scss"
+			],
+			[
+				"base.sc",
+				"assets/scss/_base.scss"
+			],
+			[
+				"new/pho",
+				"user/new/photo.php"
+			],
+			[
+				"fli",
+				"assets/js/flipcountdown.js"
+			],
+			[
+				"grid",
+				"user/grid.php"
+			],
+			[
+				"sidr",
+				"assets/js/plugins/jquery.sidr.min.js"
+			],
+			[
+				"ghea",
+				"assets/scss/module/_gheader.scss"
+			],
+			[
+				"moment",
+				"assets/js/plugins/moment.min.js"
+			],
+			[
+				"for",
+				"assets/js/form.js"
+			],
+			[
+				"fliu",
+				"assets/js/flipcountdown.js"
+			],
+			[
+				"datetime",
+				"assets/js/plugins/jquery.datetimepicker.js"
+			],
+			[
+				"enter",
+				"assets/scss/module/_enter.scss"
+			],
+			[
+				"error",
+				"error.php"
+			],
+			[
+				"style.css",
+				"assets/css/style.css"
+			],
+			[
+				"style.cs",
+				"assets/css/style.css"
+			],
+			[
+				"fliupc",
+				"assets/scss/module/_flipcountdown.scss"
+			],
+			[
+				"flip",
+				"assets/js/flipcountdown.js"
+			],
+			[
+				"timel",
+				"user/timeline.php"
+			],
+			[
+				"layout",
+				"assets/scss/_layout.scss"
+			],
+			[
+				"sty",
+				"assets/css/style.css"
+			],
+			[
+				"_enter",
+				"assets/scss/module/_enter.scss"
+			],
+			[
+				"edit/me",
+				"user/edit/message.php"
+			],
+			[
+				"message.php",
+				"user/edit/message.php"
+			],
+			[
+				"post.scss",
+				"assets/scss/module/_post.scss"
+			],
+			[
+				"up",
+				"api/upload-photo.php"
+			],
+			[
+				"_base",
+				"assets/scss/_base.scss"
+			],
+			[
+				"update-se",
+				"api/update-settings.php"
+			],
+			[
+				"update",
+				"api/update-settings.php"
+			],
+			[
+				"new",
+				"user/new/message.php"
+			],
+			[
+				"function",
+				"api/functions-user.php"
+			],
+			[
+				"funct",
+				"api/functions-user.php"
+			],
+			[
+				"edit",
+				"user/edit/message.php"
+			],
+			[
+				"setti",
+				"user/settings.php"
+			],
+			[
+				"movie",
+				"user/new/movie.php"
+			],
+			[
+				"message",
+				"user/new/message.php"
+			],
+			[
+				"messa",
+				"user/new/message.php"
+			],
+			[
+				"uploa",
+				"api/upload-photo.php"
+			],
+			[
+				"functions",
+				"api/functions-user.php"
+			],
+			[
+				"init",
+				"api/init.php"
+			],
+			[
+				"gheader",
+				"template/gheader.php"
+			],
+			[
+				"inc",
+				"inc/inc.php"
+			],
+			[
+				"upload",
+				"api/upload-photo.php"
+			],
+			[
+				"post",
+				"api/update-post.php"
+			],
+			[
+				"base.js",
+				"assets/js/base.js"
+			],
+			[
+				"post.php",
+				"template/post.php"
+			],
+			[
+				"load-user",
+				"api/load-user.php"
+			],
+			[
+				"funtion",
+				"api/functions.php"
+			],
+			[
+				"moda",
+				"assets/js/modal.js"
+			],
+			[
+				"_pos",
+				"assets/scss/module/_post.scss"
+			],
+			[
+				"_form",
+				"assets/scss/module/_form.scss"
+			],
+			[
+				"new/message",
+				"src/user/new/message.php"
+			],
+			[
+				"parallax",
+				"src/template/parallax.php"
+			],
+			[
+				"head-co",
+				"src/template/head-common.php"
+			],
+			[
+				"login",
+				"src/login.php"
+			],
+			[
+				"enter.php",
+				"src/enter.php"
+			],
+			[
+				"form.php",
+				"src/user/form.php"
+			],
+			[
+				"dummy",
+				"src/dummy.php"
+			],
+			[
+				"form.scs",
+				"assets/scss/module/_form.scss"
+			],
+			[
+				"common",
+				"template/head-common.php"
+			],
+			[
+				"new/me",
+				"user/new/message.php"
+			],
+			[
+				"_form.s",
+				"assets/scss/module/_form.scss"
+			],
+			[
+				"functions.php",
+				"functions.php"
+			],
+			[
+				"dummy.php",
+				"dummy.php"
+			],
+			[
+				"post-for",
+				"scss/_post-form.scss"
+			],
+			[
+				"header",
+				"header.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"fuse",
+				"~/Sites/com.baku89(study)/fuse/fuse.sublime-workspace"
+			],
+			[
+				"fu",
+				"~/Sites/com.baku89(study)/fuse/fuse.sublime-workspace"
+			],
+			[
+				"ba",
+				"~/Sites/com.baku89/src/wp-content/themes/baku89/baku89_wp.sublime-workspace"
+			],
+			[
+				"baku",
+				"~/Sites/com.baku89/src/wp-content/themes/baku89/baku89_wp.sublime-workspace"
+			],
+			[
+				"",
+				"~/Sites/com.baku89(study)/sketch/polytrope/three+1js.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 237.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

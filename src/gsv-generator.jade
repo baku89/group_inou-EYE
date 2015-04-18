@@ -1,0 +1,69 @@
+doctype html
+// island https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2
+// fiyorudo https://www.google.com/maps/dir/45.2225007,6.1375653/45.2246012,6.1391705/@45.2226213,6.1340457,16z/data=!3m1!4b1!4m2!4m1!3e0?hl=ja
+html
+	head
+		title GSV Generator
+
+		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
+		script(src='js/lib/GSVPano.js')
+		script(src='js/lib/glsl.min.js')
+		//script(src='js/lib/hyperlapse.min.js')
+		script(src='js/canvas-exporter.js')
+		script(src='js/GSVHyperlapse.js')
+		script(src='js/gsv-generator.js')
+
+		link(rel='stylesheet', href='css/simple-gui.css')
+
+		script#pano-rotation(type='x-shader/x-fragment')
+			include shader/pano-rotation.fs
+
+	body
+		nav
+			h1 GSV Generator
+
+			dl
+				dt name
+				dd
+					input#name(type='text' value='island')
+
+				dt exporting dir (rel)
+				dd
+					input#dir(type='text', value='../../gsv')
+
+				dt route url
+				dd
+					input#url(type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
+
+				dt step(m)
+				dd
+					input#step(type='number', value='5')
+
+				dt heading
+				dd
+					input#heading-1(type='radio', name='heading', value='forward')
+					label(for='heading-1') forward 
+					br
+
+					input#heading-2(type='radio', name='heading', value='latlng')
+					label(for='heading-2') specified point
+					br
+
+					input#heading-3(type='radio', name='heading', value='absolute', checked)
+					label(for='heading-3') north
+					br
+
+				dt [optional] lookat url
+					input#lookat(type='text')
+
+				dt proxy
+				dd
+					input#flg-proxy(type='checkbox', checked)
+					label(for='flg-proxy') export as proxy
+
+			button#create create
+
+		article
+			dl.tasks
