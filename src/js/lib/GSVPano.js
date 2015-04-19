@@ -71,7 +71,7 @@ GSVPANO.PanoLoader = function (parameters) {
 	this.composePanorama = function (panoId) {
 	
 		this.setProgress(0);
-		//console.log('Loading panorama for zoom ' + _zoom + '...');
+		console.log('Loading panorama for zoom ' + _zoom + '...');
 		
 		var w = (_zoom==3) ? 7 : Math.pow(2, _zoom),
 			h = Math.pow(2, _zoom - 1),
@@ -103,8 +103,7 @@ GSVPANO.PanoLoader = function (parameters) {
 	
 		//console.log('Load for', location);
 		var self = this;
-		_panoClient.getPanoramaByLocation(location, 1000, function (result, status) {
-			console.log(result, status, "unco");
+		_panoClient.getPanoramaByLocation(location, this.searchRadius, function (result, status) {
 			if (status === google.maps.StreetViewStatus.OK) {
 				if( self.onPanoramaData ) self.onPanoramaData( result );
 				rotation = result.tiles.centerHeading * Math.PI / 180.0;
@@ -112,7 +111,7 @@ GSVPANO.PanoLoader = function (parameters) {
 				copyright = result.copyright;
 				self.copyright = result.copyright;
 				_panoId = result.location.pano;
-				self.location = location;
+				self.location = location;//location;
 				self.rotation = rotation;
 				self.pitch = pitch;
 				self.image_date = result.imageDate;
@@ -131,6 +130,12 @@ GSVPANO.PanoLoader = function (parameters) {
 		_zoom = z;
 		this.adaptTextureToZoom();
 	};
+
+	this.setSearchRadius = function( r ) {
+		this.searchRadius = r;
+	}
+
+	this.setSearchRadius( _parameters.searchRadius || 5 );
 
 	this.setZoom( _parameters.zoom || 1 );
 

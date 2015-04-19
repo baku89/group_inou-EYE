@@ -10,7 +10,7 @@ try {
 
 	$image = imagecreatefromstring($buffer);
 
-	$filename = $_POST["name"] . str_pad($_POST["number"], 6, "0", STR_PAD_LEFT) . ".png";
+	$filename = $_POST["name"] ."_". str_pad($_POST["number"], 6, "0", STR_PAD_LEFT) . ".png";
 	$dir = $_POST["directory"] . "/" . $_POST["name"];
 
 	if (!file_exists($dir)) {

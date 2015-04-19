@@ -1,6 +1,8 @@
 doctype html
+// 
 // island https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2
 // fiyorudo https://www.google.com/maps/dir/45.2225007,6.1375653/45.2246012,6.1391705/@45.2226213,6.1340457,16z/data=!3m1!4b1!4m2!4m1!3e0?hl=ja
+// aqua line https://www.google.co.jp/maps/dir/35.4626822,139.8760935/35.463556,139.8765012/@35.4638422,139.8727434,17z/data=!3m1!4b1!4m2!4m1!3e0
 html
 	head
 		title GSV Generator
@@ -16,6 +18,11 @@ html
 		script(src='js/gsv-generator.js')
 
 		link(rel='stylesheet', href='css/simple-gui.css')
+		style.
+			@font-face {
+			  font-family: 'OCR';
+			  src: url('./assets/OCRAStd.otf') format('opentype');
+			}
 
 		script#pano-rotation(type='x-shader/x-fragment')
 			include shader/pano-rotation.fs
@@ -39,16 +46,12 @@ html
 
 				dt travel mode
 				dd
-					input#travel-1(type='radio', name='travel', value='driving')
+					input#travel-1(type='radio', name='travel', value='driving', checked)
 					label(for='travel-1') driving
 
-					input#travel-2(type='radio', name='travel', value='walking', checked)
+					input#travel-2(type='radio', name='travel', value='walking')
 					label(for='travel-2') walking
 					br
-
-				dt step(m)
-				dd
-					input#step(type='number', value='5')
 
 				dt heading
 				dd
@@ -57,20 +60,27 @@ html
 					br
 
 					input#heading-2(type='radio', name='heading', value='latlng')
-					label(for='heading-2') specified point
+					label(for='heading-2') latlng
 					br
 
-					input#heading-3(type='radio', name='heading', value='absolute', checked)
+					input#heading-3(type='radio', name='heading', value='north', checked)
 					label(for='heading-3') north
 					br
 
 				dt [optional] lookat url
 					input#lookat(type='text')
 
-				dt proxy
+				dt zoom(proxy=2, rendring=6)
 				dd
-					input#flg-proxy(type='checkbox', checked)
-					label(for='flg-proxy') export as proxy
+					input#zoom(type='number' value='2')
+
+				dt step(m)
+				dd
+					input#step(type='number', value='10')
+
+				dt sv search radius(m)
+				dd
+					input#search-radius(type='number', value='5')
 
 			button#create create
 

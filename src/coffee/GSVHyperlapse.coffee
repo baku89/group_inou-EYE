@@ -4,6 +4,8 @@ Number.prototype.toDeg = () -> @ * 180 / Math.PI
 
 API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
 
+TAG_HEIGHT = 40
+
 pointOnLine = (t, a, b) ->
 	lat1 = a.lat().toRad()
 	lng1 = a.lng().toRad()
@@ -26,7 +28,13 @@ getFollowedPath = (m, a, b) ->
 
 	return pointOnLine(t, a, b)
 
-
+# http://hideichi.com/archives/94
+`function uniqueID(){
+	var randam = Math.floor(Math.random()*1000)
+	var date = new Date();
+	var time = date.getTime();
+	return randam + time.toString();
+}`
 
 class GSVHyperlapse
 
@@ -48,17 +56,23 @@ class GSVHyperlapse
 	_class = @
 
 	# event
-	@onError = (err) -> alert("error")
-	@onMessage	= () -> null
+	@onError 			= (err) -> alert("error")
+	@onMessage			= () -> null
 	@onPanoramaLoad 	= () -> null
+	@onAnalyzeComplete	= () -> null
+	@onProgress			= () -> null
+	@onCancel 			= () -> null
 
 	# constructor
 	constructor: (args) ->
 		@url = args.url
 		@name = args.name
 		@step = parseFloat( args.step )
-		@quality = args.quality
+		@quality = args.zoom
 		@bCancel = false
+		@bWaiting = false
+		@searchRadius = args.searchRadius
+		@uniqueId = uniqueID()
 
 		if args.travelMode == 'driving'
 			@travelMode = google.maps.DirectionsTravelMode.DRIVING
@@ -68,8 +82,12 @@ class GSVHyperlapse
 	setMap: (elm) ->
 		@mapElm = elm
 
-
 	# methods
+	cancel: ->
+		@bCancel = true
+		if !@bWaiting
+			_class.onCancel.call @
+
 	trace: (args...) ->
 		console.log "[#{@name}]", args...
 
@@ -77,6 +95,7 @@ class GSVHyperlapse
 		console.log "%c[#{@name}] #{str} --------------------", "color:orange;font-weight:bold;"
 
 	create: ->
+		@bWaiting = true
 		@traceBold "create"
 
 		# parse url
@@ -132,8 +151,12 @@ class GSVHyperlapse
 			else
 				_class.onMessage.call @, "cannot get route."
 
-
+	# --------------------------------------------------------
+	# 2
 	analyze: (res) ->
+		if @bCancel
+			_class.onCancel.call @
+			return
 		@traceBold "analyze"
 
 		_class.onMessage.call @, "analyzing route.."
@@ -146,9 +169,9 @@ class GSVHyperlapse
 		path = route.overview_path
 		legs = route.legs
 
-		totalDist = 0
-		for i in [0..legs.length-1]
-			totalDist += legs[i].distance.value
+		# show info
+		_class.onMessage.call @, "<strong>path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{@step}(m), search radius: #{@searchRadius} (m)</strong>"
+		
 
 		d = 0 # distance between a and b (m)
 		r = 0 # always must be < step
@@ -181,17 +204,128 @@ class GSVHyperlapse
 		@trace "points:", @rawPts.length
 		@traceBold "fetch panoramas"
 
-		# fit bound and add pin
+		# fit bound and add polyline
 		@map.fitBounds( route.bounds )
-		for i, pt of @rawPts
-			marker = new google.maps.Marker
-				position: pt
-				map: @map
-				title: "#{i}"
+		path = new google.maps.Polyline
+			path: path
+			#geodesic: true
+			strokeColor: '#000000'
+			strokeOpacity: 1.0
+			strokeWeight: 2
 
-		# start parse point
+		path.setMap( @map )
+
+		# path = new google.maps.Polyline
+		# 	path: @rawPts
+		# 	#geodesic: true
+		# 	strokeColor: '#0000FF'
+		# 	strokeOpacity: 1.0
+		# 	strokeWeight: 2
+
+		# for i, pt of @rawPts
+		# 	marker = new google.maps.Marker
+		# 		position: pt
+		# 		map: @map
+		# 		title: "#{i}"
+
+		_class.onMessage.call @, "num of waypoints: #{@rawPts.length}"
+
+		# next
+		@getPanoInfoOnWay()
+
+	# --------------------------------------------------------
+	# 3
+	getPanoInfoOnWay: ->
+		self = @
+
+		if @bCancel
+			_class.onCancel.call @
+			return
+
+		# init GSVPano
 		@loader = new GSVPANO.PanoLoader
 			zoom: @quality
+			searchRadius: @searchRadius
+
+		@loader.onError = (msg) ->
+			#_class.onMessage.call self, "onError: #{msg}"
+			onError.call self, msg
+
+		@loader.onNoPanoramaData = (status) ->
+			#_class.onMessage.call self, "onNoPanoramaData: #{status}"
+			onError.call self
+
+		# get pano id for each rawPts and merge deplicated panoId
+		_class.onMessage.call @, "retriving pano id.."
+
+		idx = 0
+		@panoList = []
+		
+		@bWaiting = true
+		@loader.load @rawPts[ idx ], ->
+			onLoad.call self
+
+		onError = (msg) ->
+			null
+			#console.log msg
+			# if ++@loadingIdx < @rawPts.length
+			# 	# next
+			# 	@loader.load @rawPts[ @loadingIdx ], ->
+			# 		onLoad.call self
+
+		prevId = ''
+
+		onLoad = ->
+			if @bCancel
+				_class.onCancel.call @
+				return
+
+			id = @loader.id
+
+			#if id? then @trace idx, id
+
+			_class.onProgress.call @, idx, @rawPts.length
+
+			if id? && id != prevId
+				pano =
+					id: id
+					rotation: @loader.rotation
+					pitch: @loader.pitch
+					lat: @loader.location.lat()
+					lng: @loader.location.lng()
+				@panoList.push( pano )
+
+				marker = new google.maps.Marker
+					position: @loader.location
+					map: @map
+					title: "#{idx}"
+
+				prevId = id
+
+			if ++idx < @rawPts.length
+				# next
+				@loader.load @rawPts[ idx ], ->
+					onLoad.call self
+			else
+				_class.onMessage.call @, "total pano id: #{@panoList.length}"
+				@bWaiting = false
+				# console.log @panoList
+				_class.onProgress.call @, idx, @rawPts.length
+				_class.onAnalyzeComplete.call @
+
+	# --------------------------------------------------------
+	# 4
+	compose: ->
+		self = @
+
+		if @panoList.length == 0
+			_class.onMessage.call @, "there is no pano id"
+			return
+
+		@tagCanvas = document.createElement('canvas')
+		@tagCanvas.width = @loader.width
+		@tagCanvas.height = TAG_HEIGHT
+		@tagCtx	= @tagCanvas.getContext('2d')
 
 		@glsl = Glsl
 			canvas: document.createElement('canvas')
@@ -200,91 +334,86 @@ class GSVHyperlapse
 				rotation: 0.0
 				pitch: 0.0
 				original: @loader.canvas
+				tag: @tagCanvas
 
-		@glsl.setSize(@loader.width, @loader.height)
+		@glsl.setSize(@loader.width, @loader.height + TAG_HEIGHT)
 
-		_class.onMessage.call @, "composing panorama.. length:#{@rawPts.length} size:#{@loader.width}x#{@loader.height}"
 		
-		self = @
+
+		_class.onMessage.call @, "composing panorama.. size:#{@loader.width}x#{@loader.height}"
+		
+	
 		@loader.onError = (msg) ->
-			_class.onMessage.call @, "error"
+			console.log msg
 
 		@loader.onPanoramaLoad = ->
-			self.onLoadPanoImage.call self
+			onCompose.call self
 
 		@loader.onNoPanoramaData = (status) ->
 			console.log status
 
+		idx = 0
+		@bWaiting = true
 
-		@prevId = ""
-		@index = 0
-		@numPanorama = 0
 
-		@parsePoint()
+		@loader.composePanorama( @panoList[idx].id )
 
-	# --------------------------------------------------------
-	parsePoint: ->
+		writeToTag = (name, value, x, y) ->
+			self.tagCtx.fillStyle = '#ffffff'
+			self.tagCtx.fillText(value, x + 40, y)
+			self.tagCtx.fillStyle = '#ff0000'
+			self.tagCtx.fillText(name, x, y)
 
-		if @bCancel
-			return
+		onCompose = ->
+			console.log idx
 
-		if @index == @rawPts.length
-			@handleComplete()
-			return
-		
-		self = @
-		@loader.load @rawPts[@index], ->
-			self.onLoadPanoInfo.call self
+			if @bCancel
+				_class.onCancel.call @
+				return
 
-	onLoadPanoInfo: ->
-		id = @loader.id
+			# draw tag
+			@tagCtx.fillStyle = '#000000'
+			@tagCtx.fillRect(0, 0, @tagCanvas.width, @tagCanvas.height)
 
-		@trace @loader.pitch, @loader.rotation
+			@tagCtx.fillStyle = '#ffffff'
+			@tagCtx.font = '12px Arial'
 
-		if @prevId == id
-			@trace @index, " - skipped"
-			@index += 1
-			@parsePoint()
-		else
-			@trace @index, id, @rawPts[@index]
-			@loader.composePanorama( id )
+			cursor = 0
 
-		@prevId = id
+			writeToTag("uid",     "#{@uniqueId}", cursor++ * 0xff, 36)							
+			writeToTag("lat",     "#{@panoList[idx].lng.toPrecision(17)}", cursor++ * 0xff, 36)	
+			writeToTag("lng",     "#{@panoList[idx].lng.toPrecision(17)}", cursor++ * 0xff, 36)	
+			writeToTag("hdng", 	  "#{0}", cursor++ * 0xff, 36)								
+			writeToTag("pitch",   "#{0}", cursor++ * 0xff, 36)								
+			writeToTag("date",    "2014-04", cursor++ * 0xff, 36)	
 
-	onLoadPanoImage: ->
-		@index += 1
-
-		@glsl.set('rotation', @loader.rotation)
-		@glsl.set('pitch', @loader.pitch)
-		@glsl.syncAll()
-		@glsl.render()
-
-		#@trace "rotation", @loader.rotation, "pitch", @loader.pitch
-
-		_class.onPanoramaLoad.call @, @glsl.canvas, @index, @rawPts.length
-
-		# next frame
-		@numPanorama += 1
-		
-		self = @
-		setTimeout ->
-			self.parsePoint()
-		, 100
-
-	# --------------------------------------------------------
-
-	handleComplete: ->
-		@traceBold "complete"
-		@trace "total panorama:", @numPanorama
-
-		_class.onMessage.call @, "complete - total: #{@numPanorama}, duration: #{@numPanorama / 23.976}"
+			cursor = 0
+			writeToTag("zoom",     "#{@quality}", cursor++ * 0xff, 18)
 
 
 
+			$('body').append( @tagCanvas )
 
+			@glsl.set('rotation', @panoList[idx].rotation)
+			@glsl.set('pitch', @panoList[idx].pitch)
+			@glsl.syncAll()
+			@glsl.render()
 
+			console.log @loader.rotation, @loader.pitch
 
+			_class.onProgress.call @, idx, @panoList.length
+			_class.onPanoramaLoad.call @, idx, @glsl.canvas
 
+			if ++idx < @panoList.length
+				# next frame
+				setTimeout ->
+					self.loader.composePanorama( self.panoList[idx].id )
+				, 100
+			else
+				@bWaiting = false
+				@traceBold "complete"
+				@trace "total panorama:", @panoList.length
 
-
+				_class.onProgress.call @, idx, @panoList.length
+				_class.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
 
