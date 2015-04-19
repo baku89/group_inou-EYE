@@ -212,6 +212,9 @@ class GSVHyperlapse
 		@loader.onPanoramaLoad = ->
 			self.onLoadPanoImage.call self
 
+		@loader.onNoPanoramaData = (status) ->
+			console.log status
+
 
 		@prevId = ""
 		@index = 0
@@ -230,7 +233,6 @@ class GSVHyperlapse
 			return
 		
 		self = @
-		@trace @rawPts[@index]
 		@loader.load @rawPts[@index], ->
 			self.onLoadPanoInfo.call self
 
@@ -244,7 +246,7 @@ class GSVHyperlapse
 			@index += 1
 			@parsePoint()
 		else
-			@trace @index, id
+			@trace @index, id, @rawPts[@index]
 			@loader.composePanorama( id )
 
 		@prevId = id
