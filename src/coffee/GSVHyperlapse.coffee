@@ -137,17 +137,15 @@ class GSVHyperlapse
 
 		@trace "request:", req
 
-		_self = @
-
 		# create map
 		@map = new google.maps.Map @mapElm,
 			center: @centroid
 			zoom: @zoom
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 
-		GSVHyperlapse.dirService.route req, (res, status) ->
+		GSVHyperlapse.dirService.route req, (res, status) =>
 			if status == google.maps.DirectionsStatus.OK
-				_self.analyze(res)
+				@.analyze(res)
 			else
 				_class.onMessage.call @, "cannot get route."
 
@@ -236,8 +234,6 @@ class GSVHyperlapse
 	# --------------------------------------------------------
 	# 3
 	getPanoInfoOnWay: ->
-		self = @
-
 		if @bCancel
 			_class.onCancel.call @
 			return
@@ -247,13 +243,8 @@ class GSVHyperlapse
 			zoom: @quality
 			searchRadius: @searchRadius
 
-		@loader.onError = (msg) ->
-			#_class.onMessage.call self, "onError: #{msg}"
-			onError.call self, msg
-
-		@loader.onNoPanoramaData = (status) ->
-			#_class.onMessage.call self, "onNoPanoramaData: #{status}"
-			onError.call self
+		@loader.onError = onError
+		@loader.onNoPanoramaData = onError
 
 		# get pano id for each rawPts and merge deplicated panoId
 		_class.onMessage.call @, "retriving pano id.."
@@ -262,27 +253,19 @@ class GSVHyperlapse
 		@panoList = []
 		
 		@bWaiting = true
-		@loader.load @rawPts[ idx ], ->
-			onLoad.call self
+		@loader.load @rawPts[ idx ], onLoad
 
-		onError = (msg) ->
+		onError = (msg) =>
 			null
-			#console.log msg
-			# if ++@loadingIdx < @rawPts.length
-			# 	# next
-			# 	@loader.load @rawPts[ @loadingIdx ], ->
-			# 		onLoad.call self
 
 		prevId = ''
 
-		onLoad = ->
+		onLoad = =>
 			if @bCancel
 				_class.onCancel.call @
 				return
 
 			id = @loader.id
-
-			#if id? then @trace idx, id
 
 			_class.onProgress.call @, idx, @rawPts.length
 
@@ -305,7 +288,7 @@ class GSVHyperlapse
 			if ++idx < @rawPts.length
 				# next
 				@loader.load @rawPts[ idx ], ->
-					onLoad.call self
+					onLoad()
 			else
 				_class.onMessage.call @, "total pano id: #{@panoList.length}"
 				@bWaiting = false
@@ -316,7 +299,6 @@ class GSVHyperlapse
 	# --------------------------------------------------------
 	# 4
 	compose: ->
-		self = @
 
 		if @panoList.length == 0
 			_class.onMessage.call @, "there is no pano id"
@@ -346,8 +328,7 @@ class GSVHyperlapse
 		@loader.onError = (msg) ->
 			console.log msg
 
-		@loader.onPanoramaLoad = ->
-			onCompose.call self
+		@loader.onPanoramaLoad = onCompose
 
 		@loader.onNoPanoramaData = (status) ->
 			console.log status
@@ -358,13 +339,13 @@ class GSVHyperlapse
 
 		@loader.composePanorama( @panoList[idx].id )
 
-		writeToTag = (name, value, x, y) ->
-			self.tagCtx.fillStyle = '#ffffff'
-			self.tagCtx.fillText(value, x + 40, y)
-			self.tagCtx.fillStyle = '#ff0000'
-			self.tagCtx.fillText(name, x, y)
+		writeToTag = (name, value, x, y) =>
+			@tagCtx.fillStyle = '#ffffff'
+			@tagCtx.fillText(value, x + 40, y)
+			@tagCtx.fillStyle = '#ff0000'
+			@tagCtx.fillText(name, x, y)
 
-		onCompose = ->
+		onCompose = =>
 			console.log idx
 
 			if @bCancel
@@ -406,8 +387,8 @@ class GSVHyperlapse
 
 			if ++idx < @panoList.length
 				# next frame
-				setTimeout ->
-					self.loader.composePanorama( self.panoList[idx].id )
+				setTimeout =>
+					@loader.composePanorama( @panoList[idx].id )
 				, 100
 			else
 				@bWaiting = false

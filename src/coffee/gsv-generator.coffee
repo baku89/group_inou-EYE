@@ -176,8 +176,8 @@ onPanoramaLoad = (idx, canvas) ->
 		type: "POST"
 		url: './save.php'
 		data: params
-		success: (json) ->
+		success: (json) =>
 			result = $.parseJSON( json )
 			if result.status != "success"
-				self.cancel()
+				@cancel()
 				$elm.children('p').append("an error occured" + "<br>")
