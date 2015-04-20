@@ -112,10 +112,6 @@ input[type=text]:focus, input[type=number]:focus, input[type=url]:focus {
   border-color: #4196DE;
 }
 
-input:disabled {
-  background-color: #eee;
-}
-
 nav {
   background: #ddd;
   width: 250px;
