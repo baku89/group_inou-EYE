@@ -32,18 +32,33 @@ storage = localStorage
 # init
 
 restoreSettings = ->
-	if storage.version != VERSION
-		return
+	$elm = $('nav')
 
-	$('#name').val( storage.name )
-	$('#dir').val( storage.dir )
-	$('#url').val( storage.url )
-	$("input[value=#{storage.travelMode}]").prop('checked', true)
-	$("input[value=#{storage.heading}]").prop('checked', true)
-	$('#lookat').val( storage.lookat )
-	$('#zoom').val( storage.zoom )
-	$('#step').val( storage.step )
-	$('#search-radius').val( storage.searchRadius )
+	if storage.version == VERSION
+		# restore all settings
+		$('#name').val( storage.name )
+		$('#dir').val( storage.dir )
+		$('#url').val( storage.url )
+		$("input[value=#{storage.travelMode}]").prop('checked', true)
+		$("input[value=#{storage.heading}]").prop('checked', true)
+		$('#lookat').val( storage.lookat )
+		$('#zoom').val( storage.zoom )
+		$('#step').val( storage.step )
+		$('#search-radius').val( storage.searchRadius )
+
+	# bind
+	$elm.find('input[data-onchecked], textarea[data-onchecked]').each ->
+		
+		$this = $(@)
+		console.log $this
+
+		$parent = $( $this.attr('data-onchecked') )
+		name = $parent.attr('name')
+
+		$( "[name=#{name}").on 'change', ->
+			console.log $parent.prop('checked')
+			$this.prop('disabled', !$parent.prop('checked'))
+
 
 #------------------------------------------------------------
 # functions
@@ -176,8 +191,8 @@ onPanoramaLoad = (idx, canvas) ->
 		type: "POST"
 		url: './save.php'
 		data: params
-		success: (json) ->
+		success: (json) =>
 			result = $.parseJSON( json )
 			if result.status != "success"
-				self.cancel()
+				@cancel()
 				$elm.children('p').append("an error occured" + "<br>")

@@ -94,16 +94,14 @@ class GSVHyperlapse
 	traceBold: (str) ->
 		console.log "%c[#{@name}] #{str} --------------------", "color:orange;font-weight:bold;"
 
-	create: ->
-		@bWaiting = true
-		@traceBold "create"
+	createFromDirection: (url)->
+		@traceBold "createFromDirection"
 
 		# parse url
-		result = _class.dirRegex.exec( @url )
+		result = _class.dirRegex.exec( url )
 
 		if !result?
-			alert "unco"
-			_class.onMessage.call @, "cannot parse url"
+			alert "cannot parse url"
 			return
 
 		@origin         = new google.maps.LatLng( result[1], result[2] )
@@ -118,13 +116,10 @@ class GSVHyperlapse
 			destination: @destination
 			travelMode: @travelMode
 
-
 		# parse waypoint from data
 		@waypoints = []
-		data   = result[8]
-		result = data.match( GSVHyperlapse.dataRegex )
-
-		if result?
+		
+		if (result = result[8].match( GSVHyperlapse.dataRegex ))?
 			for i, r of result
 				m = GSVHyperlapse.dataLatLngRegex.exec( r )
 				wp = new google.maps.LatLng( m[2], m[1] )
@@ -137,7 +132,15 @@ class GSVHyperlapse
 
 		@trace "request:", req
 
-		_self = @
+		GSVHyperlapse.dirService.route req, (res, status) =>
+			if status == google.maps.DirectionsStatus.OK
+				@create(res)
+			else
+				_class.onMessage.call @, "cannot get route."		
+
+	create: (res)->
+		@bWaiting = true
+		@traceBold "create"
 
 		# create map
 		@map = new google.maps.Map @mapElm,
@@ -145,11 +148,7 @@ class GSVHyperlapse
 			zoom: @zoom
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 
-		GSVHyperlapse.dirService.route req, (res, status) ->
-			if status == google.maps.DirectionsStatus.OK
-				_self.analyze(res)
-			else
-				_class.onMessage.call @, "cannot get route."
+		@analyze(res)
 
 	# --------------------------------------------------------
 	# 2
@@ -167,7 +166,6 @@ class GSVHyperlapse
 		@rawPts = []
 		route = res.routes[0]
 		path = route.overview_path
-		legs = route.legs
 
 		# show info
 		_class.onMessage.call @, "<strong>path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{@step}(m), search radius: #{@searchRadius} (m)</strong>"
@@ -236,53 +234,24 @@ class GSVHyperlapse
 	# --------------------------------------------------------
 	# 3
 	getPanoInfoOnWay: ->
-		self = @
-
 		if @bCancel
 			_class.onCancel.call @
 			return
-
-		# init GSVPano
-		@loader = new GSVPANO.PanoLoader
-			zoom: @quality
-			searchRadius: @searchRadius
-
-		@loader.onError = (msg) ->
-			#_class.onMessage.call self, "onError: #{msg}"
-			onError.call self, msg
-
-		@loader.onNoPanoramaData = (status) ->
-			#_class.onMessage.call self, "onNoPanoramaData: #{status}"
-			onError.call self
 
 		# get pano id for each rawPts and merge deplicated panoId
 		_class.onMessage.call @, "retriving pano id.."
 
 		idx = 0
 		@panoList = []
-		
-		@bWaiting = true
-		@loader.load @rawPts[ idx ], ->
-			onLoad.call self
 
-		onError = (msg) ->
+		onError = (msg) =>
 			null
-			#console.log msg
-			# if ++@loadingIdx < @rawPts.length
-			# 	# next
-			# 	@loader.load @rawPts[ @loadingIdx ], ->
-			# 		onLoad.call self
-
-		prevId = ''
-
-		onLoad = ->
+		onLoad = =>
 			if @bCancel
 				_class.onCancel.call @
 				return
 
 			id = @loader.id
-
-			#if id? then @trace idx, id
 
 			_class.onProgress.call @, idx, @rawPts.length
 
@@ -304,8 +273,7 @@ class GSVHyperlapse
 
 			if ++idx < @rawPts.length
 				# next
-				@loader.load @rawPts[ idx ], ->
-					onLoad.call self
+				@loader.load(@rawPts[ idx ], onLoad)
 			else
 				_class.onMessage.call @, "total pano id: #{@panoList.length}"
 				@bWaiting = false
@@ -313,10 +281,23 @@ class GSVHyperlapse
 				_class.onProgress.call @, idx, @rawPts.length
 				_class.onAnalyzeComplete.call @
 
+
+		# init GSVPano
+		@loader = new GSVPANO.PanoLoader
+			zoom: @quality
+			searchRadius: @searchRadius
+
+		@loader.onError = onError
+		@loader.onNoPanoramaData = onError
+
+		@bWaiting = true
+		prevId = ''
+
+		@loader.load( @rawPts[ idx ], onLoad )
+
 	# --------------------------------------------------------
 	# 4
 	compose: ->
-		self = @
 
 		if @panoList.length == 0
 			_class.onMessage.call @, "there is no pano id"
@@ -341,30 +322,14 @@ class GSVHyperlapse
 		
 
 		_class.onMessage.call @, "composing panorama.. size:#{@loader.width}x#{@loader.height}"
-		
-	
-		@loader.onError = (msg) ->
-			console.log msg
 
-		@loader.onPanoramaLoad = ->
-			onCompose.call self
+		writeToTag = (name, value, x, y) =>
+			@tagCtx.fillStyle = '#ffffff'
+			@tagCtx.fillText(value, x + 40, y)
+			@tagCtx.fillStyle = '#ff0000'
+			@tagCtx.fillText(name, x, y)
 
-		@loader.onNoPanoramaData = (status) ->
-			console.log status
-
-		idx = 0
-		@bWaiting = true
-
-
-		@loader.composePanorama( @panoList[idx].id )
-
-		writeToTag = (name, value, x, y) ->
-			self.tagCtx.fillStyle = '#ffffff'
-			self.tagCtx.fillText(value, x + 40, y)
-			self.tagCtx.fillStyle = '#ff0000'
-			self.tagCtx.fillText(name, x, y)
-
-		onCompose = ->
+		onCompose = =>
 			console.log idx
 
 			if @bCancel
@@ -406,8 +371,8 @@ class GSVHyperlapse
 
 			if ++idx < @panoList.length
 				# next frame
-				setTimeout ->
-					self.loader.composePanorama( self.panoList[idx].id )
+				setTimeout =>
+					@loader.composePanorama( @panoList[idx].id )
 				, 100
 			else
 				@bWaiting = false
@@ -416,4 +381,15 @@ class GSVHyperlapse
 
 				_class.onProgress.call @, idx, @panoList.length
 				_class.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
+
+		@loader.onError = (msg) ->
+			console.log msg
+		@loader.onPanoramaLoad = onCompose
+		@loader.onNoPanoramaData = (status) ->
+			console.log status
+
+		idx = 0
+		@bWaiting = true
+
+		@loader.composePanorama( @panoList[idx].id )
 
