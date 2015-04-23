@@ -65,7 +65,6 @@ class GSVHyperlapse
 
 	# constructor
 	constructor: (args) ->
-		@url = args.url
 		@name = args.name
 		@step = parseFloat( args.step )
 		@quality = args.zoom
@@ -99,6 +98,8 @@ class GSVHyperlapse
 
 		# parse url
 		result = _class.dirRegex.exec( url )
+
+		console.log url
 
 		if !result?
 			alert "cannot parse url"
@@ -262,6 +263,7 @@ class GSVHyperlapse
 					pitch: @loader.pitch
 					lat: @loader.location.lat()
 					lng: @loader.location.lng()
+					date: @loader.image_date
 				@panoList.push( pano )
 
 				marker = new google.maps.Marker
@@ -350,7 +352,7 @@ class GSVHyperlapse
 			writeToTag("lng",     "#{@panoList[idx].lng.toPrecision(17)}", cursor++ * 0xff, 36)	
 			writeToTag("hdng", 	  "#{0}", cursor++ * 0xff, 36)								
 			writeToTag("pitch",   "#{0}", cursor++ * 0xff, 36)								
-			writeToTag("date",    "2014-04", cursor++ * 0xff, 36)	
+			writeToTag("date",    "#{@panoList[idx].date}", cursor++ * 0xff, 36)	
 
 			cursor = 0
 			writeToTag("zoom",     "#{@quality}", cursor++ * 0xff, 18)

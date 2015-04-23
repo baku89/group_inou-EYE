@@ -18,12 +18,6 @@ html
 		script(src='js/gsv-generator.js')
 
 		link(rel='stylesheet', href='css/simple-gui.css')
-		style.
-			@font-face {
-			  font-family: 'OCR';
-			  src: url('./assets/OCRAStd.otf') format('opentype');
-			}
-
 		script#pano-rotation(type='x-shader/x-fragment')
 			include shader/pano-rotation.fs
 
@@ -40,9 +34,23 @@ html
 				dd
 					input#dir(type='text', value='../../gsv')
 
-				dt route url
+				dt method
 				dd
+					input#method-1(type='radio', name='method', value='direction' checked)
+					label(for='method-1') direction
+
+					input#method-2(type='radio', name='method', value='panoid')
+					label(for='method-2') pano id
+
+				dt(data-parent='#method-1') direction url
+				dd(data-parent='#method-1')
 					input#url(type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
+
+				dt(data-parent='#method-2') pano id
+				dd(data-parent='#method-2')
+					a(href='panoid-parser.html' target='_blank') pano id parser
+					br
+					textarea#panoid(data-onchecked='#method-2')
 
 				dt travel mode
 				dd
@@ -67,8 +75,8 @@ html
 					label(for='heading-3') north
 					br
 
-				dt [optional] lookat url
-					input#lookat(type='text' data-onchecked='#heading-2')
+				dt lookat url
+					input#lookat(type='text' data-parent='#heading-2')
 
 				dt zoom(proxy=2, rendring=6)
 				dd

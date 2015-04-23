@@ -1,0 +1,34 @@
+html
+	head
+		title Pano ID Parser
+
+		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
+		script(src='js/lib/GSVPano.js')
+		script(src='js/panoid-parser.js')
+
+		link(rel='stylesheet', href='css/simple-gui.css')
+		style.
+			#svp, #map {
+				width: 100%;
+				height: 50%;
+			}
+
+	body
+		nav
+			h1 Pano ID Parser
+
+			dl
+				dt load street view
+				dd
+					input(type='text' name='url' value='https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US')
+
+			button#laod-sv load
+
+			br
+			br
+
+		article
+			div#svp svp
+			div#map map

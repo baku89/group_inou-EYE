@@ -4,7 +4,7 @@ MAX_PTS = 100
 DIST_BETWEEN_PTS = 5
 
 API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
-VERSION = '0.1'
+VERSION = '0.3'
 
 #------------------------------------------------------------
 # variables
@@ -38,7 +38,9 @@ restoreSettings = ->
 		# restore all settings
 		$('#name').val( storage.name )
 		$('#dir').val( storage.dir )
+		$("input[value=#{storage.method}]").prop('checked', true)
 		$('#url').val( storage.url )
+		$('#panoid').val( storage.panoid )
 		$("input[value=#{storage.travelMode}]").prop('checked', true)
 		$("input[value=#{storage.heading}]").prop('checked', true)
 		$('#lookat').val( storage.lookat )
@@ -47,17 +49,27 @@ restoreSettings = ->
 		$('#search-radius').val( storage.searchRadius )
 
 	# bind
-	$elm.find('input[data-onchecked], textarea[data-onchecked]').each ->
+	# $elm.find('input[data-onchecked], textarea[data-onchecked]').each ->
 		
-		$this = $(@)
-		console.log $this
+	# 	$this = $(@)
+	# 	console.log $this
 
-		$parent = $( $this.attr('data-onchecked') )
+	# 	$parent = $( $this.attr('data-onchecked') )
+	# 	name = $parent.attr('name')
+
+	# 	$( "[name=#{name}").on 'change', ->
+	# 		console.log $parent.prop('checked')
+	# 		$this.prop('disabled', !$parent.prop('checked'))
+
+	$elm.find('[data-parent]').each ->
+
+		$this = $(@)
+		$parent = $( $this.attr('data-parent') )
 		name = $parent.attr('name')
 
-		$( "[name=#{name}").on 'change', ->
-			console.log $parent.prop('checked')
-			$this.prop('disabled', !$parent.prop('checked'))
+		$("[name=#{name}").on 'change', =>
+			$(@).toggle( $parent.prop('checked') )
+		.trigger('change')
 
 
 #------------------------------------------------------------
@@ -66,7 +78,9 @@ restoreSettings = ->
 updateSettings = ->
 	settings.name 	        = $('#name').val()
 	settings.dir 	        = $('#dir').val()
+	settings.method			= $('input[name=method]:checked').val()
 	settings.url 	        = $('#url').val()
+	settings.panoid 		= $('#panoid').val()
 	settings.travelMode     = $('input[name=travel]:checked').val()
 	settings.heading        = $('input[name=heading]:checked').val()
 	settings.lookat         = $('#lookat').val()
@@ -115,7 +129,13 @@ create = ->
 
 	hyperlapse = new GSVHyperlapse( settings )
 	hyperlapse.setMap( $("#map-#{index}")[0] )
-	hyperlapse.create()
+
+	if settings.method == 'direction'
+		hyperlapse.createFromDirection( settings.url )
+
+	else if settings.method == 'panoid'
+		hyperlapse.createFromPanoId()
+
 
 	$("#task-#{index} button").on 'click', ->
 		$elm = $(@)

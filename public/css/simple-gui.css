@@ -90,29 +90,29 @@ button:active {
   background: #4196DE;
 }
 
-input[type=text], input[type=number], input[type=url] {
+input[type=text], input[type=number], input[type=url], textarea {
   margin: 4px;
   padding: 6px 10px;
   font-size: 15px;
   border: 2px solid #bbb;
 }
-input[type=text]:-moz-placeholder, input[type=number]:-moz-placeholder, input[type=url]:-moz-placeholder {
+input[type=text]:-moz-placeholder, input[type=number]:-moz-placeholder, input[type=url]:-moz-placeholder, textarea:-moz-placeholder {
   coolor: #eee;
 }
-input[type=text]::-moz-placeholder, input[type=number]::-moz-placeholder, input[type=url]::-moz-placeholder {
+input[type=text]::-moz-placeholder, input[type=number]::-moz-placeholder, input[type=url]::-moz-placeholder, textarea::-moz-placeholder {
   coolor: #eee;
 }
-input[type=text]:-ms-input-placeholder, input[type=number]:-ms-input-placeholder, input[type=url]:-ms-input-placeholder {
+input[type=text]:-ms-input-placeholder, input[type=number]:-ms-input-placeholder, input[type=url]:-ms-input-placeholder, textarea:-ms-input-placeholder {
   coolor: #eee;
 }
-input[type=text]::-webkit-input-placeholder, input[type=number]::-webkit-input-placeholder, input[type=url]::-webkit-input-placeholder {
+input[type=text]::-webkit-input-placeholder, input[type=number]::-webkit-input-placeholder, input[type=url]::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
   coolor: #eee;
 }
-input[type=text]:focus, input[type=number]:focus, input[type=url]:focus {
+input[type=text]:focus, input[type=number]:focus, input[type=url]:focus, textarea:focus {
   border-color: #4196DE;
 }
 
-input:disabled {
+input:disabled, textarea:disabled {
   background-color: #eee;
 }
 

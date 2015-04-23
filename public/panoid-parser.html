@@ -1,0 +1,35 @@
+
+<html>
+  <head>
+    <title>Pano ID Parser</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+    <script src="js/lib/GSVPano.js"></script>
+    <script src="js/panoid-parser.js"></script>
+    <link rel="stylesheet" href="css/simple-gui.css"/>
+    <style>
+      #svp, #map {
+      	width: 100%;
+      	height: 50%;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h1>Pano ID Parser</h1>
+      <dl>
+        <dt>load street view</dt>
+        <dd>
+          <input type="text" name="url" value="https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US"/>
+        </dd>
+      </dl>
+      <button id="laod-sv">load</button><br/><br/>
+    </nav>
+    <article>
+      <div id="svp">svp</div>
+      <div id="map">map</div>
+    </article>
+  </body>
+</html>

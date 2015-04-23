@@ -4,8 +4,20 @@
 		"selected_items":
 		[
 			[
-				"point",
-				"pointOnLine"
+				"gl_F",
+				"gl_FragColor"
+			],
+			[
+				"Direction",
+				"DirectionsTravelMode"
+			],
+			[
+				"way",
+				"waypoints"
+			],
+			[
+				"pl",
+				"plumberArgs"
 			],
 			[
 				"origi",
@@ -124,18 +136,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/coffee/GSVHyperlapse.coffee",
+			"file": "src/sass/simple-gui.sass",
 			"settings":
 			{
-				"buffer_size": 5316,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/lib/GSVPano.js",
-			"settings":
-			{
-				"buffer_size": 3009,
+				"buffer_size": 2090,
 				"line_ending": "Unix"
 			}
 		},
@@ -143,7 +147,7 @@
 			"file": "src/gsv-generator.jade",
 			"settings":
 			{
-				"buffer_size": 1963,
+				"buffer_size": 2518,
 				"line_ending": "Unix"
 			}
 		},
@@ -151,7 +155,7 @@
 			"file": "src/shader/pano-rotation.fs",
 			"settings":
 			{
-				"buffer_size": 460,
+				"buffer_size": 1616,
 				"line_ending": "Unix"
 			}
 		},
@@ -159,7 +163,34 @@
 			"file": "src/coffee/gsv-generator.coffee",
 			"settings":
 			{
-				"buffer_size": 2622,
+				"buffer_size": 4275,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/coffee/GSVHyperlapse.coffee",
+			"settings":
+			{
+				"buffer_size": 9530,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/lib/GSVPano.js",
+			"settings":
+			{
+				"buffer_size": 3117,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\n<head>\n	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n	<meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\n	<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">\n	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n	<script src=\"https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false\" type=\"text/javascript\"></script> \n	<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js\"></script>\n	<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js\"></script>\n	<script type=\"text/javascript\" src=\"./js/lib/GSVPano.js\"></script>\n	<script type=\"text/javascript\" src=\"./js/lib/hyperlapse.min.js\"></script>\n	<script type=\"text/javascript\" src=\"./js/canvas-exporter.js\"></script>\n	<script type=\"text/javascript\" src=\"./js/main.js\"></script>\n\n	<link rel=\"stylesheet\" href=\"http://yui.yahooapis.com/pure/0.6.0/pure-min.css\">\n	<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/style.css\" />\n\n	<title>StreetView</title>\n</head>\n\n<body onload=\"initMap()\">\n<h1>Street View Saver</h1>\n\n<div class=\"sidebar\">\n\n	<div class=\"pure-form control\">\n		<dl>\n			<dt>origin</dt>\n			<dd>\n				<input id=\"origin-lat\" type=\"text\" value=\"37.816480000000006\">\n				<input id=\"origin-lng\" type=\"text\" value=\"-122.47825\">\n			</dd>\n			<dt>destination</dt>\n			<dd>\n				<input id=\"dest-lat\" type=\"text\" value=\"37.81195\">\n				<input id=\"dest-lng\" type=\"text\" value=\"-122.47773000000001\">\n			</dd>\n		</dl>\n		<button id=\"analyze-start\" class=\"pure-button\">analyze</button>\n	</div>\n\n	<div>\n	</div>\n</div>\n\n<canvas id=\"panorama\" style=\"max-width: 100%; height: auto;\"></canvas>\n</body>\n\n",
+			"file": "src/index.html",
+			"file_size": 1698,
+			"file_write_time": 130738104630000000,
+			"settings":
+			{
+				"buffer_size": 1700,
 				"line_ending": "Unix"
 			}
 		}
@@ -171,24 +202,24 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 400.0,
-		"last_filter": "rename",
+		"height": 339.0,
+		"last_filter": "open in",
 		"selected_items":
 		[
 			[
-				"rename",
-				"File: Rename"
+				"open in",
+				"Open in terminal"
 			],
 			[
-				"glsl",
-				"Set Syntax: GLSL"
+				"gulp",
+				"Gulp"
 			],
 			[
-				"sass",
-				"Set Syntax: Sass"
+				"anf",
+				"ANF: New File"
 			],
 			[
-				"new",
+				"new ",
 				"ANF: New File"
 			],
 			[
@@ -196,20 +227,24 @@
 				"Package Control: Install Package"
 			],
 			[
-				"set syntax:php",
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"set syntax: php",
 				"Set Syntax: PHP"
 			],
 			[
-				"php",
-				"Set Syntax: PHP"
+				"set syntax: sass",
+				"Set Syntax: Sass"
 			],
 			[
-				"termi",
-				"Open in terminal"
+				"set sntax:jade",
+				"Set Syntax: Jade"
 			],
 			[
-				"gulp",
-				"Gulp (silent)"
+				"set syntax:sass",
+				"Set Syntax: Sass"
 			],
 			[
 				"termin",
@@ -232,10 +267,6 @@
 				"JSHint"
 			],
 			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
 				"list",
 				"Package Control: List Packages"
 			],
@@ -256,6 +287,10 @@
 				"Package Control: Upgrade/Overwrite All Packages"
 			],
 			[
+				"new",
+				"ANF: New File"
+			],
+			[
 				"preferen",
 				"Preferences: Settings - User"
 			],
@@ -264,7 +299,7 @@
 				"Package Control: Remove Package"
 			]
 		],
-		"width": 578.0
+		"width": 601.0
 	},
 	"console":
 	{
@@ -289,52 +324,38 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/mugi/Works/2015/09_eye/0b",
-		"/Users/mugi/Works/2015/09_eye/0b/src",
-		"/Users/mugi/Works/2015/09_eye/0b/src/js",
-		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib"
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib"
 	],
 	"file_history":
 	[
-		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/glsl.min.js",
-		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/gulpfile.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/src/gsv-generator.jade",
-		"/Users/mugi/Works/2015/09_eye/0b/src/save.php",
-		"/Users/mugi/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
-		"/Users/mugi/Works/2015/09_eye/0b/public/gsv-generator.html",
-		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/GSVPano.js",
-		"/Users/mugi/Works/2015/09_eye/0b/src/sass/simple-gui.sass",
-		"/Users/mugi/Downloads/glsl.js-master/glsl.js",
-		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/hyperlapse.min.js",
-		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/canvas-exporter.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/src/index.jade",
-		"/Users/mugi/Works/2015/09_eye/0b/group_inou-eye.sublime-project",
-		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/src/sv-saver.jade",
-		"/Users/mugi/Works/2015/09_eye/0b/public/sv-saver.html",
-		"/Users/mugi/Works/2015/09_eye/0b/js/lib/GSVPano.js",
-		"/Users/mugi/Works/2015/09_eye/0b/coffee/location_card.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/coffee/main.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/location_card.html",
-		"/Users/mugi/Works/2015/09_eye/0b/assets/locations.csv",
-		"/Users/mugi/Works/2015/09_eye/0b/scss/style.scss",
-		"/Users/mugi/Works/2015/09_eye/0b/save.php",
-		"/Users/mugi/Works/2015/09_eye/0b/index.html",
-		"/Users/mugi/Works/2015/09_eye/0b/coffee/canvas-exporter.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/dest/js/lib/GSVPano.js",
-		"/Users/mugi/Works/2015/09_eye/0b/dest/js/lib/hyperlapse.min.js",
-		"/Users/mugi/Downloads/canvas2png/js/RecorderAnimation.js",
-		"/Users/mugi/Works/2015/09_eye/0b/coffee/lib.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/coffee/backup.coffee",
-		"/Users/mugi/Works/2015/09_eye/0b/dest/index.html",
-		"/Users/mugi/Works/2015/09_eye/0b/src/index.html",
-		"/Users/mugi/Works/2015/09_eye/0b/dest/css/style.scss",
-		"/Users/mugi/Works/2015/09_eye/0b/src/scss/style.scss",
-		"/Users/mugi/Works/2015/09_eye/0b/src/sass/style.scss",
-		"/Users/mugi/Works/2015/09_eye/0b/dest/css/style.css",
-		"/Users/mugi/Downloads/Hyperlapse.js-master 2/examples/simple.html",
-		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/main.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/save.php",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/sv-saver_bak.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib/GSVPano.js",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib/hyperlapse.min.js",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Users/mugi/Library/Application Support/Sublime Text 3/Packages/Gulp/Gulp.sublime-settings",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.js",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/sv-saver.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/save.php",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/sv-saver.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/js/lib/hyperlapse.min.js",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/js/lib/GSVPano.js",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.html",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/sv-saver.html",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/sass/untitled",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/sass/simple-gui.sass",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/index.html",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/scss/simple-gui.scss",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/scss/style.scss",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/main.coffee",
 		"/Users/mugi/oF/v0.8.4/apps/myApps/VirtualMapper/README.md",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/pages/gfooter.php",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_gfooter.scss",
@@ -423,7 +444,21 @@
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/browserify-zlib/test/test-zlib-invalid-input.js",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/glob/test/nocase-nomagic.js",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/chalk/node_modules/.bin/has-ansi",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/appveyor.yml"
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/appveyor.yml",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/lib/grunt/template.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/index.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/api/load-user.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/node_modules/source-map/build/suffix-source-map.jsm",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/coffee-script/lib/coffee-script/coffee-script.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/template/head-common.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/inc.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/tools/node.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/eventemitter2/index.js",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/js-yaml/node_modules/.bin/esvalidate",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/new/movie.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/api/functions-user.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/edit/movie.php",
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/findup-sync/lib/findup-sync.js"
 	],
 	"find":
 	{
@@ -452,54 +487,45 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"self",
+			"unco",
+			"50",
+			"levation",
+			"pitch",
+			"@panoList",
+			"@panoIds",
 			"rotation",
-			"syncAll",
-			"render",
-			"update",
-			"@loader.canvas",
-			"frag",
-			"this.canvas = ",
-			"this.canvas",
-			"script",
-			"index",
-			"canvas",
-			"loader.load",
-			"google.maps",
-			"now",
-			"HyperlapsePoint",
-			"parsePoints",
-			"parsePoint",
-			"canvas",
-			"onPanoramaLoad",
-			"adaptTextureToZoom",
+			"@zoom",
 			"zoom",
-			"mergedPanoIds",
-			"onPanoramaData",
-			"_panoClient",
+			"@quality",
+			"quality",
+			"<",
+			"canceled",
+			"onCancel",
+			"bCancel",
+			"@index",
+			"totalDist",
+			"total",
+			"distance",
+			"parameters",
 			"getPanoramaByLocation",
-			"rawPts",
-			"distBetweenPts",
-			"maxPoints",
-			"handleDirectionsRoute",
-			"raw_points",
-			"handleDirectionsRoute",
+			"@canvas",
+			"onPanorama",
+			"handle",
 			"zoom",
-			"canvas",
-			"getPanoramaBy",
-			"onPanoramaLoad",
-			"]",
-			"onPanoramaLoad",
+			"onPanorama",
 			"load",
-			"this.load",
-			"callback",
-			"PANO",
-			"GSV",
-			"GSVPano",
-			"load",
-			"this.load",
 			"composePanorama",
-			":",
-			"copy",
+			"panoloader",
+			"render",
+			"animate",
+			"handleLoadComplete",
+			"hyperlapsePoint",
+			"parsePoints",
+			"pointOnLine",
+			"error",
+			",",
+			"!",
 			"class=\"en\"",
 			"custom--small",
 			"440",
@@ -579,7 +605,16 @@
 			"\"(.*)\"",
 			"\".*\"",
 			"[0-9]+px",
-			"fadeMover.gotoURL"
+			"fadeMover.gotoURL",
+			"displace",
+			"$tl-mobile-margin",
+			"echo",
+			"load_user",
+			"$user_db",
+			"user_db",
+			" Password:",
+			"+ ユーザー2 ID:",
+			"+ ユーザー1 ID:"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -587,8 +622,8 @@
 		"regex": false,
 		"replace_history":
 		[
-			"DIST_BETWEEN_PTS",
-			"MAX_PTS",
+			"@panoList",
+			"@zoom",
 			".transition",
 			"update_failed_flg",
 			"$post",
@@ -673,24 +708,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/coffee/GSVHyperlapse.coffee",
+					"file": "src/sass/simple-gui.sass",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5316,
+						"buffer_size": 2090,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2027,
-								2027
+								159,
+								159
 							]
 						],
 						"settings":
@@ -698,16 +733,6 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
@@ -718,6 +743,41 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
@@ -727,152 +787,35 @@
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content"
+								"bh_double_quote_content"
 							],
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 846.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/js/lib/GSVPano.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3009,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2788,
-								2789
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 892.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "src/gsv-generator.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1963,
+						"buffer_size": 2518,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1030,
-								1030
+								1105,
+								1105
 							]
 						],
 						"settings":
@@ -880,16 +823,6 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
@@ -900,6 +833,41 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
@@ -909,32 +877,7 @@
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content"
+								"bh_double_quote_content"
 							],
 							"incomplete_sync": null,
 							"remote_loading": false,
@@ -946,24 +889,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "src/shader/pano-rotation.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 460,
+						"buffer_size": 1616,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								296,
-								296
+								314,
+								314
 							]
 						],
 						"settings":
@@ -971,31 +914,26 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -1006,54 +944,60 @@
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content"
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
 							],
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "src/coffee/gsv-generator.coffee",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2622,
+						"buffer_size": 4275,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1321,
-								1321
+								4211,
+								4211
 							]
 						],
 						"settings":
@@ -1061,16 +1005,16 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
@@ -1086,16 +1030,11 @@
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -1106,16 +1045,21 @@
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content"
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
 							],
 							"incomplete_sync": null,
 							"remote_loading": false,
@@ -1124,12 +1068,296 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 355.0,
+						"translation.y": 925.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/coffee/GSVHyperlapse.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								792,
+								792
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4729.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/js/lib/GSVPano.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3117,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								51,
+								54
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"file": "src/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1700,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1700,
+								1700
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -1150,11 +1378,25 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				2,
+				0,
+				3,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.373719505728,
+			0.66,
 			1.0
 		],
 		"rows":
@@ -1194,23 +1436,15 @@
 		"selected_items":
 		[
 			[
-				"gsvpano",
+				"save",
+				"src/save.php"
+			],
+			[
+				"pano",
 				"src/js/lib/GSVPano.js"
 			],
 			[
-				"glsl.min",
-				"src/js/lib/glsl.min.js"
-			],
-			[
-				"gsv",
-				"src/coffee/gsv-generator.coffee"
-			],
-			[
-				"gulp",
-				"gulpfile.coffee"
-			],
-			[
-				"pano-",
+				"fs",
 				"src/shader/pano-rotation.fs"
 			],
 			[
@@ -1218,76 +1452,40 @@
 				"src/gsv-generator.jade"
 			],
 			[
-				"",
-				"src/gsv-generator.jade"
-			],
-			[
-				"min.js",
-				"src/js/lib/glsl.min.js"
-			],
-			[
-				"simple",
-				"src/sass/simple-gui.sass"
-			],
-			[
-				"save",
-				"src/save.php"
-			],
-			[
-				"gulpfile",
-				"gulpfile.coffee"
+				"vs",
+				"src/js/lib/GSVPano.js"
 			],
 			[
 				"hyper",
 				"src/js/lib/hyperlapse.min.js"
 			],
 			[
-				"gsvp",
+				"hyperlapse",
+				"src/js/lib/hyperlapse.min.js"
+			],
+			[
+				"gsv",
+				"src/coffee/GSVHyperlapse.coffee"
+			],
+			[
+				"gsvpano",
 				"src/js/lib/GSVPano.js"
 			],
 			[
-				"sv-sa",
-				"src/coffee/sv-saver.coffee"
+				"coffee",
+				"src/coffee/gsv-generator.coffee"
 			],
 			[
-				"gsv-",
-				"src/gsv-generator.jade"
+				"gulp",
+				"gulpfile.coffee"
 			],
 			[
-				"sv-saver",
-				"src/sv-saver.jade"
-			],
-			[
-				"main.",
-				"coffee/main.coffee"
-			],
-			[
-				"main.coffe",
-				"coffee/main.coffee"
-			],
-			[
-				"location",
-				"coffee/location_card.coffee"
-			],
-			[
-				"save.php",
-				"save.php"
-			],
-			[
-				"style.scss",
-				"src/scss/style.scss"
-			],
-			[
-				"scss",
-				"dest/css/style.css"
+				"hyperla",
+				"public/js/lib/hyperlapse.min.js"
 			],
 			[
 				"index",
-				"dest/index.html"
-			],
-			[
-				"coffee",
-				"src/coffee/main.coffee"
+				"src/index.html"
 			],
 			[
 				"howto",
@@ -1510,6 +1708,10 @@
 				"assets/scss/module/_post.scss"
 			],
 			[
+				"style.scss",
+				"assets/scss/style.scss"
+			],
+			[
 				"up",
 				"api/upload-photo.php"
 			],
@@ -1600,6 +1802,10 @@
 			[
 				"funtion",
 				"api/functions.php"
+			],
+			[
+				"",
+				"api/update-post.php"
 			],
 			[
 				"moda",
@@ -1722,7 +1928,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 237.0,
+	"side_bar_width": 203.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
