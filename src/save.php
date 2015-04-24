@@ -19,8 +19,7 @@ try {
 	imagedestroy( $image );
 
 } catch (Exception $e) {
-	?>{"status": "failed", "message": <?= $e->getMessage() ?>}<?
-	exit();
+	onError( $e->getMessage() );
 }
 
 ?>

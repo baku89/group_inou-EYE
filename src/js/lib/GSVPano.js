@@ -19,6 +19,7 @@ GSVPANO.PanoLoader = function (parameters) {
 		onPanoramaLoad = null;
 	
 	this.canvas = _canvas
+	this.client = _panoClient
 
 	this.setProgress = function (p) {
 	

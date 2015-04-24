@@ -29,12 +29,11 @@ getFollowedPath = (m, a, b) ->
 	return pointOnLine(t, a, b)
 
 # http://hideichi.com/archives/94
-`function uniqueID(){
-	var randam = Math.floor(Math.random()*1000)
-	var date = new Date();
-	var time = date.getTime();
-	return randam + time.toString();
-}`
+uniqueID = ->
+	randam = Math.floor(Math.random()*1000)
+	date = new Date()
+	time = date.getTime()
+	return randam + time.toString()
 
 class GSVHyperlapse
 
@@ -64,22 +63,17 @@ class GSVHyperlapse
 	@onCancel 			= () -> null
 
 	# constructor
-	constructor: (args) ->
-		@name = args.name
-		@step = parseFloat( args.step )
-		@quality = args.zoom
+	constructor: (name, map) ->
+		@name = name
+
 		@bCancel = false
 		@bWaiting = false
-		@searchRadius = args.searchRadius
 		@uniqueId = uniqueID()
-
-		if args.travelMode == 'driving'
-			@travelMode = google.maps.DirectionsTravelMode.DRIVING
-		else if args.travelMode == 'walking'
-			@travelMode = google.maps.DirectionsTravelMode.WALKING
-
-	setMap: (elm) ->
-		@mapElm = elm
+		@panoList = []
+		@client = new google.maps.StreetViewService()
+		@map = new google.maps.Map map,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			zoom: 16
 
 	# methods
 	cancel: ->
@@ -87,226 +81,240 @@ class GSVHyperlapse
 		if !@bWaiting
 			_class.onCancel.call @
 
-	trace: (args...) ->
-		console.log "[#{@name}]", args...
-
-	traceBold: (str) ->
-		console.log "%c[#{@name}] #{str} --------------------", "color:orange;font-weight:bold;"
-
-	createFromDirection: (url)->
-		@traceBold "createFromDirection"
-
-		# parse url
-		result = _class.dirRegex.exec( url )
-
-		console.log url
-
-		if !result?
-			alert "cannot parse url"
-			return
-
-		@origin         = new google.maps.LatLng( result[1], result[2] )
-		@destination	= new google.maps.LatLng( result[3], result[4] )
-		@centroid       = new google.maps.LatLng( result[5], result[6] )
-		@zoom           = parseInt(result[7])
-
-		@trace "origin: " + @origin, "destination: " + @destination
-
-		req =
-			origin: @origin
-			destination: @destination
-			travelMode: @travelMode
-
-		# parse waypoint from data
-		@waypoints = []
-		
-		if (result = result[8].match( GSVHyperlapse.dataRegex ))?
-			for i, r of result
-				m = GSVHyperlapse.dataLatLngRegex.exec( r )
-				wp = new google.maps.LatLng( m[2], m[1] )
-				@waypoints.push
-					location: wp.toString()
-					stopover: false
-
-			@trace "num of waypoints:", @waypoints.length
-			req.waypoints = @waypoints
-
-		@trace "request:", req
-
-		GSVHyperlapse.dirService.route req, (res, status) =>
-			if status == google.maps.DirectionsStatus.OK
-				@create(res)
-			else
-				_class.onMessage.call @, "cannot get route."		
-
-	create: (res)->
-		@bWaiting = true
-		@traceBold "create"
-
-		# create map
-		@map = new google.maps.Map @mapElm,
-			center: @centroid
-			zoom: @zoom
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-
-		@analyze(res)
+	# --------------------------------------------------------
+	# class method
+	createPanoData: (res) ->
+		return {
+			id: res.location.pano
+			rotation: res.tiles.centerHeading * Math.PI / 180.0
+			pitch: res.tiles.originPitch * Math.PI / 180.0
+			latLng: res.location.latLng
+			date: res.imageDate
+		}
 
 	# --------------------------------------------------------
-	# 2
-	analyze: (res) ->
-		if @bCancel
-			_class.onCancel.call @
-			return
-		@traceBold "analyze"
+	createFromDirection: (url, args)->
 
-		_class.onMessage.call @, "analyzing route.."
+		travelMode 		= args.travelMode
+		step 			= parseFloat(args.step)
+		searchRadius	= parseFloat(args.searchRadius)
 
-		# get points
-		@trace res.routes
+		rawPts = []
+		routeRes = null
+		prevId = ''
 
-		@rawPts = []
-		route = res.routes[0]
-		path = route.overview_path
+		# ===================================
+		# 1. request route
+		requestRoute = =>
+			# parse url
+			result = _class.dirRegex.exec( url )
 
-		# show info
-		_class.onMessage.call @, "<strong>path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{@step}(m), search radius: #{@searchRadius} (m)</strong>"
-		
+			if !result?
+				alert "cannot parse url"
+				return
 
-		d = 0 # distance between a and b (m)
-		r = 0 # always must be < step
-		m = 0
-		a = b = null
+			origin      = new google.maps.LatLng( result[1], result[2] )
+			destination	= new google.maps.LatLng( result[3], result[4] )
+			center      = new google.maps.LatLng( result[5], result[6] )
+			zoom        = parseInt(result[7])
 
-		@trace "total distance:", totalDist
+			@map.setZoom( zoom )
+			@map.setCenter( center )
 
-		# retrive to way points
-		for i in [0..path.length-2]
+			req =
+				origin: origin
+				destination: destination
+				travelMode: travelMode
 
-			a = path[i]
-			b = path[i+1]
-			d = google.maps.geometry.spherical.computeDistanceBetween(a, b)
+			# parse waypoint from data
+			waypoints = []
+			
+			if (result = result[8].match( GSVHyperlapse.dataRegex ))?
+				for i, r of result
+					m = GSVHyperlapse.dataLatLngRegex.exec( r )
+					wp = new google.maps.LatLng( m[2], m[1] )
+					waypoints.push
+						location: wp.toString()
+						stopover: false
 
-			# offset -r
-			m = -r + @step
+				req.waypoints = waypoints
 
-			if d < m
-				r += d
-			else
-				# subdivide
-				while m < d
-					pt = getFollowedPath(m, a, b)
-					@rawPts.push( pt )
-					m += @step
+			GSVHyperlapse.dirService.route req, (res, status) =>
 
-				r = @step - (m - d)
+				if status == google.maps.DirectionsStatus.OK
+					routeRes = res
+					# next
+					subdivideRoute()
+				else
+					_class.onMessage.call @, "cannot get route."
 
-		@trace "points:", @rawPts.length
-		@traceBold "fetch panoramas"
+		# ===================================
+		# 2. subdivide route
+		subdivideRoute = () =>
 
-		# fit bound and add polyline
-		@map.fitBounds( route.bounds )
-		path = new google.maps.Polyline
-			path: path
-			#geodesic: true
-			strokeColor: '#000000'
-			strokeOpacity: 1.0
-			strokeWeight: 2
-
-		path.setMap( @map )
-
-		# path = new google.maps.Polyline
-		# 	path: @rawPts
-		# 	#geodesic: true
-		# 	strokeColor: '#0000FF'
-		# 	strokeOpacity: 1.0
-		# 	strokeWeight: 2
-
-		# for i, pt of @rawPts
-		# 	marker = new google.maps.Marker
-		# 		position: pt
-		# 		map: @map
-		# 		title: "#{i}"
-
-		_class.onMessage.call @, "num of waypoints: #{@rawPts.length}"
-
-		# next
-		@getPanoInfoOnWay()
-
-	# --------------------------------------------------------
-	# 3
-	getPanoInfoOnWay: ->
-		if @bCancel
-			_class.onCancel.call @
-			return
-
-		# get pano id for each rawPts and merge deplicated panoId
-		_class.onMessage.call @, "retriving pano id.."
-
-		idx = 0
-		@panoList = []
-
-		onError = (msg) =>
-			null
-		onLoad = =>
 			if @bCancel
 				_class.onCancel.call @
 				return
 
-			id = @loader.id
+			_class.onMessage.call @, "requesting route.."
+			_class.onMessage.call @, "analyzing route.."
 
-			_class.onProgress.call @, idx, @rawPts.length
+			# get points
+			route = routeRes.routes[0]
+			path = route.overview_path
 
-			if id? && id != prevId
-				pano =
-					id: id
-					rotation: @loader.rotation
-					pitch: @loader.pitch
-					lat: @loader.location.lat()
-					lng: @loader.location.lng()
-					date: @loader.image_date
+			# show info
+			_class.onMessage.call @, "path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{step}(m), search radius: #{searchRadius} (m)"
+			
+
+			console.log path
+
+			d = 0 # distance between a and b (m)
+			r = 0 # always must be < step
+			m = 0 # current midpoint
+			a = b = null
+
+			# retrive to way points
+			for i in [0..path.length-2]
+
+				a = path[i]
+				b = path[i+1]
+				d = google.maps.geometry.spherical.computeDistanceBetween(a, b)
+
+				# offset -r
+				m = -r + step
+
+				if d < m
+					r += d
+				else
+					# subdivide
+					while m < d
+						pt = getFollowedPath(m, a, b)
+						rawPts.push( pt )
+						m += step
+
+					r = step - (m - d)
+
+			# fit bound and add polyline
+			@map.fitBounds( route.bounds )
+			path = new google.maps.Polyline
+				path: path
+				geodesic: true
+				strokeColor: '#000000'
+				strokeOpacity: 1.0
+				strokeWeight: 2
+			path.setMap( @map )
+
+			_class.onMessage.call @, "num of waypoints: #{rawPts.length}"
+
+			# next
+			retrivePanoData()
+
+		# ===================================
+		# 3. retrive pano data and splice duplicated id
+		retrivePanoData = =>
+			_class.onMessage.call @, "retriving pano id.."
+
+			idx = 0
+
+			onLoad = (res, status) =>
+				if @bCancel
+					_class.onCancel.call @
+					return
+
+				if status == google.maps.StreetViewStatus.OK
+
+					pano = @createPanoData( res )
+
+					if pano.id != prevId
+						@panoList.push( pano )
+						marker = new google.maps.Marker
+							position: pano.latLng
+							map: @map
+							title: "#{idx}"
+
+						prevId = pano.id
+						console.log pano.id
+
+				_class.onProgress.call @, idx, rawPts.length
+
+				if ++idx < rawPts.length
+					# next
+					@client.getPanoramaByLocation(rawPts[idx], searchRadius, onLoad)
+				else
+					# end
+					console.log @panoList
+					@bWaiting = false
+					_class.onMessage.call @, "total pano id: #{@panoList.length}"
+					_class.onProgress.call @, idx, rawPts.length
+					_class.onAnalyzeComplete.call @
+
+			# init GSVPano
+			@bWaiting = true
+			prevId = ''
+			@client.getPanoramaByLocation(rawPts[idx], searchRadius, onLoad)
+
+		# trigger
+		requestRoute()
+
+	# --------------------------------------------------------
+	createFromPanoId: (list) ->
+
+		idx = 0
+
+		onLoad = (res, status)=>
+			if idx == 0
+				_class.onMessage.call @, "analyzing.."	
+
+			if status == google.maps.StreetViewStatus.OK
+				if @bCancel
+					_class.onCancel.call @
+					return
+
+				pano = @createPanoData( res )
 				@panoList.push( pano )
 
+				if idx == 0
+					@map.setCenter( pano.latLng )
+					@map.setZoom( 13 )
+
 				marker = new google.maps.Marker
-					position: @loader.location
+					position: pano.latLng
 					map: @map
 					title: "#{idx}"
 
-				prevId = id
+				_class.onProgress.call @, idx, list.length
 
-			if ++idx < @rawPts.length
-				# next
-				@loader.load(@rawPts[ idx ], onLoad)
+				if ++idx < list.length
+					# next
+					@client.getPanoramaById(list[idx], onLoad)
+				else
+					# end
+					@bWaiting = false
+					_class.onMessage.call @, "total pano id: #{@panoList.length}"
+					_class.onProgress.call @, idx, list.length
+					_class.onAnalyzeComplete.call @
+			
 			else
-				_class.onMessage.call @, "total pano id: #{@panoList.length}"
-				@bWaiting = false
-				# console.log @panoList
-				_class.onProgress.call @, idx, @rawPts.length
-				_class.onAnalyzeComplete.call @
+				alert "error on createFromPanoId() : #{status}"
 
-
-		# init GSVPano
-		@loader = new GSVPANO.PanoLoader
-			zoom: @quality
-			searchRadius: @searchRadius
-
-		@loader.onError = onError
-		@loader.onNoPanoramaData = onError
+		# trigger
 
 		@bWaiting = true
-		prevId = ''
-
-		@loader.load( @rawPts[ idx ], onLoad )
+		@client.getPanoramaById(list[idx], onLoad)
 
 	# --------------------------------------------------------
-	# 4
-	compose: ->
+	compose: (zoom)->
+
+		loader = new GSVPANO.PanoLoader
+			zoom: zoom
 
 		if @panoList.length == 0
 			_class.onMessage.call @, "there is no pano id"
 			return
 
 		@tagCanvas = document.createElement('canvas')
-		@tagCanvas.width = @loader.width
+		@tagCanvas.width = loader.width
 		@tagCanvas.height = TAG_HEIGHT
 		@tagCtx	= @tagCanvas.getContext('2d')
 
@@ -316,14 +324,12 @@ class GSVHyperlapse
 			variables:
 				rotation: 0.0
 				pitch: 0.0
-				original: @loader.canvas
+				original: loader.canvas
 				tag: @tagCanvas
 
-		@glsl.setSize(@loader.width, @loader.height + TAG_HEIGHT)
+		@glsl.setSize(loader.width, loader.height + TAG_HEIGHT)
 
-		
-
-		_class.onMessage.call @, "composing panorama.. size:#{@loader.width}x#{@loader.height}"
+		_class.onMessage.call @, "composing panorama.. size:#{loader.width}x#{loader.height}"
 
 		writeToTag = (name, value, x, y) =>
 			@tagCtx.fillStyle = '#ffffff'
@@ -332,7 +338,6 @@ class GSVHyperlapse
 			@tagCtx.fillText(name, x, y)
 
 		onCompose = =>
-			console.log idx
 
 			if @bCancel
 				_class.onCancel.call @
@@ -347,17 +352,15 @@ class GSVHyperlapse
 
 			cursor = 0
 
-			writeToTag("uid",     "#{@uniqueId}", cursor++ * 0xff, 36)							
-			writeToTag("lat",     "#{@panoList[idx].lng.toPrecision(17)}", cursor++ * 0xff, 36)	
-			writeToTag("lng",     "#{@panoList[idx].lng.toPrecision(17)}", cursor++ * 0xff, 36)	
-			writeToTag("hdng", 	  "#{0}", cursor++ * 0xff, 36)								
-			writeToTag("pitch",   "#{0}", cursor++ * 0xff, 36)								
+			writeToTag("uid",     "#{@uniqueId}", cursor++ * 0xff, 36)	
+			writeToTag("panoid",  "#{@panoList[idx].id}", cursor++ * 0xff, 36)						
+			writeToTag("lat",     "#{@panoList[idx].latLng.lat().toPrecision(17)}", cursor++ * 0xff, 36)	
+			writeToTag("lng",     "#{@panoList[idx].latLng.lng().toPrecision(17)}", cursor++ * 0xff, 36)	
+			writeToTag("head",    "#{0}", cursor++ * 0xff, 36)							
 			writeToTag("date",    "#{@panoList[idx].date}", cursor++ * 0xff, 36)	
 
 			cursor = 0
-			writeToTag("zoom",     "#{@quality}", cursor++ * 0xff, 18)
-
-
+			writeToTag("zoom",     "#{zoom}", cursor++ * 0xff, 18)
 
 			$('body').append( @tagCanvas )
 
@@ -366,32 +369,29 @@ class GSVHyperlapse
 			@glsl.syncAll()
 			@glsl.render()
 
-			console.log @loader.rotation, @loader.pitch
-
 			_class.onProgress.call @, idx, @panoList.length
 			_class.onPanoramaLoad.call @, idx, @glsl.canvas
 
 			if ++idx < @panoList.length
 				# next frame
 				setTimeout =>
-					@loader.composePanorama( @panoList[idx].id )
+					loader.composePanorama( @panoList[idx].id )
 				, 100
 			else
 				@bWaiting = false
-				@traceBold "complete"
-				@trace "total panorama:", @panoList.length
+				console.log "complete"
 
 				_class.onProgress.call @, idx, @panoList.length
 				_class.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
 
-		@loader.onError = (msg) ->
-			console.log msg
-		@loader.onPanoramaLoad = onCompose
-		@loader.onNoPanoramaData = (status) ->
-			console.log status
-
+		loader.onPanoramaLoad = onCompose
+		loader.onError = (msg) ->
+			alert "error onCompose() : #{msg}"
+		loader.onNoPanoramaData = (status) ->
+			alert "error onNoPanoramaData() : #{status}"
+	
 		idx = 0
 		@bWaiting = true
 
-		@loader.composePanorama( @panoList[idx].id )
+		loader.composePanorama( @panoList[idx].id )
 

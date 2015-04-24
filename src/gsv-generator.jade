@@ -1,8 +1,4 @@
 doctype html
-// 
-// island https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2
-// fiyorudo https://www.google.com/maps/dir/45.2225007,6.1375653/45.2246012,6.1391705/@45.2226213,6.1340457,16z/data=!3m1!4b1!4m2!4m1!3e0?hl=ja
-// aqua line https://www.google.co.jp/maps/dir/35.4626822,139.8760935/35.463556,139.8765012/@35.4638422,139.8727434,17z/data=!3m1!4b1!4m2!4m1!3e0
 html
 	head
 		title GSV Generator
@@ -12,6 +8,7 @@ html
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
 		script(src='js/lib/GSVPano.js')
 		script(src='js/lib/glsl.min.js')
+		script(src='js/jquery.file.js')
 		//script(src='js/lib/hyperlapse.min.js')
 		script(src='js/canvas-exporter.js')
 		script(src='js/GSVHyperlapse.js')
@@ -34,40 +31,13 @@ html
 				dd
 					input#dir(type='text', value='../../gsv')
 
-				dt method
-				dd
-					input#method-1(type='radio', name='method', value='direction' checked)
-					label(for='method-1') direction
-
-					input#method-2(type='radio', name='method', value='panoid')
-					label(for='method-2') pano id
-
-				dt(data-parent='#method-1') direction url
-				dd(data-parent='#method-1')
-					input#url(type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
-
-				dt(data-parent='#method-2') pano id
-				dd(data-parent='#method-2')
-					a(href='panoid-parser.html' target='_blank') pano id parser
-					br
-					textarea#panoid(data-onchecked='#method-2')
-
-				dt travel mode
-				dd
-					input#travel-1(type='radio', name='travel', value='driving', checked)
-					label(for='travel-1') driving
-
-					input#travel-2(type='radio', name='travel', value='walking')
-					label(for='travel-2') walking
-					br
-
 				dt heading
 				dd
-					input#heading-1(type='radio', name='heading', value='forward')
+					input#heading-1(type='radio', name='heading', value='forward' disabled)
 					label(for='heading-1') forward 
 					br
 
-					input#heading-2(type='radio', name='heading', value='latlng')
+					input#heading-2(type='radio', name='heading', value='latlng' disabled)
 					label(for='heading-2') latlng
 					br
 
@@ -75,12 +45,35 @@ html
 					label(for='heading-3') north
 					br
 
-				dt lookat url
-					input#lookat(type='text' data-parent='#heading-2')
+				dt(data-parent='#heading-2') lookat url
+				dd(data-parent='#heading-2')
+					input#lookat(type='text')
 
 				dt zoom(proxy=2, rendring=6)
 				dd
 					input#zoom(type='number' value='2')
+
+				dt method
+				dd
+					input#method-1(type='radio', name='method', value='direction' checked)
+					label(for='method-1') direction
+
+					input#method-2(type='radio', name='method', value='panoid')
+					label(for='method-2') pano id json
+
+			//- direction
+			dl(data-parent='#method-1' style="background:#bdd;")
+				dt direction url
+				dd
+					input#url(type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
+
+				dt travel mode
+				dd
+					input#travel-1(type='radio', name='travel', value='DRIVING', checked)
+					label(for='travel-1') driving
+
+					input#travel-2(type='radio', name='travel', value='WALKING')
+					label(for='travel-2') walking
 
 				dt step(m)
 				dd
@@ -89,6 +82,14 @@ html
 				dt sv search radius(m)
 				dd
 					input#search-radius(type='number', value='5')
+
+			//- pano id list
+			dl(data-parent='#method-2' style="background:#dbd;")
+				dt pano id
+				dd
+					a(href='panoid-parser.html') pano id parser
+					br
+					textarea#panoid
 
 			button#create create
 

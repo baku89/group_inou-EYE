@@ -48,19 +48,6 @@ restoreSettings = ->
 		$('#step').val( storage.step )
 		$('#search-radius').val( storage.searchRadius )
 
-	# bind
-	# $elm.find('input[data-onchecked], textarea[data-onchecked]').each ->
-		
-	# 	$this = $(@)
-	# 	console.log $this
-
-	# 	$parent = $( $this.attr('data-onchecked') )
-	# 	name = $parent.attr('name')
-
-	# 	$( "[name=#{name}").on 'change', ->
-	# 		console.log $parent.prop('checked')
-	# 		$this.prop('disabled', !$parent.prop('checked'))
-
 	$elm.find('[data-parent]').each ->
 
 		$this = $(@)
@@ -116,30 +103,33 @@ create = ->
 
 	updateSettings()
 
+	# FILE.exists "#{settings.dir}/#{settings.name}", (flg) ->
+	# 	alert flg
+
+	#return
+
 	index = tasks.length
 
 	$('.tasks').append("
 		<li id='task-#{index}'>
-			<h1>#{settings.name}</h1>
-			<button class='action' data-index='#{index}'>Cancel</button>
-			<p>requesting route..<br></p>
+			<h1><input type='text' name='name' value='#{settings.name}'></h1>
+			<button class='cancel action' data-index='#{index}'>Cancel</button>
+			<p>mode: #{settings.method}<br></p>
 			<div id='map-#{index}' style='width: 48%; height: 0; padding-top: 26%; background:gray; display: inline-block;'></div>
 		</li>
 	")
 
-	hyperlapse = new GSVHyperlapse( settings )
-	hyperlapse.setMap( $("#map-#{index}")[0] )
+	hyperlapse = new GSVHyperlapse(settings.name, $("#map-#{index}")[0])
 
 	if settings.method == 'direction'
-		hyperlapse.createFromDirection( settings.url )
+		hyperlapse.createFromDirection(settings.url, settings)
 
 	else if settings.method == 'panoid'
-		hyperlapse.createFromPanoId()
+		list = $.parseJSON( $('#panoid').val() )
+		hyperlapse.createFromPanoId(list)
 
-
-	$("#task-#{index} button").on 'click', ->
-		$elm = $(@)
-		index = $elm.attr('data-index')
+	$("#task-#{index} .cancel").on 'click', ->
+		index = $(@).attr('data-index')
 		tasks[index].cancel()
 
 
@@ -164,13 +154,20 @@ onAnalyzeComplete = ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
 
+	console.log $elm.children("p")
 
 	$btnGen = $('<button>generate hyperlapse</button><br>');
 
-	$btnGen.on 'click', ->
-		tasks[index].compose()
+	$elm.children('p').append( $btnGen )
 
-	$elm.children('p').append( $btnGen );
+	$btnGen.on 'click', ->
+		$elm.children('.control').remove()
+
+		@name = $elm.find('[name=name]').prop('disabled', true).val()
+
+		tasks[index].compose(settings.zoom)
+
+		$elm.children('p').append( $btnGen );
 
 #------------------------------------------------------------
 onProgress = (loaded, total) ->

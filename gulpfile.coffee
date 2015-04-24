@@ -60,7 +60,9 @@ gulp.task 'bsync', [], ->
 
 gulp.task 'copy', ->
 	gulp.src 'src/*.php'
-		.pipe gulp.dest 'public'
+		.pipe gulp.dest 'public/'
+	gulp.src 'src/file/*.php'
+		.pipe gulp.dest 'public/file'
 	gulp.src 'src/assets/**'
 		.pipe gulp.dest 'public/assets'
 	gulp.src 'src/js/lib/*.js'
@@ -74,4 +76,4 @@ gulp.task 'default', ['bsync', 'clean', 'jade', 'coffee', 'compass', 'copy'], ->
 	gulp.watch ['src/*.jade', 'src/shader/**'], ['jade', reload]
 	gulp.watch 'src/coffee/*.coffee', ['coffee', reload]
 	gulp.watch 'src/sass/*.sass', ['compass', reload]
-	gulp.watch ['src/*.php', 'src/assets/**', 'src/js/lib/*.js'], ['copy', reload]
+	gulp.watch ['src/*.php', 'src/file/*.php', 'src/assets/**', 'src/js/lib/*.js'], ['copy', reload]

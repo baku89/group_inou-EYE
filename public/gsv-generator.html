@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!-- -->
-<!-- island https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2-->
-<!-- fiyorudo https://www.google.com/maps/dir/45.2225007,6.1375653/45.2246012,6.1391705/@45.2226213,6.1340457,16z/data=!3m1!4b1!4m2!4m1!3e0?hl=ja-->
-<!-- aqua line https://www.google.co.jp/maps/dir/35.4626822,139.8760935/35.463556,139.8765012/@35.4638422,139.8727434,17z/data=!3m1!4b1!4m2!4m1!3e0-->
 <html>
   <head>
     <title>GSV Generator</title>
@@ -11,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
     <script src="js/lib/GSVPano.js"></script>
     <script src="js/lib/glsl.min.js"></script>
+    <script src="js/jquery.file.js"></script>
     <!--script(src='js/lib/hyperlapse.min.js')-->
     <script src="js/canvas-exporter.js"></script>
     <script src="js/GSVHyperlapse.js"></script>
@@ -117,43 +114,42 @@ void main (void) {
         <dd>
           <input id="dir" type="text" value="../../gsv">
         </dd>
+        <dt>heading</dt>
+        <dd>
+          <input id="heading-1" type="radio" name="heading" value="forward" disabled>
+          <label for="heading-1">forward </label><br>
+          <input id="heading-2" type="radio" name="heading" value="latlng" disabled>
+          <label for="heading-2">latlng</label><br>
+          <input id="heading-3" type="radio" name="heading" value="north" checked>
+          <label for="heading-3">north</label><br>
+        </dd>
+        <dt data-parent="#heading-2">lookat url</dt>
+        <dd data-parent="#heading-2">
+          <input id="lookat" type="text">
+        </dd>
+        <dt>zoom(proxy=2, rendring=6)</dt>
+        <dd>
+          <input id="zoom" type="number" value="2">
+        </dd>
         <dt>method</dt>
         <dd>
           <input id="method-1" type="radio" name="method" value="direction" checked>
           <label for="method-1">direction</label>
           <input id="method-2" type="radio" name="method" value="panoid">
-          <label for="method-2">pano id</label>
+          <label for="method-2">pano id json</label>
         </dd>
-        <dt data-parent="#method-1">direction url</dt>
-        <dd data-parent="#method-1">
+      </dl>
+      <dl data-parent="#method-1" style="background:#bdd;">
+        <dt>direction url</dt>
+        <dd>
           <input id="url" type="url" value="https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2">
-        </dd>
-        <dt data-parent="#method-2">pano id</dt>
-        <dd data-parent="#method-2"><a href="panoid-parser.html" target="_blank">pano id parser</a><br>
-          <textarea id="panoid" data-onchecked="#method-2"></textarea>
         </dd>
         <dt>travel mode</dt>
         <dd>
-          <input id="travel-1" type="radio" name="travel" value="driving" checked>
+          <input id="travel-1" type="radio" name="travel" value="DRIVING" checked>
           <label for="travel-1">driving</label>
-          <input id="travel-2" type="radio" name="travel" value="walking">
-          <label for="travel-2">walking</label><br>
-        </dd>
-        <dt>heading</dt>
-        <dd>
-          <input id="heading-1" type="radio" name="heading" value="forward">
-          <label for="heading-1">forward </label><br>
-          <input id="heading-2" type="radio" name="heading" value="latlng">
-          <label for="heading-2">latlng</label><br>
-          <input id="heading-3" type="radio" name="heading" value="north" checked>
-          <label for="heading-3">north</label><br>
-        </dd>
-        <dt>lookat url
-          <input id="lookat" type="text" data-parent="#heading-2">
-        </dt>
-        <dt>zoom(proxy=2, rendring=6)</dt>
-        <dd>
-          <input id="zoom" type="number" value="2">
+          <input id="travel-2" type="radio" name="travel" value="WALKING">
+          <label for="travel-2">walking</label>
         </dd>
         <dt>step(m)</dt>
         <dd>
@@ -162,6 +158,12 @@ void main (void) {
         <dt>sv search radius(m)</dt>
         <dd>
           <input id="search-radius" type="number" value="5">
+        </dd>
+      </dl>
+      <dl data-parent="#method-2" style="background:#dbd;">
+        <dt>pano id</dt>
+        <dd><a href="panoid-parser.html">pano id parser</a><br>
+          <textarea id="panoid"></textarea>
         </dd>
       </dl>
       <button id="create">create</button>
