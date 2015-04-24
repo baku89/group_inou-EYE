@@ -10,7 +10,9 @@ settings = {}
 map = null
 svp = null
 
-urlReg = /!1s(.*)!/
+urlReg = /!1s(.*)!2e/
+
+$panoIdList = null
 
 #------------------------------------------------------------
 # init
@@ -32,8 +34,12 @@ updateSettings = ->
 
 $ ->
 
+	$panoIdList = $('#panoid-list')
+
 	$('#laod-sv').on 'click', loadStreeView
 	$('input, textarea').on 'change', updateSettings
+
+
 
 	restoreSettings()
 
@@ -48,20 +54,18 @@ $ ->
 
 	svp = new google.maps.StreetViewPanorama( $('#svp')[0], options )
 
+	google.maps.event.addListener(svp, 'pano_changed', onChangePanoId)
+
 
 loadStreeView = ->
+	updateSettings()
 
 	result = urlReg.exec( settings.url )
 
-	console.log result
-
-	# if !(result?)
-	# 	alert('this url is not supported')
-	# 	return
-
 	panoId = result[1]
 	
-	svp.setpano( panoId )
+	svp.setPano( panoId )
 
+onChangePanoId = ->
 
-	
+	$panoIdList.append( svp.getPano() + "<br>" )
