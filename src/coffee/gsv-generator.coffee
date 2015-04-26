@@ -197,6 +197,9 @@ onPanoramaLoad = (idx, canvas) ->
 
 	$elm.append( canvas )
 
+	FILE.saveFrame canvas, "#{settings.dir}/#{@name}/#{@name}_####.png", ->
+		
+
 	# save image
 	params =
 		name: @name
