@@ -1,4 +1,13 @@
-#ifdef GL_ES
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PANO FragShader</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/lib/glsl.min.js"></script>
+    <script src="js/pano-fs.js"></script>
+    <link rel="stylesheet" href="css/simple-gui.css">
+    <script id="pano-rotation" type="x-shader/x-fragment">#ifdef GL_ES
 precision highp float;
 #endif
 
@@ -85,3 +94,9 @@ void main (void) {
 		gl_FragColor = color;
 	}
 }
+    </script>
+  </head>
+  <body>
+    <canvas id="pano" style="width:1664px;height:872px;background:red;"></canvas><img id="original" style="display:block;">
+  </body>
+</html>

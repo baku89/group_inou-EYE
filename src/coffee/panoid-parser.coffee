@@ -130,18 +130,9 @@ onPositionChanged = ->
 	return null
 
 onLinksChanged = ->
-	# if bUndo
-	# 	bUndo = false
-	# 	return
+	
 	pos = svp.getPosition()
 	id = svp.getPano()
-
-	# if list.indexOf( id ) != -1
-	# 	if !confirm('Already same pano id added. Continue?')
-	# 		bUndo = true
-	# 		map.setPano( list[list.length-1] )
-	# 		return
-
 	list.push( id )
 
 	links = svp.getLinks()
@@ -151,8 +142,6 @@ onLinksChanged = ->
 		bLinkUpdate = false
 	else
 		links = (l for l in links when l.pano != prevId)
-
-		console.log links
 		bLinkUpdate = true
 		svp.setLinks( links )
 		return

@@ -44,55 +44,55 @@ void main (void) {
 		// cab rotation
 		vec2 p = vec2(fract(op.x + rotation / PI_2), clamp(op.y, 0.0, 1.0));
 
-		// //(u,v) -> (θ,φ)
-		// p = vec2(
-		// 	p.x * PI_2,
-		// 	PI * (p.y - 0.5)
-		// );
+		//(u,v) -> (θ,φ)
+		p = vec2(
+			p.x * PI_2,
+			PI * (p.y - 0.5)
+		);
 
 		
 
-		// // (θ,φ) -> (x, y, z)
-		// vec3 c = vec3(
-		// 	cos(p.x) * cos(p.y),
-		// 	sin(p.x) * cos(p.y),
-		// 	sin(p.y)
-		// );
+		// (θ,φ) -> (x, y, z)
+		vec3 c = vec3(
+			cos(p.x) * cos(p.y),
+			sin(p.x) * cos(p.y),
+			sin(p.y)
+		);
 
 
 		
 
-		// // (x, y, x) -rot-> (x', y', z')
-		// c = vec3(
-		// 	cos(pitch) * c.x - sin(pitch) * c.z,
-		// 	c.y,
-		// 	sin(pitch) * c.x + cos(pitch) * c.z
-		// );
+		// (x, y, x) -rot-> (x', y', z')
+		c = vec3(
+			cos(pitch) * c.x - sin(pitch) * c.z,
+			c.y,
+			sin(pitch) * c.x + cos(pitch) * c.z
+		);
 
-		// // (x', y', z') -> (θ',φ')
-		// p = vec2(
-		// 	atan(c.y, c.x),
-		// 	atan(c.z, length(c.xy))
-		// );
+		// (x', y', z') -> (θ',φ')
+		p = vec2(
+			atan(c.y, c.x),
+			atan(c.z, length(c.xy))
+		);
 
-		// //gl_FragColor = vec4(c.x, c.y, c.z, 1.0);
+		//gl_FragColor = vec4(c.x, c.y, c.z, 1.0);
 
 
-		// // (θ',φ') -> (u',v')
-		// p = vec2(
-		// 	p.x / PI_2,
-		// 	p.y / PI + 0.5
-		// );
+		// (θ',φ') -> (u',v')
+		p = vec2(
+			p.x / PI_2,
+			p.y / PI + 0.5
+		);
 
-		//p = fract(p);
+		p = fract(p);
 
 		vec4 color = texture2D(original, p);
 
-		// vec2 dir = vec2(rotation / PI_2, pitch / PI + 0.5);
-		// if (distance(p, dir) < 0.01) {
-		// 	color = vec4(1.0, 0.0, 0.0, 1.0);
-		// 	//p = vec2(0.0, 0.0);
-		// }
+		vec2 dir = vec2(rotation / PI_2, pitch / PI + 0.5);
+		if (distance(p, dir) < 0.01) {
+			color = vec4(1.0, 0.0, 0.0, 1.0);
+			//p = vec2(0.0, 0.0);
+		}
 
 		//gl_FragColor = vec4(p.x, p.y, 0.0, 1.0);
 
@@ -116,10 +116,10 @@ void main (void) {
         </dd>
         <dt>heading</dt>
         <dd>
-          <input id="heading-1" type="radio" name="heading" value="forward" disabled>
+          <input id="heading-1" type="radio" name="heading" value="forward">
           <label for="heading-1">forward </label><br>
-          <input id="heading-2" type="radio" name="heading" value="latlng" disabled>
-          <label for="heading-2">latlng</label><br>
+          <input id="heading-2" type="radio" name="heading" value="lookat">
+          <label for="heading-2">lookat</label><br>
           <input id="heading-3" type="radio" name="heading" value="north" checked>
           <label for="heading-3">north</label><br>
         </dd>

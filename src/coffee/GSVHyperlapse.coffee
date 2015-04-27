@@ -1,10 +1,13 @@
 Number.prototype.toRad = () -> @ * Math.PI / 180
-
 Number.prototype.toDeg = () -> @ * 180 / Math.PI
 
-API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
-
 TAG_HEIGHT = 40
+
+GSVHyperlapseHeading =
+	FORWARD: "forward"
+	LOOKAT: "lookat"
+	NORTH: "north"
+
 
 pointOnLine = (t, a, b) ->
 	lat1 = a.lat().toRad()
@@ -38,7 +41,6 @@ uniqueID = ->
 class GSVHyperlapse
 
 	# const
-	@API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
 	@DIST_BETWEEN_PTS = 5
 	@MAX_PTS = 100
 
@@ -304,7 +306,10 @@ class GSVHyperlapse
 		@client.getPanoramaById(list[idx], onLoad)
 
 	# --------------------------------------------------------
-	compose: (zoom)->
+	compose: (params)->
+
+		zoom = params.zoom ? 2
+		direction = 
 
 		loader = new GSVPANO.PanoLoader
 			zoom: zoom

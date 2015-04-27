@@ -15,16 +15,30 @@ FILE.exisits = (path, callback) ->
 		else
 			callback( null )
 
-FILE.saveFrame = (canvas, filename, callback) ->
+FILE.saveFrame = (canvas, filename, index, callback) ->
+
+	split = filename.split('.')
+	ext = split[ split.length - 1 ].toLowerCase()
+
+	type = ""
+
+	if ext == "png"
+		type = "image/png"
+	else if ext == "jpg" or  ext == "jpeg"
+		type = "image/jpeg"
+	else
+		callback(null)
+		return
+
 
 	$.ajax
 		type: 'POST'
-		url: "#{FILE.phpDirectory}/saveImageSequence.php"
+		url: "#{FILE.phpDirectory}/saveFrame.php"
 		data:
 			name: name
 			directory: directory
 			index: index
-			image: canvas.toDataURL('image/png')
+			image: canvas.toDataURL(type)
 
 		success: (json) =>
 			res = $.parseJSON( json )

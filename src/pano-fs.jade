@@ -1,0 +1,17 @@
+doctype html
+html
+	head
+		title PANO FragShader
+
+		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='js/lib/glsl.min.js')
+		script(src='js/pano-fs.js')
+
+		link(rel='stylesheet', href='css/simple-gui.css')
+		script#pano-rotation(type='x-shader/x-fragment')
+			include shader/pano-rotation.fs
+
+	body
+		canvas#pano(style="width:1664px;height:872px;background:red;")
+		img#original(style="display:block;")
