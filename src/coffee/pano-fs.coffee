@@ -8,9 +8,12 @@ glsl = null
 
 x = y = rotation = pitch = null
 
+$canvas = null
 
 $ ->
-	$('#pano').on
+	$canvas = $('#pano')
+
+	$canvas.on
 		'mousemove': onMouseMove
 
 	original = $('#original')[0]
@@ -29,7 +32,7 @@ $ ->
 	ctx.fillRect(0, 0, WIDTH, TAG_HEIGHT)
 
 	glsl = Glsl
-		canvas: $('#pano')[0]
+		canvas: $canvas[0]
 		fragment: $('#pano-rotation')[0].textContent
 		variables:
 			rotation: 0.0
@@ -39,7 +42,6 @@ $ ->
 
 	glsl.setSize(WIDTH, HEIGHT + TAG_HEIGHT)
 	glsl.start()
-
 
 onMouseMove = (e)->
 	x = e.pageX / WIDTH

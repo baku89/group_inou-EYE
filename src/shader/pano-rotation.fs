@@ -35,17 +35,12 @@ void main (void) {
 			PI * (p.y - 0.5)
 		);
 
-		
-
 		// (θ,φ) -> (x, y, z)
 		vec3 c = vec3(
 			cos(p.x) * cos(p.y),
 			sin(p.x) * cos(p.y),
 			sin(p.y)
 		);
-
-
-		
 
 		// (x, y, x) -rot-> (x', y', z')
 		c = vec3(
@@ -60,9 +55,6 @@ void main (void) {
 			atan(c.z, length(c.xy))
 		);
 
-		//gl_FragColor = vec4(c.x, c.y, c.z, 1.0);
-
-
 		// (θ',φ') -> (u',v')
 		p = vec2(
 			p.x / PI_2,
@@ -73,15 +65,11 @@ void main (void) {
 
 		vec4 color = texture2D(original, p);
 
-		vec2 dir = vec2(rotation / PI_2, pitch / PI + 0.5);
-		if (distance(p, dir) < 0.01) {
-			color = vec4(1.0, 0.0, 0.0, 1.0);
-			//p = vec2(0.0, 0.0);
-		}
+		// vec2 dir = vec2(0.5, 0.5);
+		// if (distance(p, dir) < 0.003) {
+		// 	color = vec4(1.0, 0.0, 0.0, 1.0);
+		// }
 
-		//gl_FragColor = vec4(p.x, p.y, 0.0, 1.0);
-
-		// gl_FragColor = vec4(c.x, c.y, c.z, 1.0);
 		gl_FragColor = color;
 	}
 }

@@ -130,21 +130,21 @@ onPositionChanged = ->
 	return null
 
 onLinksChanged = ->
-	
-	pos = svp.getPosition()
-	id = svp.getPano()
-	list.push( id )
 
 	links = svp.getLinks()
 
 	# set links
-	if (bLinkUpdate)
-		bLinkUpdate = false
-	else
+	if not bLinkUpdate
 		links = (l for l in links when l.pano != prevId)
 		bLinkUpdate = true
 		svp.setLinks( links )
 		return
+
+	bLinkUpdate = false
+
+	pos = svp.getPosition()
+	id = svp.getPano()
+	list.push( id )
 
 	# add marker
 	marker = new google.maps.Marker
