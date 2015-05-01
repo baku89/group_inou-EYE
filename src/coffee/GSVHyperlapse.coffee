@@ -366,11 +366,13 @@ class GSVHyperlapse
 
 			cursor = 0
 			writeToTag("zoom",     "#{zoom}", cursor++ * 0xff, 18)
+			writeToTag("rot", 	   "#{@panoList[idx].rotation.toPrecision(17)}", cursor++ * 0xff, 18)
+			writeToTag("pitch",    "#{@panoList[idx].pitch.toPrecision(17)}", cursor++ * 0xff, 18)
 
 			$('body').append( @tagCanvas )
 
 			@glsl.set('rotation', @panoList[idx].rotation)
-			@glsl.set('pitch', @panoList[idx].pitch)
+			@glsl.set('pitch', @panoList[idx].pitch * -1)
 			@glsl.syncAll()
 			@glsl.render()
 
