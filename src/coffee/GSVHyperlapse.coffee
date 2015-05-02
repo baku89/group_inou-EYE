@@ -61,6 +61,7 @@ class GSVHyperlapse
 	@onMessage			= () -> null
 	@onPanoramaLoad 	= () -> null
 	@onAnalyzeComplete	= () -> null
+	@onComposeComplete  = () -> null
 	@onProgress			= () -> null
 	@onCancel 			= () -> null
 
@@ -76,6 +77,8 @@ class GSVHyperlapse
 		@map = new google.maps.Map map,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 			zoom: 16
+
+		@report = ""
 
 	# methods
 	cancel: ->
@@ -94,6 +97,7 @@ class GSVHyperlapse
 			date: res.imageDate
 		}
 
+
 	# --------------------------------------------------------
 	createFromDirection: (url, args)->
 
@@ -104,6 +108,14 @@ class GSVHyperlapse
 		rawPts = []
 		routeRes = null
 		prevId = ''
+
+		@report +=
+			"""
+			method: direction
+			url: #{url}
+			step: #{step}
+			searchRadius: #{searchRadius}
+			"""
 
 		# ===================================
 		# 1. request route
@@ -309,10 +321,21 @@ class GSVHyperlapse
 	compose: (params)->
 
 		zoom = params.zoom ? 2
-		direction = 
 
 		loader = new GSVPANO.PanoLoader
 			zoom: zoom
+
+		# add report
+		@report += 
+			"""
+			pano id ----------
+			#{JSON.stringify( (pano.id for pano in @panoList) )}
+			------------------
+
+			details ----------
+			#{ @panoList.toJSON() }
+			------------------
+			"""
 
 		if @panoList.length == 0
 			_class.onMessage.call @, "there is no pano id"
@@ -351,7 +374,6 @@ class GSVHyperlapse
 			# draw tag
 			@tagCtx.fillStyle = '#000000'
 			@tagCtx.fillRect(0, 0, @tagCanvas.width, @tagCanvas.height)
-
 			@tagCtx.fillStyle = '#ffffff'
 			@tagCtx.font = '12px Arial'
 
@@ -369,8 +391,7 @@ class GSVHyperlapse
 			writeToTag("rot", 	   "#{@panoList[idx].rotation.toPrecision(17)}", cursor++ * 0xff, 18)
 			writeToTag("pitch",    "#{@panoList[idx].pitch.toPrecision(17)}", cursor++ * 0xff, 18)
 
-			$('body').append( @tagCanvas )
-
+			# rotate texture
 			@glsl.set('rotation', @panoList[idx].rotation)
 			@glsl.set('pitch', @panoList[idx].pitch * -1)
 			@glsl.syncAll()
@@ -387,10 +408,11 @@ class GSVHyperlapse
 			else
 				@bWaiting = false
 				console.log "complete"
-
 				_class.onProgress.call @, idx, @panoList.length
 				_class.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
+				_class.onComposeComplete.call @
 
+		# trigger
 		loader.onPanoramaLoad = onCompose
 		loader.onError = (msg) ->
 			alert "error onCompose() : #{msg}"

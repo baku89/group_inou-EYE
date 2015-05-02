@@ -15,6 +15,30 @@ FILE.exisits = (path, callback) ->
 		else
 			callback( null )
 
+FILE.saveText = (text, path, callback) ->
+
+	$.ajax
+		type: 'POST'
+		url: "#{FILE.phpDirectory}/saveText.php"
+		data:
+			path: path
+			text: text
+
+		success: (json) ->
+			res = $.parseJSON(json)
+			if res.status == FILE.Status.OK
+				callback( res.result )
+			else
+				callback( null )
+
+		error: (xmlHttpReq, textStatus, errorThrown) ->
+			callback( null )
+
+	return
+
+
+
+
 FILE.saveFrame = (canvas, filename, index, callback) ->
 
 	split = filename.split('.')
@@ -40,10 +64,15 @@ FILE.saveFrame = (canvas, filename, index, callback) ->
 			index: index
 			image: canvas.toDataURL(type)
 
-		success: (json) =>
+		success: (json) ->
 			res = $.parseJSON( json )
 			if res.status == FILE.Status.OK
 				callback( res.result )
 			else
 				callback( null )
+
+		error: (xmlHttpReq, textStatus, errorThrown) ->
+			callback( null )
+
+	return
 	

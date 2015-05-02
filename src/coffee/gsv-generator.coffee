@@ -92,6 +92,7 @@ $ ->
 	GSVHyperlapse.onPanoramaLoad = onPanoramaLoad
 	GSVHyperlapse.onProgress = onProgress
 	GSVHyperlapse.onAnalyzeComplete = onAnalyzeComplete
+	GSVHyperlapse.onComposeComplete = onComposeComplete
 	GSVHyperlapse.onCancel = onCancel
 
 	restoreSettings()
@@ -168,6 +169,17 @@ onAnalyzeComplete = ->
 		tasks[index].compose(settings.zoom)
 
 		$elm.children('p').append( $btnGen );
+
+#------------------------------------------------------------
+onComposeComplete = ->
+	index = tasks.indexOf( @ )
+	$elm = $("#task-#{index}")
+
+	path = "#{settings.dir}/#{@name}/_report.txt"
+
+	FILE.saveText @report, path, (res) =>
+		$elm.children('p').append('<br>report saved')
+		console.log res
 
 #------------------------------------------------------------
 onProgress = (loaded, total) ->
