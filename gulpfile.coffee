@@ -53,7 +53,8 @@ reload = bsync.reload
 
 gulp.task 'bsync', [], ->
 	bsync
-		proxy: 'localhost:8080'
+		#proxy: 'localhost:8080'
+		proxy: 'gi-eye.local:8080'
 		port: 8080
 		open: 'gsv-generator.html'
 		notify: false

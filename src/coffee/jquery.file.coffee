@@ -5,7 +5,7 @@ FILE.phpDirectory = './file'
 FILE.Status =
 	OK: 'OK'
 
-FILE.exisits = (path, callback) ->
+FILE.exists = (path, callback) ->
 	data =
 		path: path
 

@@ -10,7 +10,7 @@ uniform vec2 resolution;
 uniform sampler2D original;
 uniform sampler2D tag;
 uniform float pitch;
-uniform float rotation;
+uniform float heading;
 
 void main (void) {
 
@@ -26,8 +26,8 @@ void main (void) {
 	} else {
 		vec2 op = (gl_FragCoord.xy - vec2(0.0, TAG_HEIGHT)) / (resolution.xy - vec2(0.0, TAG_HEIGHT));
 
-		// cab rotation
-		vec2 p = vec2(fract(op.x + rotation / PI_2), clamp(op.y, 0.0, 1.0));
+		// cab heading
+		vec2 p = vec2(fract(op.x + heading / PI_2), clamp(op.y, 0.0, 1.0));
 
 		//(u,v) -> (θ,φ)
 		p = vec2(

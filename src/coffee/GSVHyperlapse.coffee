@@ -78,7 +78,7 @@ class GSVHyperlapse
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 			zoom: 16
 
-		@report = ""
+		@report = {}
 
 	# methods
 	cancel: ->
@@ -91,8 +91,8 @@ class GSVHyperlapse
 	createPanoData: (res) ->
 		return {
 			id: res.location.pano
-			rotation: res.tiles.centerHeading * Math.PI / 180.0
-			pitch: res.tiles.originPitch * Math.PI / 180.0
+			rotation: res.tiles.centerHeading# * Math.PI / 180.0
+			pitch: res.tiles.originPitch# * Math.PI / 180.0
 			latLng: res.location.latLng
 			date: res.imageDate
 		}
@@ -109,7 +109,7 @@ class GSVHyperlapse
 		routeRes = null
 		prevId = ''
 
-		@report +=
+		@report.settings =
 			"""
 			method: direction
 			url: #{url}
@@ -276,6 +276,11 @@ class GSVHyperlapse
 
 		idx = 0
 
+		@report.settings =
+			"""
+			method: panoid
+			"""
+
 		onLoad = (res, status)=>
 			if idx == 0
 				_class.onMessage.call @, "analyzing.."	
@@ -320,27 +325,37 @@ class GSVHyperlapse
 	# --------------------------------------------------------
 	compose: (params)->
 
+		if @panoList.length == 0
+			_class.onMessage.call @, "there is no pano id"
+			return
+
 		zoom = params.zoom ? 2
+		headingMode = params.heading ? GSVHyperlapseHeading.NORTH
+
+		# if heading == GSVHyperlapseHeading.LOOKAT
+		# 	laurl = params.lookat	
+
+		console.log headingMode, GSVHyperlapseHeading
+
+		# check headingMode
+		switch headingMode
+			when GSVHyperlapseHeading.FORWARD
+				if @panoList.length < 2
+					alert("cannot solve forward heading because pano length is less than 2.")
+					return
+
+			#when GSVHyperlapseHeading.LOOKAT
+
+
 
 		loader = new GSVPANO.PanoLoader
 			zoom: zoom
 
 		# add report
-		@report += 
-			"""
-			pano id ----------
-			#{JSON.stringify( (pano.id for pano in @panoList) )}
-			------------------
+		@report.panoIds = JSON.stringify( (pano.id for pano in @panoList) )
+		@report.panoList = JSON.stringify( @panoList )
 
-			details ----------
-			#{ @panoList.toJSON() }
-			------------------
-			"""
-
-		if @panoList.length == 0
-			_class.onMessage.call @, "there is no pano id"
-			return
-
+		# setup canvas
 		@tagCanvas = document.createElement('canvas')
 		@tagCanvas.width = loader.width
 		@tagCanvas.height = TAG_HEIGHT
@@ -350,7 +365,7 @@ class GSVHyperlapse
 			canvas: document.createElement('canvas')
 			fragment: document.getElementById("pano-rotation").textContent
 			variables:
-				rotation: 0.0
+				heading:  0.0
 				pitch: 0.0
 				original: loader.canvas
 				tag: @tagCanvas
@@ -371,6 +386,18 @@ class GSVHyperlapse
 				_class.onCancel.call @
 				return
 
+			# calc rotation
+			heading = @panoList[idx].rotation
+
+			switch headingMode
+				when GSVHyperlapseHeading.FORWARD
+					i = if idx == 0 then 1 else idx
+					heading += google.maps.geometry.spherical.computeHeading(
+						@panoList[i].latLng, @panoList[i-1].latLng )
+
+					console.log google.maps.geometry.spherical.computeHeading(
+						@panoList[i].latLng, @panoList[i-1].latLng )
+
 			# draw tag
 			@tagCtx.fillStyle = '#000000'
 			@tagCtx.fillRect(0, 0, @tagCanvas.width, @tagCanvas.height)
@@ -388,15 +415,16 @@ class GSVHyperlapse
 
 			cursor = 0
 			writeToTag("zoom",     "#{zoom}", cursor++ * 0xff, 18)
-			writeToTag("rot", 	   "#{@panoList[idx].rotation.toPrecision(17)}", cursor++ * 0xff, 18)
-			writeToTag("pitch",    "#{@panoList[idx].pitch.toPrecision(17)}", cursor++ * 0xff, 18)
+			writeToTag("o_r", 	   "#{@panoList[idx].rotation.toPrecision(17)}", cursor++ * 0xff, 18)
+			writeToTag("o_p",    "#{@panoList[idx].pitch.toPrecision(17)}", cursor++ * 0xff, 18)
 
 			# rotate texture
-			@glsl.set('rotation', @panoList[idx].rotation)
-			@glsl.set('pitch', @panoList[idx].pitch * -1)
+			@glsl.set('heading', heading.toRad())#@panoList[idx].rotation)
+			#@glsl.set('pitch', 0)#@panoList[idx].pitch * -1)
 			@glsl.syncAll()
 			@glsl.render()
 
+			# event
 			_class.onProgress.call @, idx, @panoList.length
 			_class.onPanoramaLoad.call @, idx, @glsl.canvas
 

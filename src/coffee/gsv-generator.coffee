@@ -104,37 +104,39 @@ create = ->
 
 	updateSettings()
 
-	# FILE.exists "#{settings.dir}/#{settings.name}", (flg) ->
-	# 	alert flg
+	FILE.exists "#{settings.dir}/#{settings.name}", (flg) ->
 
-	#return
+		if flg
+			alert 'destination folder is already exists.'
+			return
+		
 
-	index = tasks.length
+		index = tasks.length
 
-	$('.tasks').append("
-		<li id='task-#{index}'>
-			<h1><input type='text' name='name' value='#{settings.name}'></h1>
-			<button class='cancel action' data-index='#{index}'>Cancel</button>
-			<p>mode: #{settings.method}<br></p>
-			<div id='map-#{index}' style='width: 48%; height: 0; padding-top: 26%; background:gray; display: inline-block;'></div>
-		</li>
-	")
+		$('.tasks').append("
+			<li id='task-#{index}'>
+				<h1><input type='text' name='name' value='#{settings.name}'></h1>
+				<button class='cancel action' data-index='#{index}'>Cancel</button>
+				<p>mode: #{settings.method}<br></p>
+				<div id='map-#{index}' style='width: 48%; height: 0; padding-top: 26%; background:gray; display: inline-block;'></div>
+			</li>
+		")
 
-	hyperlapse = new GSVHyperlapse(settings.name, $("#map-#{index}")[0])
+		hyperlapse = new GSVHyperlapse(settings.name, $("#map-#{index}")[0])
 
-	if settings.method == 'direction'
-		hyperlapse.createFromDirection(settings.url, settings)
+		if settings.method == 'direction'
+			hyperlapse.createFromDirection(settings.url, settings)
 
-	else if settings.method == 'panoid'
-		list = $.parseJSON( $('#panoid').val() )
-		hyperlapse.createFromPanoId(list)
+		else if settings.method == 'panoid'
+			list = $.parseJSON( $('#panoid').val() )
+			hyperlapse.createFromPanoId(list)
 
-	$("#task-#{index} .cancel").on 'click', ->
-		index = $(@).attr('data-index')
-		tasks[index].cancel()
+		$("#task-#{index} .cancel").on 'click', ->
+			index = $(@).attr('data-index')
+			tasks[index].cancel()
 
 
-	tasks.push( hyperlapse )
+		tasks.push( hyperlapse )
 
 #------------------------------------------------------------
 onCancel = ->
@@ -166,7 +168,7 @@ onAnalyzeComplete = ->
 
 		@name = $elm.find('[name=name]').prop('disabled', true).val()
 
-		tasks[index].compose(settings.zoom)
+		tasks[index].compose(settings)
 
 		$elm.children('p').append( $btnGen );
 
@@ -174,12 +176,18 @@ onAnalyzeComplete = ->
 onComposeComplete = ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
+	$p = $elm.children('p')
 
-	path = "#{settings.dir}/#{@name}/_report.txt"
+	dir = "#{settings.dir}/#{@name}"	
 
-	FILE.saveText @report, path, (res) =>
-		$elm.children('p').append('<br>report saved')
-		console.log res
+	FILE.saveText @report.settings, "#{dir}/_report.txt", (res) =>
+		$p.append('report saved<br>')
+
+	FILE.saveText @report.panoIds, "#{dir}/_pano-ids.json", (res) =>
+		$p.append('pano-ids.json saved<br>')
+
+	FILE.saveText @report.panoList, "#{dir}/_pano-data.json", (res) =>
+		$p.append('pano-data.json saved<br>')
 
 #------------------------------------------------------------
 onProgress = (loaded, total) ->
@@ -208,9 +216,6 @@ onPanoramaLoad = (idx, canvas) ->
 	$elm = $("#task-#{index}")
 
 	$elm.append( canvas )
-
-	#FILE.saveFrame canvas, "#{settings.dir}/#{@name}/#{@name}_####.png", ->
-		
 
 	# save image
 	params =
