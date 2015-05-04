@@ -26,8 +26,6 @@ settings = {}
 
 storage = localStorage
 
-
-
 #------------------------------------------------------------
 # init
 
@@ -156,29 +154,27 @@ onCancel = ->
 onAnalyzeComplete = ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
-
-	console.log $elm.children("p")
+	$p = $elm.children('p')
 
 	$btnGen = $('<button>generate hyperlapse</button><br>');
 
 	$elm.children('p').append( $btnGen )
 
-	$btnGen.on 'click', ->
+	$btnGen.on 'click', =>
 		$elm.children('.control').remove()
+		@compose(settings)
 
-		@name = $elm.find('[name=name]').prop('disabled', true).val()
-
-		tasks[index].compose(settings)
-
-		$elm.children('p').append( $btnGen );
+		
 
 #------------------------------------------------------------
 onComposeComplete = ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
 	$p = $elm.children('p')
+	
+	@name = $elm.find('[name=name]').prop('disabled', true).val()
 
-	dir = "#{settings.dir}/#{@name}"	
+	dir = "#{settings.dir}/#{@name}"
 
 	FILE.saveText @report.settings, "#{dir}/_report.txt", (res) =>
 		$p.append('report saved<br>')

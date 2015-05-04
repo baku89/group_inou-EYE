@@ -47,6 +47,7 @@ class GSVHyperlapse
 	# static var
 	@dirService = new google.maps.DirectionsService({})
 	@dirRegex = /dir\/([0-9.-]*),([0-9.-]*)\/([0-9.-]*),([0-9.-]*)\/@([0-9.-]*),([0-9.-]*),([0-9]*)z\/data=(.*)$/
+	@
 	@dataRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/g
 	@dataLatLngRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/
 
@@ -343,7 +344,6 @@ class GSVHyperlapse
 				if @panoList.length < 2
 					alert("cannot solve forward heading because pano length is less than 2.")
 					return
-
 			#when GSVHyperlapseHeading.LOOKAT
 
 
@@ -387,16 +387,23 @@ class GSVHyperlapse
 				return
 
 			# calc rotation
-			heading = @panoList[idx].rotation
+			ajustHeading = @panoList[idx].rotation
+			ajustPitch = 0
+
+			heading = 0
 
 			switch headingMode
+				when GSVHyperlapseHeading.NORTH
+					heading = 0
+					console.log "north"
 				when GSVHyperlapseHeading.FORWARD
 					i = if idx == 0 then 1 else idx
-					heading += google.maps.geometry.spherical.computeHeading(
+					heading = google.maps.geometry.spherical.computeHeading(
 						@panoList[i].latLng, @panoList[i-1].latLng )
 
-					console.log google.maps.geometry.spherical.computeHeading(
-						@panoList[i].latLng, @panoList[i-1].latLng )
+			console.log heading
+
+			ajustHeading -= heading
 
 			# draw tag
 			@tagCtx.fillStyle = '#000000'
@@ -404,23 +411,25 @@ class GSVHyperlapse
 			@tagCtx.fillStyle = '#ffffff'
 			@tagCtx.font = '12px Arial'
 
+			console.log heading
+
 			cursor = 0
 
 			writeToTag("uid",     "#{@uniqueId}", cursor++ * 0xff, 36)	
 			writeToTag("panoid",  "#{@panoList[idx].id}", cursor++ * 0xff, 36)						
 			writeToTag("lat",     "#{@panoList[idx].latLng.lat().toPrecision(17)}", cursor++ * 0xff, 36)	
 			writeToTag("lng",     "#{@panoList[idx].latLng.lng().toPrecision(17)}", cursor++ * 0xff, 36)	
-			writeToTag("head",    "#{0}", cursor++ * 0xff, 36)							
+			writeToTag("head",    "#{heading.toPrecision(17)}", cursor++ * 0xff, 36)							
 			writeToTag("date",    "#{@panoList[idx].date}", cursor++ * 0xff, 36)	
 
 			cursor = 0
 			writeToTag("zoom",     "#{zoom}", cursor++ * 0xff, 18)
-			writeToTag("o_r", 	   "#{@panoList[idx].rotation.toPrecision(17)}", cursor++ * 0xff, 18)
-			writeToTag("o_p",    "#{@panoList[idx].pitch.toPrecision(17)}", cursor++ * 0xff, 18)
+			writeToTag("aj_h", 	   "#{ajustHeading.toPrecision(17)}", cursor++ * 0xff, 18)
+			writeToTag("aj_p",     "#{ajustPitch.toPrecision(17)}", cursor++ * 0xff, 18)
 
 			# rotate texture
-			@glsl.set('heading', heading.toRad())#@panoList[idx].rotation)
-			#@glsl.set('pitch', 0)#@panoList[idx].pitch * -1)
+			@glsl.set('heading', ajustHeading.toRad())
+			@glsl.set('pitch', 	 ajustPitch.toRad())
 			@glsl.syncAll()
 			@glsl.render()
 

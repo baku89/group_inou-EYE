@@ -87,7 +87,7 @@ button {
   letter-spacing: 0.05em;
 }
 button:active {
-  background: #4196DE;
+  backgrond: #4196DE;
 }
 
 input[type=text], input[type=number], input[type=url], textarea {
