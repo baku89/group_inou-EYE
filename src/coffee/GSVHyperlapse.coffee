@@ -4,10 +4,9 @@ Number.prototype.toDeg = () -> @ * 180 / Math.PI
 TAG_HEIGHT = 40
 
 GSVHyperlapseHeading =
-	FORWARD: "forward"
+	BACKWARD: "backward"
 	LOOKAT: "lookat"
 	NORTH: "north"
-
 
 pointOnLine = (t, a, b) ->
 	lat1 = a.lat().toRad()
@@ -47,9 +46,11 @@ class GSVHyperlapse
 	# static var
 	@dirService = new google.maps.DirectionsService({})
 	@dirRegex = /dir\/([0-9.-]*),([0-9.-]*)\/([0-9.-]*),([0-9.-]*)\/@([0-9.-]*),([0-9.-]*),([0-9]*)z\/data=(.*)$/
-	@
 	@dataRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/g
 	@dataLatLngRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/
+
+
+
 
 	# loader
 	@ldr = new GSVPANO.PanoLoader()
@@ -98,13 +99,30 @@ class GSVHyperlapse
 			date: res.imageDate
 		}
 
+	setParameters: (params) ->
+
+		@method 		= params.method
+		@travelMode 	= params.travelMode
+		@step 			= parseFloat(params.step)
+		@searchRadius	= parseFloat(params.searchRadius)
+		@headingMode	= params.headingMode
+		@zoom 			= params.zoom
+
+		# check headingMode
+		if @headingMode == GSVHyperlapseHeading.LOOKAT
+			result = /([0-9.]+), ([0-9.]+)/.exec( params.lookat )
+			if !(result?)
+				alert("lookat latLng cannot be parsed")
+				return
+			@lookat = new google.maps.LatLng( result[1], result[2] )
+
+		else if @haeadingMode == GSVHyperlapseHeading.BACKWARD
+				if @panoList.length < 2
+					alert("cannot solve backward heading because pano length is less than 2.")
+					return
 
 	# --------------------------------------------------------
-	createFromDirection: (url, args)->
-
-		travelMode 		= args.travelMode
-		step 			= parseFloat(args.step)
-		searchRadius	= parseFloat(args.searchRadius)
+	createFromDirection: (url)->
 
 		rawPts = []
 		routeRes = null
@@ -114,8 +132,8 @@ class GSVHyperlapse
 			"""
 			method: direction
 			url: #{url}
-			step: #{step}
-			searchRadius: #{searchRadius}
+			step: #{@step}
+			searchRadius: #{@searchRadius}
 			"""
 
 		# ===================================
@@ -179,7 +197,7 @@ class GSVHyperlapse
 			path = route.overview_path
 
 			# show info
-			_class.onMessage.call @, "path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{step}(m), search radius: #{searchRadius} (m)"
+			_class.onMessage.call @, "path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{@step}(m), search radius: #{@searchRadius} (m)"
 			
 
 			console.log path
@@ -197,7 +215,7 @@ class GSVHyperlapse
 				d = google.maps.geometry.spherical.computeDistanceBetween(a, b)
 
 				# offset -r
-				m = -r + step
+				m = -r + @step
 
 				if d < m
 					r += d
@@ -206,9 +224,9 @@ class GSVHyperlapse
 					while m < d
 						pt = getFollowedPath(m, a, b)
 						rawPts.push( pt )
-						m += step
+						m += @step
 
-					r = step - (m - d)
+					r = @step - (m - d)
 
 			# fit bound and add polyline
 			@map.fitBounds( route.bounds )
@@ -255,7 +273,7 @@ class GSVHyperlapse
 
 				if ++idx < rawPts.length
 					# next
-					@client.getPanoramaByLocation(rawPts[idx], searchRadius, onLoad)
+					@client.getPanoramaByLocation(rawPts[idx], @searchRadius, onLoad)
 				else
 					# end
 					console.log @panoList
@@ -267,7 +285,7 @@ class GSVHyperlapse
 			# init GSVPano
 			@bWaiting = true
 			prevId = ''
-			@client.getPanoramaByLocation(rawPts[idx], searchRadius, onLoad)
+			@client.getPanoramaByLocation(rawPts[idx], @searchRadius, onLoad)
 
 		# trigger
 		requestRoute()
@@ -281,6 +299,8 @@ class GSVHyperlapse
 			"""
 			method: panoid
 			"""
+
+		_class.onMessage.call @, "start compose<br>headingMode:#{@headingMode}"
 
 		onLoad = (res, status)=>
 			if idx == 0
@@ -324,32 +344,15 @@ class GSVHyperlapse
 		@client.getPanoramaById(list[idx], onLoad)
 
 	# --------------------------------------------------------
-	compose: (params)->
+	compose: ()->
 
 		if @panoList.length == 0
 			_class.onMessage.call @, "there is no pano id"
 			return
 
-		zoom = params.zoom ? 2
-		headingMode = params.heading ? GSVHyperlapseHeading.NORTH
-
-		# if heading == GSVHyperlapseHeading.LOOKAT
-		# 	laurl = params.lookat	
-
-		console.log headingMode, GSVHyperlapseHeading
-
-		# check headingMode
-		switch headingMode
-			when GSVHyperlapseHeading.FORWARD
-				if @panoList.length < 2
-					alert("cannot solve forward heading because pano length is less than 2.")
-					return
-			#when GSVHyperlapseHeading.LOOKAT
-
-
 
 		loader = new GSVPANO.PanoLoader
-			zoom: zoom
+			zoom: @zoom
 
 		# add report
 		@report.panoIds = JSON.stringify( (pano.id for pano in @panoList) )
@@ -392,14 +395,14 @@ class GSVHyperlapse
 
 			heading = 0
 
-			switch headingMode
-				when GSVHyperlapseHeading.NORTH
-					heading = 0
-					console.log "north"
-				when GSVHyperlapseHeading.FORWARD
-					i = if idx == 0 then 1 else idx
-					heading = google.maps.geometry.spherical.computeHeading(
-						@panoList[i].latLng, @panoList[i-1].latLng )
+			if @headingMode == GSVHyperlapseHeading.BACKWARD
+				i = if idx == 0 then 1 else idx
+				heading = google.maps.geometry.spherical.computeHeading(
+					@panoList[i].latLng, @panoList[i-1].latLng )
+
+			else if @headingMode == GSVHyperlapseHeading.LOOKAT
+				heading = google.maps.geometry.spherical.computeHeading(
+					@panoList[idx].latLng, @lookat)
 
 			console.log heading
 
@@ -423,7 +426,7 @@ class GSVHyperlapse
 			writeToTag("date",    "#{@panoList[idx].date}", cursor++ * 0xff, 36)	
 
 			cursor = 0
-			writeToTag("zoom",     "#{zoom}", cursor++ * 0xff, 18)
+			writeToTag("zoom",     "#{@zoom}", cursor++ * 0xff, 18)
 			writeToTag("aj_h", 	   "#{ajustHeading.toPrecision(17)}", cursor++ * 0xff, 18)
 			writeToTag("aj_p",     "#{ajustPitch.toPrecision(17)}", cursor++ * 0xff, 18)
 

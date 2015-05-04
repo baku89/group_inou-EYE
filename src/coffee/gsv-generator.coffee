@@ -40,7 +40,7 @@ restoreSettings = ->
 		$('#url').val( storage.url )
 		$('#panoid').val( storage.panoid )
 		$("input[value=#{storage.travelMode}]").prop('checked', true)
-		$("input[value=#{storage.heading}]").prop('checked', true)
+		$("input[value=#{storage.headingMode}]").prop('checked', true)
 		$('#lookat').val( storage.lookat )
 		$('#zoom').val( storage.zoom )
 		$('#step').val( storage.step )
@@ -67,7 +67,7 @@ updateSettings = ->
 	settings.url 	        = $('#url').val()
 	settings.panoid 		= $('#panoid').val()
 	settings.travelMode     = $('input[name=travel]:checked').val()
-	settings.heading        = $('input[name=heading]:checked').val()
+	settings.headingMode    = $('input[name=heading]:checked').val()
 	settings.lookat         = $('#lookat').val()
 	settings.zoom	        = $('#zoom').val()
 	settings.step	        = $('#step').val()
@@ -121,9 +121,10 @@ create = ->
 		")
 
 		hyperlapse = new GSVHyperlapse(settings.name, $("#map-#{index}")[0])
+		hyperlapse.setParameters(settings)
 
 		if settings.method == 'direction'
-			hyperlapse.createFromDirection(settings.url, settings)
+			hyperlapse.createFromDirection(settings.url)
 
 		else if settings.method == 'panoid'
 			list = $.parseJSON( $('#panoid').val() )
@@ -171,7 +172,7 @@ onComposeComplete = ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
 	$p = $elm.children('p')
-	
+
 	@name = $elm.find('[name=name]').prop('disabled', true).val()
 
 	dir = "#{settings.dir}/#{@name}"

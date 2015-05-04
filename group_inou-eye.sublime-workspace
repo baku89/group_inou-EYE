@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"GSVHyperlase",
+				"GSVHyperlapseHeading"
+			],
+			[
+				"GSVHy",
+				"GSVHyperlapseHeading"
+			],
+			[
 				"updat",
 				"updateStatus"
 			],
@@ -139,62 +147,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/coffee/pano-fs.coffee",
-			"settings":
-			{
-				"buffer_size": 944,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/coffee/panoid-parser.coffee",
-			"settings":
-			{
-				"buffer_size": 2958,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "group_inou-eye.sublime-project",
-			"settings":
-			{
-				"buffer_size": 146,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/mugi/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 474,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/coffee/GSVHyperlapse.coffee",
-			"settings":
-			{
-				"buffer_size": 9527,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/lib/GSVPano.js",
-			"settings":
-			{
-				"buffer_size": 3144,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/shader/pano-rotation.fs",
-			"settings":
-			{
-				"buffer_size": 1330,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -203,10 +155,26 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 67.0,
-		"last_filter": "terminal",
+		"height": 400.0,
+		"last_filter": "termn",
 		"selected_items":
 		[
+			[
+				"termn",
+				"Open in terminal"
+			],
+			[
+				"sass",
+				"Set Syntax: Sass"
+			],
+			[
+				"pretty",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"termina",
+				"Open in terminal"
+			],
 			[
 				"terminal",
 				"Open in terminal"
@@ -218,10 +186,6 @@
 			[
 				"open",
 				"Open in terminal"
-			],
-			[
-				"sass",
-				"Set Syntax: Sass"
 			],
 			[
 				"syntax:sass",
@@ -353,12 +317,29 @@
 	},
 	"expanded_folders":
 	[
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/assets"
+		"/Users/mugi/Works/2015/09_eye/0b"
 	],
 	"file_history":
 	[
+		"/Users/mugi/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/sass/simple-gui.sass",
+		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/GSVPano.js",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/gsv-generator.jade",
+		"/Users/mugi/Works/2015/09_eye/0b/src/js/lib/hyperlapse.min.js",
+		"/Users/mugi/Works/2015/09_eye/gsv-dev/cab/_pano-data.json",
+		"/Users/mugi/Works/2015/09_eye/0b/test.json",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/pano-fs.coffee",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
+		"/Users/mugi/Works/2015/09_eye/gsv-dev/bbbbb/_pano-data.json",
+		"/Users/mugi/Works/2015/09_eye/gsv-dev/bbbbb/_pano-ids.json",
+		"/Users/mugi/Works/2015/09_eye/0b/src/coffee/jquery.file.coffee",
+		"/Users/mugi/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/mugi/Works/2015/09_eye/gsv-dev/aaa/_pano-data.json",
+		"/Users/mugi/Works/2015/09_eye/gsv-dev/aaa/_pano-ids.json",
+		"/Users/mugi/Works/2015/09_eye/0b/group_inou-eye.sublime-project",
 		"/Users/mugi/Library/Caches/Cleanup At Startup/Transmit/F5F49A36-5EC9-4FC0-95BF-DFEAA9E914B5/form.js",
 		"/Users/mugi/Dropbox/Application/sublime Text 3/Installed Packages/Theme - Spacegray.sublime-package",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/pano-fs.jade",
@@ -467,26 +448,7 @@
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/data/0rQEWAxHv06hzjR1/db.json",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/hooker/lib/hooker.js",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/plugins/moment.min.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/flipcountdown.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/flipcountdown.min.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_flipcountdown.scss",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_form.scss",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/module/_datetimepicker.scss",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/dateformat/lib/dateformat.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/internal-tasks/subgrunt.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/internal-tasks/bump.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/node_modules/source-map/test/source-map/test-util.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/error.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/enter.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/minimatch/test/extglob-ending-with-state-char.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/findup-sync/node_modules/glob/test/new-glob-optional-options.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/template/flipcountdown.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/browserify-zlib/test/test-zlib-invalid-input.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/glob/test/nocase-nomagic.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/chalk/node_modules/.bin/has-ansi",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/appveyor.yml",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/lib/grunt/template.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/index.php"
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/tpl/flipcountdown.php"
 	],
 	"find":
 	{
@@ -515,6 +477,33 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"GSVHyperlapseHeading.backward",
+			"forward",
+			"headingMode",
+			"@report",
+			"zoom",
+			"headingMode",
+			"step",
+			"searchRadius",
+			"step",
+			"rotation",
+			"spheri",
+			"sphere",
+			"sphe",
+			"position.x",
+			"position",
+			"position.x",
+			"elevation",
+			"getElevation",
+			"elevation",
+			"loader.",
+			"elevation",
+			"tiles",
+			"originPitch",
+			"h_points",
+			".heading",
+			"origin",
+			"toJSON",
 			"pitch",
 			"origin",
 			"pitch",
@@ -615,34 +604,7 @@
 			".post--message__excerpt-text",
 			".animate",
 			".transition",
-			".animate",
-			"moment()",
-			"$errors",
-			"\"birthday",
-			"$thumb_image",
-			"imagecreatefrom",
-			"$error",
-			"portrait",
-			"portrait_flg",
-			"flg",
-			"post_failed_flg",
-			"$_POST",
-			"youtube",
-			"pass",
-			"user",
-			"$post[",
-			"<?php echo",
-			"user_token",
-			"$user->",
-			"$user",
-			"exit()",
-			"$user",
-			"$large_max_height",
-			"$large_max_width",
-			"$thumb_max_height",
-			"$thumb_max_width",
-			"is_portrait",
-			"$is_portrait"
+			".animate"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -650,6 +612,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"GSVHyperlapseHeading.BACKWARD",
+			"backward",
 			"@panoList",
 			"@zoom",
 			".transition",
@@ -736,652 +700,6 @@
 	"groups":
 	[
 		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "src/coffee/pano-fs.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 944,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								116,
-								116
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/coffee/panoid-parser.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2958,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								157,
-								157
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "group_inou-eye.sublime-project",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 146,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								121,
-								121
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"incomplete_sync": null,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/mugi/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 474,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								474,
-								474
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/coffee/GSVHyperlapse.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9527,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7005,
-								7005
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4481.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/js/lib/GSVPano.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3144,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1964,
-								1964
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 906.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 6,
-					"file": "src/shader/pano-rotation.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1330,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1147,
-								1147
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
-			]
-		},
-		{
 			"sheets":
 			[
 			]
@@ -1404,25 +722,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
-			],
-			[
-				2,
-				0,
-				3,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.373719505728,
-			0.745032615613,
 			1.0
 		],
 		"rows":
@@ -1462,12 +766,40 @@
 		"selected_items":
 		[
 			[
+				"jade",
+				"src/gsv-generator.jade"
+			],
+			[
+				"sass",
+				"src/sass/simple-gui.sass"
+			],
+			[
+				"gsv",
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
 				"gsvpano",
 				"src/js/lib/GSVPano.js"
 			],
 			[
+				"hyperlapse",
+				"src/js/lib/hyperlapse.min.js"
+			],
+			[
 				"",
-				"~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+				"src/js/lib/GSVPano.js"
+			],
+			[
+				"gsvhyper",
+				"src/coffee/GSVHyperlapse.coffee"
+			],
+			[
+				"test.j",
+				"test.json"
+			],
+			[
+				"gulpfile",
+				"gulpfile.coffee"
 			],
 			[
 				"gsvh",
@@ -1476,10 +808,6 @@
 			[
 				"panoid",
 				"src/coffee/panoid-parser.coffee"
-			],
-			[
-				"jade",
-				"src/gsv-generator.jade"
 			],
 			[
 				".fs",
@@ -1494,10 +822,6 @@
 				"src/pano-fs.jade"
 			],
 			[
-				"gsv",
-				"src/coffee/gsv-generator.coffee"
-			],
-			[
 				"gulp",
 				"gulpfile.coffee"
 			],
@@ -1506,16 +830,8 @@
 				"src/file/save.php"
 			],
 			[
-				"gulpfile",
-				"gulpfile.coffee"
-			],
-			[
 				"gs",
 				"src/gsv-generator.jade"
-			],
-			[
-				"sass",
-				"src/sass/simple-gui.sass"
 			],
 			[
 				"sip",
@@ -1547,10 +863,6 @@
 			],
 			[
 				"hyper",
-				"src/js/lib/hyperlapse.min.js"
-			],
-			[
-				"hyperlapse",
 				"src/js/lib/hyperlapse.min.js"
 			],
 			[
@@ -1994,7 +1306,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 203.0,
+	"side_bar_width": 96.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
