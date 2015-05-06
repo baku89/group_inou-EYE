@@ -6,6 +6,8 @@ DIST_BETWEEN_PTS = 5
 API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
 VERSION = '0.3'
 
+TAG_HEIGHT = 40
+
 #------------------------------------------------------------
 # variables
 loader = null
@@ -82,7 +84,7 @@ updateSettings = ->
 
 $ ->
 
-	canvas = $('#panorama')[0]
+	canvas = document.createElement('canvas')
 
 	$('#create').on 'click', create
 
@@ -161,11 +163,10 @@ onAnalyzeComplete = ->
 
 	$elm.children('p').append( $btnGen )
 
+	# on click "compose" button
 	$btnGen.on 'click', =>
 		$elm.children('.control').remove()
 		@compose(settings)
-
-		
 
 #------------------------------------------------------------
 onComposeComplete = ->
@@ -177,13 +178,26 @@ onComposeComplete = ->
 
 	dir = "#{settings.dir}/#{@name}"
 
-	FILE.saveText @report.settings, "#{dir}/_report.txt", (res) =>
+	if @method == GSVHyperlapseMethod.DIRECTION
+		txtReport = """
+					method: direction
+					url: #{@sourceUrl}
+					step: #{@step}
+					searchRadius: #{@searchRadius}
+					"""
+	else if @method = GSVHyperlapseMethod.PANOID 
+		txtReport = "method: panoid"
+
+	txtPanoIds = JSON.stringify( (pano.id for pano in @panoList) )
+	txtPanoList = JSON.stringify( @panoList )
+
+	FILE.saveText txtReport, "#{dir}/_report.txt", (res) =>
 		$p.append('report saved<br>')
 
-	FILE.saveText @report.panoIds, "#{dir}/_pano-ids.json", (res) =>
+	FILE.saveText txtPanoIds, "#{dir}/_pano-ids.json", (res) =>
 		$p.append('pano-ids.json saved<br>')
 
-	FILE.saveText @report.panoList, "#{dir}/_pano-data.json", (res) =>
+	FILE.saveText txtPanoList, "#{dir}/_pano-data.json", (res) =>
 		$p.append('pano-data.json saved<br>')
 
 #------------------------------------------------------------
@@ -208,11 +222,13 @@ onMessage = (message) ->
 	$elm.children('p').append( message + "<br>" )
 
 #------------------------------------------------------------
-onPanoramaLoad = (idx, canvas) ->
+onPanoramaLoad = (idx, pano, data) ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
 
-	$elm.append( canvas )
+	writeTag(canvas, pano, data, @)
+
+	$elm.append(canvas)
 
 	# save image
 	params =

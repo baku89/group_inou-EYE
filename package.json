@@ -28,6 +28,7 @@
     "gulp-util": "^3.0.4",
     "gulp-watch": "^4.1.1",
     "gulp-webserver": "^0.9.0",
-    "node-notifier": "^4.2.1"
+    "node-notifier": "^4.2.1",
+    "node-tesseract": "^0.2.6"
   }
 }

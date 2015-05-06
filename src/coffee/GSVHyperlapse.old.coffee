@@ -1,14 +1,12 @@
 Number.prototype.toRad = () -> @ * Math.PI / 180
 Number.prototype.toDeg = () -> @ * 180 / Math.PI
 
+TAG_HEIGHT = 40
+
 GSVHyperlapseHeading =
 	BACKWARD: "backward"
 	LOOKAT: "lookat"
 	NORTH: "north"
-
-GSVHyperlapseMethod = 
-	DRECTION: 'direction'
-	PANOID: 'panoid'
 
 pointOnLine = (t, a, b) ->
 	lat1 = a.lat().toRad()
@@ -51,6 +49,12 @@ class GSVHyperlapse
 	@dataRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/g
 	@dataLatLngRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/
 
+	# loader
+	@ldr = new GSVPANO.PanoLoader()
+	@ldrStack = []
+
+	_class = @
+
 	# event
 	@onError 			= (err) -> alert("error")
 	@onMessage			= () -> null
@@ -66,18 +70,20 @@ class GSVHyperlapse
 
 		@bCancel = false
 		@bWaiting = false
-		@uid = uniqueID()
+		@uniqueId = uniqueID()
 		@panoList = []
 		@client = new google.maps.StreetViewService()
 		@map = new google.maps.Map map,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 			zoom: 16
 
+		@report = {}
+
 	# methods
 	cancel: ->
 		@bCancel = true
 		if !@bWaiting
-			GSVHyperlapse.onCancel.call @
+			_class.onCancel.call @
 
 	# --------------------------------------------------------
 	# class method
@@ -118,14 +124,20 @@ class GSVHyperlapse
 		rawPts = []
 		routeRes = null
 		prevId = ''
-		@method = GSVHyperlapseMethod.DIRECTION
-		@sourceUrl = url
+
+		@report.settings =
+			"""
+			method: direction
+			url: #{url}
+			step: #{@step}
+			searchRadius: #{@searchRadius}
+			"""
 
 		# ===================================
 		# 1. request route
 		requestRoute = =>
 			# parse url
-			result = GSVHyperlapse.dirRegex.exec( url )
+			result = _class.dirRegex.exec( url )
 
 			if !result?
 				alert "cannot parse url"
@@ -164,27 +176,28 @@ class GSVHyperlapse
 					# next
 					subdivideRoute()
 				else
-					GSVHyperlapse.onMessage.call @, "cannot get route."
+					_class.onMessage.call @, "cannot get route."
 
 		# ===================================
 		# 2. subdivide route
 		subdivideRoute = () =>
 
 			if @bCancel
-				GSVHyperlapse.onCancel.call @
+				_class.onCancel.call @
 				return
 
-			GSVHyperlapse.onMessage.call @, "subdividing route.."
+			_class.onMessage.call @, "requesting route.."
+			_class.onMessage.call @, "analyzing route.."
 
 			# get points
 			route = routeRes.routes[0]
 			path = route.overview_path
 
 			# show info
-			GSVHyperlapse.onMessage.call @,
-				"path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), 
-				step: #{@step}(m), search radius: #{@searchRadius} (m)"
+			_class.onMessage.call @, "path length: #{parseInt(google.maps.geometry.spherical.computeLength(path))}(m), step: #{@step}(m), search radius: #{@searchRadius} (m)"
 			
+
+			console.log path
 
 			d = 0 # distance between a and b (m)
 			r = 0 # always must be < step
@@ -214,8 +227,15 @@ class GSVHyperlapse
 
 			# fit bound and add polyline
 			@map.fitBounds( route.bounds )
+			path = new google.maps.Polyline
+				path: path
+				geodesic: true
+				strokeColor: '#000000'
+				strokeOpacity: 1.0
+				strokeWeight: 2
+			path.setMap( @map )
 
-			GSVHyperlapse.onMessage.call @, "number of waypoints: #{rawPts.length}"
+			_class.onMessage.call @, "num of waypoints: #{rawPts.length}"
 
 			# next
 			retrivePanoData()
@@ -223,13 +243,13 @@ class GSVHyperlapse
 		# ===================================
 		# 3. retrive pano data and splice duplicated id
 		retrivePanoData = =>
-			GSVHyperlapse.onMessage.call @, "retriving pano id.."
+			_class.onMessage.call @, "retriving pano id.."
 
 			idx = 0
 
 			onLoad = (res, status) =>
 				if @bCancel
-					GSVHyperlapse.onCancel.call @
+					_class.onCancel.call @
 					return
 
 				if status == google.maps.StreetViewStatus.OK
@@ -246,7 +266,7 @@ class GSVHyperlapse
 						prevId = pano.id
 						console.log pano.id
 
-				GSVHyperlapse.onProgress.call @, idx, rawPts.length
+				_class.onProgress.call @, idx, rawPts.length
 
 				if ++idx < rawPts.length
 					# next
@@ -255,9 +275,9 @@ class GSVHyperlapse
 					# end
 					console.log @panoList
 					@bWaiting = false
-					GSVHyperlapse.onMessage.call @, "total pano id: #{@panoList.length}"
-					GSVHyperlapse.onProgress.call @, idx, rawPts.length
-					GSVHyperlapse.onAnalyzeComplete.call @
+					_class.onMessage.call @, "total pano id: #{@panoList.length}"
+					_class.onProgress.call @, idx, rawPts.length
+					_class.onAnalyzeComplete.call @
 
 			# init GSVPano
 			@bWaiting = true
@@ -272,16 +292,20 @@ class GSVHyperlapse
 
 		idx = 0
 
-		GSVHyperlapse.onMessage.call @, "start compose.."
-		GSVHyperlapse.onMessage.call @, "eadingMode:#{@headingMode}"
+		@report.settings =
+			"""
+			method: panoid
+			"""
+
+		_class.onMessage.call @, "start compose<br>headingMode:#{@headingMode}"
 
 		onLoad = (res, status)=>
 			if idx == 0
-				GSVHyperlapse.onMessage.call @, "analyzing.."	
+				_class.onMessage.call @, "analyzing.."	
 
 			if status == google.maps.StreetViewStatus.OK
 				if @bCancel
-					GSVHyperlapse.onCancel.call @
+					_class.onCancel.call @
 					return
 
 				pano = @createPanoData( res )
@@ -296,7 +320,7 @@ class GSVHyperlapse
 					map: @map
 					title: "#{idx}"
 
-				GSVHyperlapse.onProgress.call @, idx, list.length
+				_class.onProgress.call @, idx, list.length
 
 				if ++idx < list.length
 					# next
@@ -304,9 +328,9 @@ class GSVHyperlapse
 				else
 					# end
 					@bWaiting = false
-					GSVHyperlapse.onMessage.call @, "total pano id: #{@panoList.length}"
-					GSVHyperlapse.onProgress.call @, idx, list.length
-					GSVHyperlapse.onAnalyzeComplete.call @
+					_class.onMessage.call @, "total pano id: #{@panoList.length}"
+					_class.onProgress.call @, idx, list.length
+					_class.onAnalyzeComplete.call @
 			
 			else
 				alert "error on createFromPanoId() : #{status}"
@@ -320,15 +344,23 @@ class GSVHyperlapse
 	compose: ()->
 
 		if @panoList.length == 0
-			GSVHyperlapse.onMessage.call @, "there is no pano id."
+			_class.onMessage.call @, "there is no pano id"
 			return
+
 
 		loader = new GSVPANO.PanoLoader
 			zoom: @zoom
 
-		GSVHyperlapse.onMessage.call @, "composing panorama.. size:#{loader.width}x#{loader.height}"
+		# add report
+		@report.panoIds = JSON.stringify( (pano.id for pano in @panoList) )
+		@report.panoList = JSON.stringify( @panoList )
 
-		# setup glsl
+		# setup canvas
+		@tagCanvas = document.createElement('canvas')
+		@tagCanvas.width = loader.width
+		@tagCanvas.height = TAG_HEIGHT
+		@tagCtx	= @tagCanvas.getContext('2d')
+
 		@glsl = Glsl
 			canvas: document.createElement('canvas')
 			fragment: document.getElementById("pano-rotation").textContent
@@ -336,19 +368,29 @@ class GSVHyperlapse
 				heading:  0.0
 				pitch: 0.0
 				original: loader.canvas
+				tag: @tagCanvas
 
-		@glsl.setSize(loader.width, loader.height)
+		@glsl.setSize(loader.width, loader.height + TAG_HEIGHT)
+
+		_class.onMessage.call @, "composing panorama.. size:#{loader.width}x#{loader.height}"
+
+		writeToTag = (name, value, x, y) =>
+			@tagCtx.fillStyle = '#ffffff'
+			@tagCtx.fillText(value, x + 40, y)
+			@tagCtx.fillStyle = '#ff0000'
+			@tagCtx.fillText(name, x, y)
 
 		onCompose = =>
 
 			if @bCancel
-				GSVHyperlapse.onCancel.call @
+				_class.onCancel.call @
 				return
 
 			# calc rotation
-			heading = 0
 			ajustHeading = @panoList[idx].rotation
 			ajustPitch = 0
+
+			heading = 0
 
 			if @headingMode == GSVHyperlapseHeading.BACKWARD
 				i = if idx == 0 then 1 else idx
@@ -359,7 +401,31 @@ class GSVHyperlapse
 				heading = google.maps.geometry.spherical.computeHeading(
 					@panoList[idx].latLng, @lookat)
 
+			console.log heading
+
 			ajustHeading -= heading
+
+			# draw tag
+			@tagCtx.fillStyle = '#000000'
+			@tagCtx.fillRect(0, 0, @tagCanvas.width, @tagCanvas.height)
+			@tagCtx.fillStyle = '#ffffff'
+			@tagCtx.font = '12px Arial'
+
+			console.log heading
+
+			cursor = 0
+
+			writeToTag("uid",     "#{@uniqueId}", cursor++ * 0xff, 36)	
+			writeToTag("panoid",  "#{@panoList[idx].id}", cursor++ * 0xff, 36)						
+			writeToTag("lat",     "#{@panoList[idx].latLng.lat().toPrecision(17)}", cursor++ * 0xff, 36)	
+			writeToTag("lng",     "#{@panoList[idx].latLng.lng().toPrecision(17)}", cursor++ * 0xff, 36)	
+			writeToTag("head",    "#{heading.toPrecision(17)}", cursor++ * 0xff, 36)							
+			writeToTag("date",    "#{@panoList[idx].date}", cursor++ * 0xff, 36)	
+
+			cursor = 0
+			writeToTag("zoom",     "#{@zoom}", cursor++ * 0xff, 18)
+			writeToTag("aj_h", 	   "#{ajustHeading.toPrecision(17)}", cursor++ * 0xff, 18)
+			writeToTag("aj_p",     "#{ajustPitch.toPrecision(17)}", cursor++ * 0xff, 18)
 
 			# rotate texture
 			@glsl.set('heading', ajustHeading.toRad())
@@ -368,27 +434,20 @@ class GSVHyperlapse
 			@glsl.render()
 
 			# event
-			data =
-				id: @panoList[idx].id
-				latLng: @panoList[idx].latLng
-				heading: heading
-				ajustHeading: ajustHeading
-				ajustPitch: ajustPitch
-			
-			GSVHyperlapse.onProgress.call @, idx, @panoList.length
-			GSVHyperlapse.onPanoramaLoad.call @, idx, @glsl.canvas, data
+			_class.onProgress.call @, idx, @panoList.length
+			_class.onPanoramaLoad.call @, idx, @glsl.canvas
 
-			# next
 			if ++idx < @panoList.length
+				# next frame
 				setTimeout =>
 					loader.composePanorama( @panoList[idx].id )
 				, 100
 			else
 				@bWaiting = false
 				console.log "complete"
-				GSVHyperlapse.onProgress.call @, idx, @panoList.length
-				GSVHyperlapse.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
-				GSVHyperlapse.onComposeComplete.call @
+				_class.onProgress.call @, idx, @panoList.length
+				_class.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
+				_class.onComposeComplete.call @
 
 		# trigger
 		loader.onPanoramaLoad = onCompose

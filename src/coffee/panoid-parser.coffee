@@ -18,13 +18,17 @@ list = []
 # jq
 $status = null
 $autosearch = null
+$addList = null
 
 prevId = ''
 
 cntMarker = null
 
-# bUndo = false
 bLinkUpdate = false
+
+prevDate = null
+
+service = new google.maps.StreetViewService()
 
 
 
@@ -35,30 +39,33 @@ restoreSettings = ->
 	$elm = $('nav')
 
 	$('[name=url]').val storage['pip-url']
-	$('[name=autosearch').val storage['pip-autosearch']
+	$('[name=addlist]').prop('checked', storage['pip-addlist'])
+	$('[name=autosearch').prop('checked', storage['pip-autosearch'])
 
-	
 
 updateSettings = ->
 	$elm = $('#nav')
-	$autosearch = $('[name=autosearch')
 
 	settings.url = $('[name=url]').val()
+	settings.addlist = $('[name=addlist]').prop('checked')
 	settings.autosearch = $('[name=autosearch]').prop('checked')
 
 	for key, val of settings
 		storage["#{SUFFIX}-#{key}"] = val
+
+	console.log storage
 
 #------------------------------------------------------------
 # init
 
 $ ->
 	$status = $('#status')
+	$autosearch = $('[name=autosearch')
+	$addList = $('[name=addlist]')
 
 	$('#laod').on 'click', load
 	$('#clear').on 'click', clear
 	$('#export').on 'click', exportJson
-	$('#undo').on 'click', undo
 	$('input, textarea').on 'change', updateSettings
 
 	restoreSettings()
@@ -71,6 +78,7 @@ $ ->
 
 	options =
 		enableCloseButton: false
+		imageDateControl: true
 
 	svp = new google.maps.StreetViewPanorama( $('#svp')[0], options )
 
@@ -78,8 +86,6 @@ $ ->
 		map: map
 		icon: 'http://www.googlemapsmarkers.com/v1/009900'
 
-	google.maps.event.addListener(svp, 'pano_changed', onChangePanoId)
-	google.maps.event.addListener(svp, 'position_changed', onPositionChanged)
 	google.maps.event.addListener(svp, 'links_changed', onLinksChanged)
 
 #------------------------------------------------------------
@@ -104,30 +110,12 @@ load = ->
 	svp.setPano( panoId )
 
 
-undo = ->
-	null
-	# list.pop()
-	# svp.setPano( list[ list.length - 1 ] )
-
-	# if $autosearch.prop('checked')
-	# 	$autosearch.prop('checked', false)
-
-	# updateStatus()
-
-
 updateStatus = ->
 	$status.html("count: #{list.length}<br>duration: #{(list.length / FPS).toPrecision(2)}")
 
 
 #------------------------------------------------------------
 # evt
-
-onChangePanoId = ->
-	return null
-
-
-onPositionChanged = ->
-	return null
 
 onLinksChanged = ->
 
@@ -144,31 +132,49 @@ onLinksChanged = ->
 
 	pos = svp.getPosition()
 	id = svp.getPano()
-	list.push( id )
 
-	# add marker
-	marker = new google.maps.Marker
-		position: pos
-		map: map
-		title: "#{list.length - 1}"
-	map.setCenter( pos )
+	service.getPanoramaById id, (data, status) =>
 
-	cntMarker.setPosition( pos )
+		if status != google.maps.StreetViewStatus.OK 
+			alert('cannot retrive pano id')
+			return
 
-	updateStatus()
+		date = data.imageDate
 
+		console.log date
 
-	# autoserach
-	nextId = undefined
+		if prevDate? && date != prevDate
+			if !confirm('imageDate changed. continue?')
+				prevDate = date
+				return
 
-	if $autosearch.prop('checked')
-		if links.length == 1
-			nextId = links[0].pano
+		prevDate = date
 
-	prevId = svp.getPano()
-	# bUndo = false
+		map.setCenter( pos )
+		cntMarker.setPosition( pos )
 
-	if nextId?
-		svp.setPano( nextId )
+		# add marker
+		if $addList.prop('checked')
+
+			list.push( id )
+
+			marker = new google.maps.Marker
+				position: pos
+				map: map
+				title: "#{list.length - 1}"
+
+			updateStatus()
+
+		# autoserach
+		nextId = undefined
+
+		if $autosearch.prop('checked')
+			if links.length == 1
+				nextId = links[0].pano
+
+		prevId = svp.getPano()
+
+		if nextId?
+			svp.setPano( nextId )
 
 
