@@ -100,17 +100,17 @@ class GSVHyperlapse
 		@zoom 			= params.zoom
 
 		# check headingMode
-		if @headingMode == GSVHyperlapseHeading.LOOKAT
-			result = /([0-9.]+), ([0-9.]+)/.exec( params.lookat )
-			if !(result?)
-				alert("lookat latLng cannot be parsed")
-				return
-			@lookat = new google.maps.LatLng( result[1], result[2] )
+		# if @headingMode == GSVHyperlapseHeading.LOOKAT
+		# 	result = /([0-9.]+), ([0-9.]+)/.exec( params.lookat )
+		# 	if !(result?)
+		# 		alert("lookat latLng cannot be parsed")
+		# 		return
+		# 	@lookat = new google.maps.LatLng( result[1], result[2] )
 
-		else if @haeadingMode == GSVHyperlapseHeading.BACKWARD
-				if @panoList.length < 2
-					alert("cannot solve backward heading because pano length is less than 2.")
-					return
+		# else if @haeadingMode == GSVHyperlapseHeading.BACKWARD
+		# 		if @panoList.length < 2
+		# 			alert("cannot solve backward heading because pano length is less than 2.")
+		# 			return
 
 	# --------------------------------------------------------
 	createFromDirection: (url)->
@@ -234,7 +234,8 @@ class GSVHyperlapse
 
 				if status == google.maps.StreetViewStatus.OK
 
-					pano = @createPanoData( res )
+
+					pano = @createPanoData(res)
 
 					if pano.id != prevId
 						@panoList.push( pano )
@@ -244,7 +245,6 @@ class GSVHyperlapse
 							title: "#{idx}"
 
 						prevId = pano.id
-						console.log pano.id
 
 				GSVHyperlapse.onProgress.call @, idx, rawPts.length
 
@@ -328,6 +328,11 @@ class GSVHyperlapse
 
 		GSVHyperlapse.onMessage.call @, "composing panorama.. size:#{loader.width}x#{loader.height}"
 
+		if @headingMode == GSVHyperlapseHeading.BACKWARD
+			if @panoList.length < 2
+				alert "pano id's length must be 2 at least"
+				return
+
 		# setup glsl
 		@glsl = Glsl
 			canvas: document.createElement('canvas')
@@ -346,20 +351,21 @@ class GSVHyperlapse
 				return
 
 			# calc rotation
-			heading = 0
-			ajustHeading = @panoList[idx].rotation
+			if !(@panoList[idx].heading?)
+				h = 0
+				if @headingMode == GSVHyperlapseHeading.BACKWARD
+					i = if idx == 0 then 1 else idx
+					h = google.maps.geometry.spherical.computeHeading(
+						@panoList[i].latLng, @panoList[i-1].latLng )
+
+				else if @headingMode == GSVHyperlapseHeading.LOOKAT
+					h = google.maps.geometry.spherical.computeHeading(
+						@panoList[idx].latLng, @lookat)
+
+				@panoList[idx].heading = h
+
+			ajustHeading = @panoList[idx].rotation - @panoList[idx].heading
 			ajustPitch = 0
-
-			if @headingMode == GSVHyperlapseHeading.BACKWARD
-				i = if idx == 0 then 1 else idx
-				heading = google.maps.geometry.spherical.computeHeading(
-					@panoList[i].latLng, @panoList[i-1].latLng )
-
-			else if @headingMode == GSVHyperlapseHeading.LOOKAT
-				heading = google.maps.geometry.spherical.computeHeading(
-					@panoList[idx].latLng, @lookat)
-
-			ajustHeading -= heading
 
 			# rotate texture
 			@glsl.set('heading', ajustHeading.toRad())
@@ -368,12 +374,7 @@ class GSVHyperlapse
 			@glsl.render()
 
 			# event
-			data =
-				id: @panoList[idx].id
-				latLng: @panoList[idx].latLng
-				heading: heading
-				ajustHeading: ajustHeading
-				ajustPitch: ajustPitch
+			data = @panoList[idx]
 			
 			GSVHyperlapse.onProgress.call @, idx, @panoList.length
 			GSVHyperlapse.onPanoramaLoad.call @, idx, @glsl.canvas, data

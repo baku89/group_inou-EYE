@@ -6,7 +6,9 @@ DIST_BETWEEN_PTS = 5
 API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
 VERSION = '0.3'
 
-TAG_HEIGHT = 40
+TAG_HEIGHT = 40.0
+PROXY_HEIGHT = 832.0
+V_SCALE = (TAG_HEIGHT + PROXY_HEIGHT) / PROXY_HEIGHT
 
 #------------------------------------------------------------
 # variables
@@ -226,7 +228,24 @@ onPanoramaLoad = (idx, pano, data) ->
 	index = tasks.indexOf( @ )
 	$elm = $("#task-#{index}")
 
-	writeTag(canvas, pano, data, @)
+	canvas.width = pano.width
+	canvas.height = pano.height * V_SCALE
+
+	ctx = canvas.getContext('2d')
+	ctx.fillStyle = '#000000'
+	ctx.fillRect(0, 0, canvas.width, canvas.height)
+	ctx.drawImage(pano, 0, 0)
+
+	tag =
+		uid: @uid
+		id: data.id
+		heading: data.heading
+		rotation: data.rotation
+		pitch: data.pitch
+		date: data.date
+		latLng: data.latLng.toString()
+
+	CanvasMatrixCode.draw(canvas, tag, 0, pano.height + 10, canvas.width, TAG_HEIGHT - 10)
 
 	$elm.append(canvas)
 

@@ -1,0 +1,27 @@
+#! /bin/sh
+
+set -e
+
+. ${srcdir}/common
+
+export PKG_CONFIG_SYSROOT_DIR=/sysroot
+
+RESULT=""
+run_test --cflags simple
+
+RESULT="-lsimple"
+if [ "$list_indirect_deps" = no ]; then
+    run_test --libs simple
+fi
+
+RESULT="-lsimple -lm"
+if [ "$list_indirect_deps" = yes ]; then
+    run_test --libs simple
+fi
+run_test --libs --static simple
+
+RESULT="-I/sysroot/public-dep/include"
+run_test --cflags public-dep
+
+RESULT="-L/sysroot/public-dep/lib -lpublic-dep"
+run_test --libs public-dep

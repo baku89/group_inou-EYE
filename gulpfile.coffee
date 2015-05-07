@@ -6,9 +6,9 @@ compass	= require 'gulp-compass'
 jade	= require 'gulp-jade'
 plumber = require 'gulp-plumber'
 srcmap 	= require 'gulp-sourcemaps'
-connect = require 'gulp-connect-php'
 util	= require 'gulp-util'
 notify 	= require 'gulp-notify'
+# run		= require 'gulp-run'
 
 # not gulp package
 bsync	= require 'browser-sync'
@@ -47,21 +47,19 @@ gulp.task 'compass', ->
 		.pipe compass compassArgs
 		.pipe gulp.dest 'public/css'
 
-gulp.task 'clean'
-
 reload = bsync.reload
 
 gulp.task 'bsync', [], ->
 	bsync
-		#proxy: 'localhost:8080'
 		proxy: 'gi-eye.local:8080'
 		port: 8080
-		open: 'gsv-generator.html'
 		notify: false
 
 gulp.task 'copy', ->
+	gulp.src 'src/package.json'
+		.pipe gulp.dest 'public'
 	gulp.src 'src/*.php'
-		.pipe gulp.dest 'public/'
+		.pipe gulp.dest 'public'
 	gulp.src 'src/file/*.php'
 		.pipe gulp.dest 'public/file'
 	gulp.src 'src/assets/**'
@@ -69,12 +67,9 @@ gulp.task 'copy', ->
 	gulp.src 'src/js/lib/*.js'
 		.pipe gulp.dest 'public/js/lib'
 
-gulp.task 'clean',
-	null
-
 #----------------------------------------
-gulp.task 'default', ['bsync', 'clean', 'jade', 'coffee', 'compass', 'copy'], ->
+gulp.task 'default', ['jade', 'coffee', 'compass', 'copy', 'bsync'], ->
 	gulp.watch ['src/*.jade', 'src/shader/**'], ['jade', reload]
 	gulp.watch 'src/coffee/*.coffee', ['coffee', reload]
 	gulp.watch 'src/sass/*.sass', ['compass', reload]
-	gulp.watch ['src/*.php', 'src/file/*.php', 'src/assets/**', 'src/js/lib/*.js'], ['copy', reload]
+	gulp.watch ['src/package.json', 'src/*.php', 'src/file/*.php', 'src/assets/**', 'src/js/lib/*.js'], ['copy', reload]

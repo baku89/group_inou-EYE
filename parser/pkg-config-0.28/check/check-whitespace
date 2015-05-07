@@ -1,0 +1,13 @@
+#! /bin/sh
+
+set -e
+
+. ${srcdir}/common
+
+# expect cflags from whitespace
+RESULT='-Dlala=misc -I/usr/white\ space/include -I$(top_builddir) -Iinclude\ dir -Iother\ include\ dir'
+run_test --cflags whitespace
+
+# expect libs from whitespace
+RESULT="-L/usr/white\\ space/lib -lfoo\\ bar -lbar\\ baz -r:foo"
+run_test --libs whitespace

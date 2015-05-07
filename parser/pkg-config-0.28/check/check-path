@@ -1,0 +1,22 @@
+#! /bin/sh
+
+set -e
+. ${srcdir}/common
+
+# PKG_CONFIG_PATH
+RESULT=""
+PKG_CONFIG_PATH="$srcdir/sub" run_test --exists sub1
+
+# default pkg-config path, making sure to resolve the variables fully
+eval pc_path="$pc_path"
+case ${MACHTYPE} in
+*-msys)
+    # Make sure path doesn't get mangled on MSYS
+    RESULT=$(echo $pc_path | sed 's,/,\\/,g')
+    ;;
+*)
+    RESULT=$pc_path
+    ;;
+esac
+unset PKG_CONFIG_LIBDIR
+run_test --variable=pc_path pkg-config

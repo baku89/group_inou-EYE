@@ -1,0 +1,23 @@
+doctype html
+html
+	head
+		title Replace Proxy
+
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='js/canvas-matrix-code.js')
+		script(src='js/replace-proxy.js')
+
+
+	body
+		h1 Replace Proxy
+
+		dl
+			dt Source
+			dd
+				input(id="source", type="file", webkitdirectory)
+
+		button(id="decode") Decode
+
+		hr 
+
+		canvas(id="pv", style="transform:scale(0.3);transform-origin:0 0;")
