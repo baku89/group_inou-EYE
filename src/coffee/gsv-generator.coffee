@@ -33,59 +33,20 @@ storage = localStorage
 #------------------------------------------------------------
 # init
 
-restoreSettings = ->
-	$elm = $('nav')
-
-	if storage.version == VERSION
-		# restore all settings
-		$('#name').val( storage.name )
-		$('#dir').val( storage.dir )
-		$("input[value=#{storage.method}]").prop('checked', true)
-		$('#url').val( storage.url )
-		$('#panoid').val( storage.panoid )
-		$("input[value=#{storage.travelMode}]").prop('checked', true)
-		$("input[value=#{storage.headingMode}]").prop('checked', true)
-		$('#lookat').val( storage.lookat )
-		$('#zoom').val( storage.zoom )
-		$('#step').val( storage.step )
-		$('#search-radius').val( storage.searchRadius )
-
-	$elm.find('[data-parent]').each ->
-
-		$this = $(@)
-		$parent = $( $this.attr('data-parent') )
-		name = $parent.attr('name')
-
-		$("[name=#{name}").on 'change', =>
-			$(@).toggle( $parent.prop('checked') )
-		.trigger('change')
-
 
 #------------------------------------------------------------
 # functions
 
 updateSettings = ->
-	settings.name 	        = $('#name').val()
-	settings.dir 	        = $('#dir').val()
-	settings.method			= $('input[name=method]:checked').val()
-	settings.url 	        = $('#url').val()
-	settings.panoid 		= $('#panoid').val()
-	settings.travelMode     = $('input[name=travel]:checked').val()
-	settings.headingMode    = $('input[name=heading]:checked').val()
-	settings.lookat         = $('#lookat').val()
-	settings.zoom	        = $('#zoom').val()
-	settings.step	        = $('#step').val()
-	settings.searchRadius	= $('#search-radius').val()
-	settings.version 		= VERSION
-
-	# save to web storage
-	$.extend(storage, settings)
+	$('#gsv-generator').find('input, textarea').each ->
+		settings[this.name] = $(this).val()
 
 #------------------------------------------------------------
 # on load
 
-$ ->
+sisyphus = null
 
+$ ->
 	canvas = document.createElement('canvas')
 
 	$('#create').on 'click', create
@@ -97,12 +58,21 @@ $ ->
 	GSVHyperlapse.onComposeComplete = onComposeComplete
 	GSVHyperlapse.onCancel = onCancel
 
-	restoreSettings()
+	sisyphus = $('#gsv-generator').sisyphus()
 
-	$('input').on 'change', updateSettings
+	$('#gsv-generator').find('[data-parent]').each ->
+
+		$this = $(@)
+		$parent = $( $this.attr('data-parent') )
+		name = $parent.attr('name')
+
+		$("[name=#{name}").on 'change', =>
+			$(@).toggle( $parent.prop('checked') )
+		.trigger('change')
 
 #------------------------------------------------------------
-create = ->
+create = (e)->
+	e.preventDefault()
 
 	updateSettings()
 
@@ -111,7 +81,6 @@ create = ->
 		if flg
 			alert 'destination folder is already exists.'
 			return
-		
 
 		index = tasks.length
 
@@ -128,16 +97,15 @@ create = ->
 		hyperlapse.setParameters(settings)
 
 		if settings.method == 'direction'
-			hyperlapse.createFromDirection(settings.url)
+			hyperlapse.createFromDirection( settings.url )
 
 		else if settings.method == 'panoid'
-			list = $.parseJSON( $('#panoid').val() )
+			list = $.parseJSON( settings.panoid )
 			hyperlapse.createFromPanoId(list)
 
 		$("#task-#{index} .cancel").on 'click', ->
 			index = $(@).attr('data-index')
 			tasks[index].cancel()
-
 
 		tasks.push( hyperlapse )
 

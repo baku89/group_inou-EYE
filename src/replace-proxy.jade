@@ -4,6 +4,7 @@ html
 		title Replace Proxy
 
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='js/lib/sisyphus.js')
 		script(src='js/canvas-matrix-code.js')
 		script(src='js/replace-proxy.js')
 
@@ -11,10 +12,12 @@ html
 	body
 		h1 Replace Proxy
 
-		dl
+		dl#replace-proxy
 			dt Source
 			dd
-				input(id="source", type="file", webkitdirectory)
+				input(name="file" type="file", webkitdirectory)
+				br
+				input(name="source" type="text")
 
 		button(id="decode") Decode
 

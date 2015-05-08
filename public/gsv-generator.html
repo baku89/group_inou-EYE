@@ -5,17 +5,14 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
-    <script src="js/common.js"></script>
+    <script src="js/lib/sisyphus/sisyphus.js"></script>
+    <script src="js/lib/encoding-indexes.js"></script>
+    <script src="js/lib/encoding.js"></script>
     <script src="js/lib/GSVPano.js"></script>
     <script src="js/lib/glsl.min.js"></script>
-<<<<<<< Updated upstream
-    <script src="js/lib/base64-arraybuffer.js"></script>
-=======
     <script src="js/common.js"></script>
->>>>>>> Stashed changes
     <script src="js/jquery.file.js"></script>
     <script src="js/GSVHyperlapse.js"></script>
-    <!--script(src='js/write-tag.js')-->
     <script src="js/canvas-matrix-code.js"></script>
     <script src="js/gsv-generator.js"></script>
     <link rel="stylesheet" href="css/simple-gui.css">
@@ -84,67 +81,67 @@ void main (void) {
     </script>
   </head>
   <body>
-    <nav> 
+    <nav id="gsv-generator">
       <h1>GSV Generator</h1>
       <dl>
         <dt>name</dt>
         <dd>
-          <input id="name" type="text" value="island">
+          <input name="name" type="text" value="island">
         </dd>
         <dt>exporting dir (rel)</dt>
         <dd>
-          <input id="dir" type="text" value="../../gsv">
+          <input name="dir" type="text" value="../../gsv">
         </dd>
         <dt>heading</dt>
         <dd>
-          <input id="heading-1" type="radio" name="heading" value="backward">
+          <input id="heading-1" name="heading" type="radio" value="backward">
           <label for="heading-1">backward </label><br>
-          <input id="heading-2" type="radio" name="heading" value="lookat">
+          <input id="heading-2" name="heading" type="radio" value="lookat">
           <label for="heading-2">lookat</label><br>
-          <input id="heading-3" type="radio" name="heading" value="north" checked>
+          <input id="heading-3" name="heading" type="radio" value="north" checked>
           <label for="heading-3">north</label><br>
         </dd>
         <dt data-parent="#heading-2">lookat (lat, lng)</dt>
         <dd data-parent="#heading-2">
-          <input id="lookat" type="text">
+          <input name="lookat" type="text">
         </dd>
         <dt>zoom(proxy=2, rendring=6)</dt>
         <dd>
-          <input id="zoom" type="number" value="2">
+          <input name="zoom" type="number" value="2" disabled>
         </dd>
         <dt>method</dt>
         <dd>
-          <input id="method-1" type="radio" name="method" value="direction" checked>
+          <input id="method-1" name="method" type="radio" value="direction" checked>
           <label for="method-1">direction</label>
-          <input id="method-2" type="radio" name="method" value="panoid">
+          <input id="method-2" name="method" type="radio" value="panoid">
           <label for="method-2">pano id json</label>
         </dd>
       </dl>
       <dl data-parent="#method-1" style="background:#bdd;">
         <dt>direction url</dt>
         <dd>
-          <input id="url" type="url" value="https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2">
+          <input name="url" type="url" value="https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2">
         </dd>
         <dt>travel mode</dt>
         <dd>
-          <input id="travel-1" type="radio" name="travel" value="DRIVING" checked>
+          <input name="travel" type="radio" value="DRIVING" checked>
           <label for="travel-1">driving</label>
-          <input id="travel-2" type="radio" name="travel" value="WALKING">
+          <input name="travel" type="radio" value="WALKING">
           <label for="travel-2">walking</label>
         </dd>
         <dt>step(m)</dt>
         <dd>
-          <input id="step" type="number" value="10">
+          <input name="step" type="number" value="10">
         </dd>
         <dt>sv search radius(m)</dt>
         <dd>
-          <input id="search-radius" type="number" value="5">
+          <input name="searchRadius" type="number" value="5">
         </dd>
       </dl>
       <dl data-parent="#method-2" style="background:#dbd;">
         <dt>pano id</dt>
         <dd><a href="panoid-parser.html">pano id parser</a><br>
-          <textarea id="panoid"></textarea>
+          <textarea name="panoid"></textarea>
         </dd>
       </dl>
       <button id="create">create</button>

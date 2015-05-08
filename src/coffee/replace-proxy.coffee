@@ -1,7 +1,6 @@
 fs 		= require 'fs'
 gui 	= require 'nw.gui'
 
-
 #------------------------------------------------------------
 # window setup
 
@@ -17,21 +16,31 @@ catch err
 #------------------------------------------------------------
 
 img = new Image()
-
 panoIds = []
-
 canvas = ctx = null
 
+sisyphus = null
+
+
 $ ->
+	sisyphus = $('#replace-proxy').sisyphus()
+
 	canvas = $('#pv')[0]
 	ctx = canvas.getContext('2d')
 
 	$('#decode').on 'click', decode
 
+	$('[name=file]').on 'change', ->
+		$('[name=source]')
+			.val( $('[name=file]').val() )
+		sisyphus.saveAllData()
+
+
+
 
 #------------------------------------------------------------
 decode = ->
-	srcDir = $('#source').val()
+	srcDir = $('[name=source]').val()
 
 	if srcDir == ""
 		alert "please select source directory"

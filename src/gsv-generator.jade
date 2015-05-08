@@ -7,17 +7,14 @@ html
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
 
-		script(src='js/common.js')
+		script(src='js/lib/sisyphus/sisyphus.js')
+		script(src='js/lib/encoding-indexes.js')
+		script(src='js/lib/encoding.js')
 		script(src='js/lib/GSVPano.js')
 		script(src='js/lib/glsl.min.js')
-<<<<<<< Updated upstream
-		script(src='js/lib/base64-arraybuffer.js')
-=======
 		script(src='js/common.js')
->>>>>>> Stashed changes
 		script(src='js/jquery.file.js')
 		script(src='js/GSVHyperlapse.js')
-		//script(src='js/write-tag.js')
 		script(src='js/canvas-matrix-code.js')
 		script(src='js/gsv-generator.js')
 
@@ -26,69 +23,69 @@ html
 			include shader/pano-rotation.fs
 
 	body
-		nav 
+		nav#gsv-generator
 			h1 GSV Generator
 
 			dl
 				dt name
 				dd
-					input#name(type='text' value='island')
+					input(name='name' type='text' value='island')
 
 				dt exporting dir (rel)
 				dd
-					input#dir(type='text', value='../../gsv')
+					input(name='dir' type='text' value='../../gsv')
 
 				dt heading
 				dd
-					input#heading-1(type='radio', name='heading', value='backward')
+					input#heading-1(name='heading' type='radio' value='backward')
 					label(for='heading-1') backward 
 					br
 
-					input#heading-2(type='radio', name='heading', value='lookat')
+					input#heading-2(name='heading' type='radio' value='lookat')
 					label(for='heading-2') lookat
 					br
 
-					input#heading-3(type='radio', name='heading', value='north', checked)
+					input#heading-3(name='heading' type='radio' value='north' checked)
 					label(for='heading-3') north
 					br
 
 				dt(data-parent='#heading-2') lookat (lat, lng)
 				dd(data-parent='#heading-2')
-					input#lookat(type='text')
+					input(name='lookat' type='text')
 
 				dt zoom(proxy=2, rendring=6)
 				dd
-					input#zoom(type='number' value='2')
+					input(name='zoom' type='number' value='2' disabled)
 
 				dt method
 				dd
-					input#method-1(type='radio', name='method', value='direction' checked)
+					input#method-1(name='method' type='radio' value='direction' checked)
 					label(for='method-1') direction
 
-					input#method-2(type='radio', name='method', value='panoid')
+					input#method-2(name='method' type='radio' value='panoid')
 					label(for='method-2') pano id json
 
 			//- direction
 			dl(data-parent='#method-1' style="background:#bdd;")
 				dt direction url
 				dd
-					input#url(type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
+					input(name='url' type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
 
 				dt travel mode
 				dd
-					input#travel-1(type='radio', name='travel', value='DRIVING', checked)
+					input(name='travel' type='radio' value='DRIVING' checked)
 					label(for='travel-1') driving
 
-					input#travel-2(type='radio', name='travel', value='WALKING')
+					input(name='travel' type='radio' value='WALKING')
 					label(for='travel-2') walking
 
 				dt step(m)
 				dd
-					input#step(type='number', value='10')
+					input(name='step' type='number' value='10')
 
 				dt sv search radius(m)
 				dd
-					input#search-radius(type='number', value='5')
+					input(name='searchRadius' type='number' value='5')
 
 			//- pano id list
 			dl(data-parent='#method-2' style="background:#dbd;")
@@ -96,7 +93,7 @@ html
 				dd
 					a(href='panoid-parser.html') pano id parser
 					br
-					textarea#panoid
+					textarea(name='panoid')
 
 			button#create create
 

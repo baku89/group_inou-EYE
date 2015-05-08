@@ -7,12 +7,13 @@ jade	= require 'gulp-jade'
 plumber = require 'gulp-plumber'
 srcmap 	= require 'gulp-sourcemaps'
 util	= require 'gulp-util'
-notify 	= require 'gulp-notify'
 # run		= require 'gulp-run'
 
 # not gulp package
-bsync	= require 'browser-sync'
 del 	= require 'del'
+# path	= require "path"
+bsync	= require 'browser-sync'
+notifier= require 'node-notifier'
 
 #----------------------------------------
 jadeArgs =
@@ -22,28 +23,36 @@ compassArgs =
 	css: 'public/css'
 	sass: 'src/sass'
 
-plumberArgs =
-	errorHandler:
-		notify.onError '<%= error.message %>'
+		
+
 
 #----------------------------------------
 gulp.task 'jade', ->
 	gulp.src 'src/*.jade'
-		.pipe plumber plumberArgs
-		.pipe jade jadeArgs
+		.pipe plumber()
+		.pipe jade(jadeArgs).on 'error', (err)->
+			console.log err.message
+			notifier.notify
+				title: "[jade] Syntax Error"
+				message: "#{err.filename}:#{err.line}"
+				sound: true
 		.pipe gulp.dest 'public'
 
 gulp.task 'coffee', ->
 	gulp.src 'src/coffee/*.coffee'
-		.pipe plumber plumberArgs
+		.pipe plumber()
 		.pipe srcmap.init()
-		.pipe coffee({bare: true})
+		.pipe coffee({bare: true}).on 'error', (err) ->
+			notifier.notify
+				title: err.message
+				message: "#{err.filename}:#{err.location.first_line}"
+				sound: true
 		.pipe srcmap.write()
 		.pipe gulp.dest 'public/js'
 
 gulp.task 'compass', ->
 	gulp.src 'src/sass/*.sass'
-		.pipe plumber plumberArgs
+		.pipe plumber()
 		.pipe compass compassArgs
 		.pipe gulp.dest 'public/css'
 

@@ -3,15 +3,17 @@
   <head>
     <title>Replace Proxy</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/lib/sisyphus.js"></script>
     <script src="js/canvas-matrix-code.js"></script>
     <script src="js/replace-proxy.js"></script>
   </head>
   <body>
     <h1>Replace Proxy</h1>
-    <dl>
+    <dl id="replace-proxy">
       <dt>Source</dt>
       <dd>
-        <input id="source" type="file" webkitdirectory>
+        <input name="file" type="file" webkitdirectory><br>
+        <input name="source" type="text">
       </dd>
     </dl>
     <button id="decode">Decode</button>
