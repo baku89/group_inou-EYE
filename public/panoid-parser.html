@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
     <script src="js/lib/GSVPano.js"></script>
+    <script src="js/lib/sisyphus/sisyphus.js"></script>
     <script src="js/panoid-parser.js"></script>
     <link rel="stylesheet" href="css/simple-gui.css"/>
     <style>
@@ -17,20 +18,20 @@
     </style>
   </head>
   <body>
-    <nav>
+    <nav id="panoid-parser">
       <h1>Pano ID Parser</h1>
       <dl>
         <dt>load street view</dt>
         <dd>
-          <input type="text" name="url" value="https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US"/>
+          <input name="url" type="text" value="https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US"/>
         </dd>
         <dt>add list</dt>
         <dd>
-          <input type="checkbox" name="addlist" checked="checked"/>
+          <input name="addlist" type="checkbox" checked="checked"/>
         </dd>
         <dt>auto search</dt>
         <dd>
-          <input type="checkbox" name="autosearch" checked="checked"/>
+          <input name="autosearch" type="checkbox" checked="checked"/>
         </dd>
       </dl>
       <button id="laod">load</button>
@@ -46,7 +47,7 @@
       <dl>
         <dt>pano data</dt>
         <dd>
-          <textarea id="json" style="height:300px;"></textarea><br/><a href="gsv-generator.html">GSV Generator</a>
+          <textarea id="json" name="json" style="height:300px;"></textarea><br/><a href="gsv-generator.html">GSV Generator</a>
         </dd>
       </dl>
     </nav>

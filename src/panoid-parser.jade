@@ -6,6 +6,7 @@ html
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
 		script(src='js/lib/GSVPano.js')
+		script(src='js/lib/sisyphus/sisyphus.js')
 		script(src='js/panoid-parser.js')
 
 		link(rel='stylesheet', href='css/simple-gui.css')
@@ -16,21 +17,21 @@ html
 			}
 
 	body
-		nav
+		nav#panoid-parser
 			h1 Pano ID Parser
 
 			dl
 				dt load street view
 				dd
-					input(type='text' name='url' value='https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US')
+					input(name='url' type='text' value='https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US')
 
 				dt add list
 				dd
-					input(type='checkbox', name='addlist', checked)
+					input(name='addlist' type='checkbox' checked)
 
 				dt auto search
 				dd
-					input(type='checkbox' name='autosearch', checked)
+					input(name='autosearch' type='checkbox' checked)
 
 			button#laod load
 			button#clear clear
@@ -49,7 +50,7 @@ html
 			dl
 				dt pano data
 				dd
-					textarea#json(style='height:300px;')
+					textarea#json(name="json" style='height:300px;')
 					br
 					a(href='gsv-generator.html') GSV Generator
 

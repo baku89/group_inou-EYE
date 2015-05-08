@@ -39,7 +39,12 @@ storage = localStorage
 
 updateSettings = ->
 	$('#gsv-generator').find('input, textarea').each ->
-		settings[this.name] = $(this).val()
+		type = $(this).attr('type')
+		console.log type
+		if type == 'checkbox' || type == 'radio'
+			settings[this.name] = $(this).is(':checked')
+		else
+			settings[this.name] = $(this).val()
 
 #------------------------------------------------------------
 # on load

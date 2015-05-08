@@ -19,6 +19,7 @@ list = []
 $status = null
 $autosearch = null
 $addList = null
+$form = null
 
 prevId = ''
 
@@ -31,34 +32,23 @@ prevDate = null
 service = new google.maps.StreetViewService()
 
 
-
 #------------------------------------------------------------
 # func
 
-restoreSettings = ->
-	$elm = $('nav')
-
-	$('[name=url]').val storage['pip-url']
-	$('[name=addlist]').prop('checked', storage['pip-addlist'])
-	$('[name=autosearch').prop('checked', storage['pip-autosearch'])
-
-
 updateSettings = ->
-	$elm = $('#nav')
-
-	settings.url = $('[name=url]').val()
-	settings.addlist = $('[name=addlist]').prop('checked')
-	settings.autosearch = $('[name=autosearch]').prop('checked')
-
-	for key, val of settings
-		storage["#{SUFFIX}-#{key}"] = val
-
-	console.log storage
+	$form.find('input, textarea').each ->
+		type = $(this).attr('type')
+		console.log type
+		if type == 'checkbox' || type == 'radio'
+			settings[this.name] = $(this).is(':checked')
+		else
+			settings[this.name] = $(this).val()
 
 #------------------------------------------------------------
 # init
 
 $ ->
+	$form = $('#panoid-parser')
 	$status = $('#status')
 	$autosearch = $('[name=autosearch')
 	$addList = $('[name=addlist]')
@@ -68,7 +58,7 @@ $ ->
 	$('#export').on 'click', exportJson
 	$('input, textarea').on 'change', updateSettings
 
-	restoreSettings()
+	$form.sisyphus()
 
 	options = 
 		zoom: 16
