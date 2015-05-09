@@ -4,23 +4,44 @@ html
 		title Replace Proxy
 
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+		script(src='js/lib/GSVPano.js')
+		script(src='js/lib/glsl.min.js')
 		script(src='js/lib/sisyphus.js')
 		script(src='js/canvas-matrix-code.js')
+		script(src='js/GSVHyperlapse.js')
 		script(src='js/replace-proxy.js')
 
+		link(rel='stylesheet', href='css/main.css')
+
+		script#pano-rotation(type='x-shader/x-fragment')
+			include shader/pano-rotation.fs
+
+		style.
+			#pano * {
+				width: 100%;
+				height: auto;
+			}
 
 	body
 		h1 Replace Proxy
 
+		a(href="/") back to menu
+
 		dl#replace-proxy
-			dt Source
+			dt Select Directory
 			dd
 				input(name="file" type="file", webkitdirectory)
-				br
+			dt Source
 				input(name="source" type="text")
 
 		button(id="decode") Decode
 
 		hr 
 
-		canvas(id="pv", style="transform:scale(0.3);transform-origin:0 0;")
+		textarea#console(style="width:100%;height:120px;")
+
+		hr
+
+		canvas(id="pv", style="width:50%;float:left;background:gray;")
+		div#pano(style="width:50%;float:left;background:white;")

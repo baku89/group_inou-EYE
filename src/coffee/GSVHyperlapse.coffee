@@ -97,7 +97,7 @@ class GSVHyperlapse
 		@step 			= parseFloat(params.step)
 		@searchRadius	= parseFloat(params.searchRadius)
 		@headingMode	= params.headingMode
-		@zoom 			= params.zoom
+		@zoom 			= parseInt(params.zoom)
 
 		# check headingMode
 		# if @headingMode == GSVHyperlapseHeading.LOOKAT
@@ -317,7 +317,7 @@ class GSVHyperlapse
 		@client.getPanoramaById(list[idx], onLoad)
 
 	# --------------------------------------------------------
-	compose: ()->
+	compose: (callback)->
 
 		if @panoList.length == 0
 			GSVHyperlapse.onMessage.call @, "there is no pano id."
@@ -390,6 +390,8 @@ class GSVHyperlapse
 				GSVHyperlapse.onProgress.call @, idx, @panoList.length
 				GSVHyperlapse.onMessage.call @, "complete - total: #{@panoList.length}, duration: #{@panoList.length / 24}"
 				GSVHyperlapse.onComposeComplete.call @
+				if callback?
+					callback()
 
 		# trigger
 		loader.onPanoramaLoad = onCompose

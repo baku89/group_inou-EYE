@@ -81,14 +81,17 @@ $ ->
 #------------------------------------------------------------
 # action
 
+json = "" 
+
 clear = ->
 	list = []
 	prevId = ''
 	updateStatus()
 
 exportJson = ->
+	console.log "export"
 	json = JSON.stringify( list )
-	$('#json').html( json )
+	$('#json').val( json )
 
 
 load = ->
@@ -129,15 +132,12 @@ onLinksChanged = ->
 			alert('cannot retrive pano id')
 			return
 
+		# check if date is correct
 		date = data.imageDate
-
-		console.log date
-
 		if prevDate? && date != prevDate
 			if !confirm('imageDate changed. continue?')
 				prevDate = date
 				return
-
 		prevDate = date
 
 		map.setCenter( pos )
@@ -165,6 +165,8 @@ onLinksChanged = ->
 		prevId = svp.getPano()
 
 		if nextId?
-			svp.setPano( nextId )
+			setTimeout ->
+				svp.setPano( nextId )
+			, 50
 
 

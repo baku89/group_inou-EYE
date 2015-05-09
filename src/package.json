@@ -1,4 +1,5 @@
 {
 	"name": "gi-eye",
-	"main": "replace-proxy.html"
+	"node-remote": "http://localhost:8081",
+	"main": "http://localhost:8081"
 }

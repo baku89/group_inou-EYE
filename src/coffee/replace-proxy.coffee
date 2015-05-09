@@ -1,4 +1,5 @@
 fs 		= require 'fs'
+path	= require 'path'
 gui 	= require 'nw.gui'
 
 #------------------------------------------------------------
@@ -14,16 +15,26 @@ catch err
 	console.log err.message
 
 #------------------------------------------------------------
-
-img = new Image()
-panoIds = []
+panoList = []
 canvas = ctx = null
+srcDir = null
+fileList = null
 
-sisyphus = null
+gsvh = null
 
+canvas = document.cleateElement('canvas')
+
+basename = null
+$console = null
+
+log = (str) ->
+	$console.append("#{str}\n")
+	$console.scrollTop = $console.scrollHeight
 
 $ ->
-	sisyphus = $('#replace-proxy').sisyphus()
+	$console = $('#console')
+
+	$('#replace-proxy').sisyphus()
 
 	canvas = $('#pv')[0]
 	ctx = canvas.getContext('2d')
@@ -49,13 +60,23 @@ decode = ->
 	fs.readdir srcDir, (err, files) ->
 		if err then throw err
 
-		list = (f for f in files when /\.png$/.test(f))
+		fileList = (f for f in files when /\.png$/.test(f))
+		basename = path.basename( srcDir )
 
-		load(srcDir, list)
+		load()
 
 
 #------------------------------------------------------------
-load = (dir, list) ->
+load = () ->
+	log("loading..")
+
+	# make new directory
+	try
+		fs.mkdirSync("#{path.dirname(srcDir)}/#{basename}.HQ")
+	catch e
+		console.log e
+
+	img = new Image()
 
 	next = (idx) ->
 		img.onload = ->
@@ -66,14 +87,49 @@ load = (dir, list) ->
 			ctx.drawImage(img, 0, 0)
 
 			pano = CanvasMatrixCode.decode(canvas, 0, canvas.height - 30, canvas.width, 30)
+			pano.filename = filename
 
-			console.log pano
+			panoList.push( pano )
 
-			if ++idx < list.length
+			if ++idx < fileList.length
 				next(idx)
+			else 
+				compose()
 
-		img.src = "#{dir}/#{list[idx]}"
+		filename = fileList[idx]
+		img.src = "file:///#{srcDir}/#{filename}"
 
 	next(0)
+
+#------------------------------------------------------------
+compose = ->
+	log("composing..")
+
+	gsvh = new GSVHyperlapse( basename, $('#pv')[0] )
+	gsvh.setParameters
+		zoom: 4
+	gsvh.panoList = panoList
+
+	GSVHyperlapse.onMessage = log
+	GSVHyperlapse.onProgress = (loaded, total) ->
+		log("composed (#{loaded}/#{total})")
+
+	GSVHyperlapse.onPanoramaLoad =  savePano
+	GSVHyperlapse.onComposeComplete = onComplete
+
+	gsvh.compose()
+
+
+#------------------------------------------------------------
+savePano = (idx, pano, data) ->
+
+	$('#pano').append( pano )
+
+#------------------------------------------------------------
+onComplete = ->
+	null
+
+
+	
 
 

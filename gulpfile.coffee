@@ -53,7 +53,11 @@ gulp.task 'coffee', ->
 gulp.task 'compass', ->
 	gulp.src 'src/sass/*.sass'
 		.pipe plumber()
-		.pipe compass compassArgs
+		.pipe compass(compassArgs).on 'error', (err) ->
+			notifier.notify
+				title: "[sass] compile error"
+				message:"#{err.fileName}"
+				sound: true
 		.pipe gulp.dest 'public/css'
 
 reload = bsync.reload

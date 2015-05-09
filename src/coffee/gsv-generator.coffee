@@ -41,10 +41,15 @@ updateSettings = ->
 	$('#gsv-generator').find('input, textarea').each ->
 		type = $(this).attr('type')
 		console.log type
-		if type == 'checkbox' || type == 'radio'
+		if type == 'checkbox'
 			settings[this.name] = $(this).is(':checked')
+		else if type == 'radio'
+			if $(this).is(':checked')
+				settings[this.name] = $(this).val()
 		else
 			settings[this.name] = $(this).val()
+		return true
+	return
 
 #------------------------------------------------------------
 # on load

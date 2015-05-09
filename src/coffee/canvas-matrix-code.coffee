@@ -70,20 +70,4 @@ CanvasMatrixCode.strToBuff = (str) ->
     buff = new Uint8Array(str.length)
     for i in [0..str.length-1]
         buff[i] = str.charCodeAt(i)
-    console.log buff
     return buff
-
-
-# `
-# CanvasMatrixCode.buff2str = function(buf) {
-#   return String.fromCharCode.apply(null, new UintArray(buf));
-# }
-# CanvasMatrixCode.str2buff = function(str) {
-#   var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
-#   var bufView = new Uint16Array(buf);
-#   for (var i=0, strLen=str.length; i < strLen; i++) {
-#     bufView[i] = str.charCodeAt(i);
-#   }
-#   return buf;
-# }
-# `
