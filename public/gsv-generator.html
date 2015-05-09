@@ -5,16 +5,15 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
-    <script src="js/lib/sisyphus/sisyphus.js"></script>
-    <script src="js/lib/GSVPano.js"></script>
+    <script src="js/lib/sisyphus.js"></script>
     <script src="js/lib/glsl.min.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/GSVPano.js"></script>
     <script src="js/jquery.file.js"></script>
     <script src="js/GSVHyperlapse.js"></script>
     <script src="js/canvas-matrix-code.js"></script>
     <script src="js/gsv-generator.js"></script>
     <link rel="stylesheet" href="css/simple-gui.css">
-    <!--link(rel='stylesheet', href='css/main.css')-->
     <script id="pano-rotation" type="x-shader/x-fragment">#ifdef GL_ES
 precision highp float;
 #endif
@@ -27,53 +26,51 @@ uniform sampler2D original;
 uniform float pitch;
 uniform float heading;
 
+uniform vec2 size;
+uniform vec2 offset;
+
 void main (void) {
 
-	vec2 op = gl_FragCoord.xy / resolution.xy;
+	vec2 p = gl_FragCoord.xy / resolution;
+	p = p * (resolution / size) + (offset / size);
 
 	// cab heading
-	vec2 p = vec2(fract(op.x + heading / PI_2), clamp(op.y, 0.0, 1.0));
+	p = vec2(fract(p.x + heading / PI_2), clamp(p.y, 0.0, 1.0));
 
-	//(u,v) -> (θ,φ)
-	p = vec2(
-		p.x * PI_2,
-		PI * (p.y - 0.5)
-	);
+	// //(u,v) -> (θ,φ)
+	// p = vec2(
+	// 	p.x * PI_2,
+	// 	PI * (p.y - 0.5)
+	// );
 
-	// (θ,φ) -> (x, y, z)
-	vec3 c = vec3(
-		cos(p.x) * cos(p.y),
-		sin(p.x) * cos(p.y),
-		sin(p.y)
-	);
+	// // (θ,φ) -> (x, y, z)
+	// vec3 c = vec3(
+	// 	cos(p.x) * cos(p.y),
+	// 	sin(p.x) * cos(p.y),
+	// 	sin(p.y)
+	// );
 
-	// (x, y, x) -rot-> (x', y', z')
-	c = vec3(
-		cos(pitch) * c.x - sin(pitch) * c.z,
-		c.y,
-		sin(pitch) * c.x + cos(pitch) * c.z
-	);
+	// // (x, y, x) -rot-> (x', y', z')
+	// c = vec3(
+	// 	cos(-pitch) * c.x - sin(-pitch) * c.z,
+	// 	c.y,
+	// 	sin(-pitch) * c.x + cos(-pitch) * c.z
+	// );
 
-	// (x', y', z') -> (θ',φ')
-	p = vec2(
-		atan(c.y, c.x),
-		atan(c.z, length(c.xy))
-	);
+	// // (x', y', z') -> (θ',φ')
+	// p = vec2(
+	// 	atan(c.y, c.x),
+	// 	atan(c.z, length(c.xy))
+	// );
 
-	// (θ',φ') -> (u',v')
-	p = vec2(
-		p.x / PI_2,
-		p.y / PI + 0.5
-	);
-
-	p = fract(p);
+	// // (θ',φ') -> (u',v')
+	// p = vec2(
+	// 	p.x / PI_2,
+	// 	p.y / PI + 0.5
+	// );
+	// p = fract(p);
 
 	vec4 color = texture2D(original, p);
-
-	// vec2 dir = vec2(0.5, 0.5);
-	// if (distance(p, dir) < 0.003) {
-	// 	color = vec4(1.0, 0.0, 0.0, 1.0);
-	// }
 
 	gl_FragColor = color;
 }
@@ -81,7 +78,7 @@ void main (void) {
   </head>
   <body>
     <nav id="gsv-generator">
-      <h1>GSV Generator</h1>
+      <h1>GSV Generator</h1><a href="./">back to menu</a>
       <dl>
         <dt>name</dt>
         <dd>
@@ -89,16 +86,19 @@ void main (void) {
         </dd>
         <dt>exporting dir (rel)</dt>
         <dd>
+          <input name="dirFile" type="file" webkitdirectory><br>
           <input name="dir" type="text" value="../../gsv">
         </dd>
         <dt>heading</dt>
         <dd>
-          <input id="heading-1" name="heading" type="radio" value="backward">
+          <input id="heading-1" name="headingMode" type="radio" value="backward">
           <label for="heading-1">backward </label><br>
-          <input id="heading-2" name="heading" type="radio" value="lookat">
+          <input id="heading-2" name="headingMode" type="radio" value="lookat">
           <label for="heading-2">lookat</label><br>
-          <input id="heading-3" name="heading" type="radio" value="north" checked>
+          <input id="heading-3" name="headingMode" type="radio" value="north" checked>
           <label for="heading-3">north</label><br>
+          <input id="heading-4" name="headingMode" type="radio" value="begin">
+          <label for="heading-4">begin</label><br>
         </dd>
         <dt data-parent="#heading-2">lookat (lat, lng)</dt>
         <dd data-parent="#heading-2">
@@ -110,9 +110,9 @@ void main (void) {
         </dd>
         <dt>method</dt>
         <dd>
-          <input id="method-1" name="method" type="radio" value="direction" checked>
+          <input id="method-1" name="method" type="radio" value="direction">
           <label for="method-1">direction</label>
-          <input id="method-2" name="method" type="radio" value="panoid">
+          <input id="method-2" name="method" type="radio" value="panoid" checked>
           <label for="method-2">pano id json</label>
         </dd>
       </dl>
@@ -139,7 +139,7 @@ void main (void) {
       </dl>
       <dl data-parent="#method-2" style="background:#dbd;">
         <dt>pano id</dt>
-        <dd><a href="panoid-parser.html">pano id parser</a><br>
+        <dd><a href="panoid-parser.html" target="_blank">pano id parser</a><br>
           <textarea name="panoid"></textarea>
         </dd>
       </dl>

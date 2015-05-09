@@ -7,23 +7,24 @@ html
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
 
-		script(src='js/lib/sisyphus/sisyphus.js')
-		script(src='js/lib/GSVPano.js')
+		script(src='js/lib/sisyphus.js')
 		script(src='js/lib/glsl.min.js')
 		script(src='js/common.js')
+		script(src='js/GSVPano.js')
 		script(src='js/jquery.file.js')
 		script(src='js/GSVHyperlapse.js')
 		script(src='js/canvas-matrix-code.js')
 		script(src='js/gsv-generator.js')
 
 		link(rel='stylesheet', href='css/simple-gui.css')
-		//link(rel='stylesheet', href='css/main.css')
 		script#pano-rotation(type='x-shader/x-fragment')
 			include shader/pano-rotation.fs
 
 	body
 		nav#gsv-generator
 			h1 GSV Generator
+
+			a(href='./') back to menu
 
 			dl
 				dt name
@@ -32,20 +33,27 @@ html
 
 				dt exporting dir (rel)
 				dd
+					input(name='dirFile' type='file' webkitdirectory)
+					br
 					input(name='dir' type='text' value='../../gsv')
 
 				dt heading
 				dd
-					input#heading-1(name='heading' type='radio' value='backward')
+					input#heading-1(name='headingMode' type='radio' value='backward')
 					label(for='heading-1') backward 
 					br
 
-					input#heading-2(name='heading' type='radio' value='lookat')
+					input#heading-2(name='headingMode' type='radio' value='lookat')
 					label(for='heading-2') lookat
 					br
 
-					input#heading-3(name='heading' type='radio' value='north' checked)
+					input#heading-3(name='headingMode' type='radio' value='north' checked)
 					label(for='heading-3') north
+					br 
+					
+					input#heading-4(name='headingMode' type='radio' value='begin')
+					label(for='heading-4') begin
+
 					br
 
 				dt(data-parent='#heading-2') lookat (lat, lng)
@@ -58,10 +66,10 @@ html
 
 				dt method
 				dd
-					input#method-1(name='method' type='radio' value='direction' checked)
+					input#method-1(name='method' type='radio' value='direction')
 					label(for='method-1') direction
 
-					input#method-2(name='method' type='radio' value='panoid')
+					input#method-2(name='method' type='radio' value='panoid' checked)
 					label(for='method-2') pano id json
 
 			//- direction
@@ -90,7 +98,7 @@ html
 			dl(data-parent='#method-2' style="background:#dbd;")
 				dt pano id
 				dd
-					a(href='panoid-parser.html') pano id parser
+					a(href='panoid-parser.html' target="_blank") pano id parser
 					br
 					textarea(name='panoid')
 

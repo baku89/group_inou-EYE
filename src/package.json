@@ -1,5 +1,9 @@
 {
 	"name": "gi-eye",
-	"node-remote": "http://localhost:8081",
-	"main": "http://localhost:8081"
+	"node-remote": "http://localhost:3000",
+	"main": "http://localhost:3000",
+	"version": "1.0.0",
+	"window": {
+		"title": "GSVH"
+	}
 }
