@@ -5,6 +5,7 @@ GSVHyperlapseHeading =
 	BACKWARD: "backward"
 	LOOKAT: "lookat"
 	NORTH: "north"
+	BEGINNING: "begin"
 
 GSVHyperlapseMethod = 
 	DRECTION: 'direction'
@@ -69,9 +70,11 @@ class GSVHyperlapse
 		@uid = uniqueID()
 		@panoList = []
 		@client = new google.maps.StreetViewService()
-		@map = new google.maps.Map map,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-			zoom: 16
+		@gsvp = new GSVPANO.PanoLoader()
+		if map?
+			@map = new google.maps.Map map,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+				zoom: 16
 
 	# methods
 	cancel: ->
@@ -99,18 +102,15 @@ class GSVHyperlapse
 		@headingMode	= params.headingMode
 		@zoom 			= parseInt(params.zoom)
 
-		# check headingMode
-		# if @headingMode == GSVHyperlapseHeading.LOOKAT
-		# 	result = /([0-9.]+), ([0-9.]+)/.exec( params.lookat )
-		# 	if !(result?)
-		# 		alert("lookat latLng cannot be parsed")
-		# 		return
-		# 	@lookat = new google.maps.LatLng( result[1], result[2] )
+		@gsvp.setZoom( @zoom )
 
-		# else if @haeadingMode == GSVHyperlapseHeading.BACKWARD
-		# 		if @panoList.length < 2
-		# 			alert("cannot solve backward heading because pano length is less than 2.")
-		# 			return
+		# check headingMode
+		if @headingMode == GSVHyperlapseHeading.LOOKAT
+			result = /([0-9.]+), ([0-9.]+)/.exec( params.lookat )
+			if !(result?)
+				alert("lookat latLng cannot be parsed")
+				return
+			@lookat = new google.maps.LatLng( result[1], result[2] )
 
 	# --------------------------------------------------------
 	createFromDirection: (url)->
@@ -323,33 +323,14 @@ class GSVHyperlapse
 			GSVHyperlapse.onMessage.call @, "there is no pano id."
 			return
 
-		loader = new GSVPANO.PanoLoader
-			zoom: @zoom
+		GSVHyperlapse.onMessage.call @, "composing panorama.. size:#{@gsvp.width}x#{@gsvp.height}"
 
-		GSVHyperlapse.onMessage.call @, "composing panorama.. size:#{loader.width}x#{loader.height}"
-
-		if @headingMode == GSVHyperlapseHeading.BACKWARD
+		if @headingMode == GSVHyperlapseHeading.BACKWARD || @headingMode == GSVHyperlapseHeading.BEGIN
 			if @panoList.length < 2
 				alert "pano id's length must be 2 at least"
 				return
 
-		# setup glsl
-		@glsl = Glsl
-			canvas: document.createElement('canvas')
-			fragment: document.getElementById("pano-rotation").textContent
-			variables:
-				heading:  0.0
-				pitch: 0.0
-				original: loader.canvas
-
-		@glsl.setSize(loader.width, loader.height)
-
-		onCompose = =>
-
-			if @bCancel
-				GSVHyperlapse.onCancel.call @
-				return
-
+		loadPanorama = =>
 			# calc rotation
 			if !(@panoList[idx].heading?)
 				h = 0
@@ -362,28 +343,27 @@ class GSVHyperlapse
 					h = google.maps.geometry.spherical.computeHeading(
 						@panoList[idx].latLng, @lookat)
 
+				else if @headingMode == GSVHyperlapseHeading.BEGIN
+					h = google.maps.geometry.spherical.computeHeading(
+						@panoList[1].latLng, @panoList[0].latLng)
+
 				@panoList[idx].heading = h
 
-			ajustHeading = @panoList[idx].rotation - @panoList[idx].heading
-			ajustPitch = 0
+				@gsvp.composePanorama( @panoList[idx].id, @panoList[idx].heading)
 
-			# rotate texture
-			@glsl.set('heading', ajustHeading.toRad())
-			@glsl.set('pitch', 	 ajustPitch.toRad())
-			@glsl.syncAll()
-			@glsl.render()
+		onCompose = =>
 
+			if @bCancel
+				GSVHyperlapse.onCancel.call @
+				return
+				
 			# event
-			data = @panoList[idx]
-			
 			GSVHyperlapse.onProgress.call @, idx, @panoList.length
-			GSVHyperlapse.onPanoramaLoad.call @, idx, @glsl.canvas, data
+			GSVHyperlapse.onPanoramaLoad.call @, idx, @gsvp.canvas, @panoList[idx]
 
 			# next
 			if ++idx < @panoList.length
-				setTimeout =>
-					loader.composePanorama( @panoList[idx].id )
-				, 100
+				loadPanorama()
 			else
 				@bWaiting = false
 				console.log "complete"
@@ -394,14 +374,14 @@ class GSVHyperlapse
 					callback()
 
 		# trigger
-		loader.onPanoramaLoad = onCompose
-		loader.onError = (msg) ->
+		@gsvp.onPanoramaLoad = onCompose
+		@gsvp.onError = (msg) ->
 			alert "error onCompose() : #{msg}"
-		loader.onNoPanoramaData = (status) ->
+		@gsvp.onNoPanoramaData = (status) ->
 			alert "error onNoPanoramaData() : #{status}"
 	
 		idx = 0
 		@bWaiting = true
 
-		loader.composePanorama( @panoList[idx].id )
+		loadPanorama()
 

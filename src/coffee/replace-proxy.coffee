@@ -1,31 +1,21 @@
-fs 		= require 'fs'
-path	= require 'path'
-gui 	= require 'nw.gui'
+$console = null
+$progPano = null
+$statPano = null
+$progSeq = null
+$statSeq = null
 
-#------------------------------------------------------------
-# window setup
-
-win = gui.Window.get()
-nativeMenuBar = new gui.Menu({type: 'menubar'})
-
-try
-	nativeMenuBar.createMacBuiltin('gi-eye')
-	win.menu = nativeMenuBar
-catch err
-	console.log err.message
-
-#------------------------------------------------------------
-panoList = []
-canvas = ctx = null
-srcDir = null
+srcDir = ""
+destDir = ""
 fileList = null
 
 gsvh = null
 
-canvas = document.cleateElement('canvas')
-
 basename = null
-$console = null
+sisyphus = null
+
+gsvp = null
+
+startTime = null
 
 log = (str) ->
 	$console.append("#{str}\n")
@@ -33,11 +23,12 @@ log = (str) ->
 
 $ ->
 	$console = $('#console')
+	$progPano = $('#prog-pano')
+	$progSeq = $('#prog-seq')
+	$statPano = $('#stat-pano')
+	$statSeq = $('#stat-seq')
 
-	$('#replace-proxy').sisyphus()
-
-	canvas = $('#pv')[0]
-	ctx = canvas.getContext('2d')
+	sisyphus = $('#replace-proxy').sisyphus()
 
 	$('#decode').on 'click', decode
 
@@ -46,6 +37,31 @@ $ ->
 			.val( $('[name=file]').val() )
 		sisyphus.saveAllData()
 
+	# #test
+
+	# pl = new GSVPANO.PanoLoader
+	# 	zoom: 2
+
+	# pl.onProgress = (p)->
+	# 	console.log(p)
+
+	# pl.onPanoramaLoad = ->
+	# 	$('body').append(pl.canvas)
+	# 	$('body').append(pl.c2)
+
+	# 	saveCanvas( pl.canvas, "/Users/mugi/mod_2.png" )
+	# 	saveCanvas( pl.c2, "/Users/mugi/original_slope.png" )
+
+	# dogen = "FZLqNO1SUIh3FQrcWTm8xg"
+	# slope = "-Prcca354HvtEovP8iymRQ"
+	# pl.composePanorama(slope, 0)
+
+	gsvp = new GSVPANO.PanoLoader
+		zoom: parseInt( $('[name=zoom]').val() )
+
+	gsvp.onProgress = (p) ->
+		$statPano.html("#{p}%")
+		$progPano.val( p )
 
 
 
@@ -57,77 +73,109 @@ decode = ->
 		alert "please select source directory"
 		return
 
-	fs.readdir srcDir, (err, files) ->
-		if err then throw err
+	files = fs.readdirSync(srcDir)
 
-		fileList = (f for f in files when /\.png$/.test(f))
-		basename = path.basename( srcDir )
+	fileList = (f for f in files when /\.png$/.test(f))
+	basename = path.basename( srcDir )
 
-		load()
+	#console.log fileList
 
+	load()
 
 #------------------------------------------------------------
 load = () ->
-	log("loading..")
+
+	startTime = new Date()
 
 	# make new directory
+	destDir = "#{path.dirname(srcDir)}/#{basename}.HQ"
 	try
-		fs.mkdirSync("#{path.dirname(srcDir)}/#{basename}.HQ")
-	catch e
-		console.log e
+		fs.mkdirSync(destDir)
+	catch err
+		console.log err
 
 	img = new Image()
 
-	next = (idx) ->
-		img.onload = ->
+	srcCanvas = $('#src')[0]
+	outCanvas = $('#out')[0]
 
-			canvas.width = img.width
-			canvas.height = img.height
+	srcCtx = srcCanvas.getContext('2d')
+	outCtx = outCanvas.getContext('2d')
 
-			ctx.drawImage(img, 0, 0)
+	idx = 0
+	filename = ""
 
-			pano = CanvasMatrixCode.decode(canvas, 0, canvas.height - 30, canvas.width, 30)
-			pano.filename = filename
+	#--------------------
+	# 1. load image
+	loadImg = () ->
+		elapsed = (((new Date()) - startTime) / 1000 / 60)
+		$statSeq.html("(#{idx+1}/#{fileList.length}) #{elapsed.toPrecision(2)}min elapsed")
+		$progSeq.val( (idx+1) / fileList.length * 100 )
 
-			panoList.push( pano )
-
-			if ++idx < fileList.length
-				next(idx)
-			else 
-				compose()
 
 		filename = fileList[idx]
 		img.src = "file:///#{srcDir}/#{filename}"
 
-	next(0)
+	#--------------------
+	# 2. read matrix code and setup gsvh and run compose()
+	onLoadImg = ->
+		srcCanvas.width = img.width
+		srcCanvas.height = img.height
 
-#------------------------------------------------------------
-compose = ->
-	log("composing..")
+		# decode pano matrix code
+		srcCtx.drawImage(img, 0, 0)
+		pano = CanvasMatrixCode.decode(
+			srcCanvas,
+			0,
+			srcCanvas.height - TAG_HEIGHT + 10,
+			1664, TAG_HEIGHT - 10)#srcCanvas.width, TAG_HEIGHT - 10)
 
-	gsvh = new GSVHyperlapse( basename, $('#pv')[0] )
-	gsvh.setParameters
-		zoom: 4
-	gsvh.panoList = panoList
+		console.log pano
 
-	GSVHyperlapse.onMessage = log
-	GSVHyperlapse.onProgress = (loaded, total) ->
-		log("composed (#{loaded}/#{total})")
+		# generate pano
+		gsvp.composePanorama( pano.id, pano.heading )
 
-	GSVHyperlapse.onPanoramaLoad =  savePano
-	GSVHyperlapse.onComposeComplete = onComplete
+	#--------------------
+	# 3. merge with matrix code and save
+	savePano = ->
 
-	gsvh.compose()
+		outCanvas.width = gsvp.width
+		outCanvas.height = (img.height / img.width) * gsvp.width
+
+		outCtx.drawImage(gsvp.canvas, 0, 0)
+		outCtx.drawImage(
+			img,
+			0, img.height - TAG_HEIGHT, 		img.width, TAG_HEIGHT,
+			0, outCanvas.height - TAG_HEIGHT, 	img.width, TAG_HEIGHT)
+
+		dest = "#{destDir}/#{filename}"
+		saveCanvas( outCanvas, dest )
+
+		# next
+		if ++idx < fileList.length
+			loadImg()
+		else
+			onComplete()
 
 
-#------------------------------------------------------------
-savePano = (idx, pano, data) ->
+	#--------------------
+	# trigger
+	img.onload = onLoadImg
+	gsvp.onPanoramaLoad = savePano
 
-	$('#pano').append( pano )
+	loadImg()
+
 
 #------------------------------------------------------------
 onComplete = ->
-	null
+
+	fs.renameSync(srcDir, "#{srcDir}.proxy")
+	fs.renameSync(destDir, srcDir)
+
+	notifier.notify
+		title: "Proxy Replacer"
+		message: "All done!"
+		sound: true
 
 
 	
