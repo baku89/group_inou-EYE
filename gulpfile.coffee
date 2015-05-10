@@ -104,7 +104,7 @@ gulp.task 'build', ->
 			.pipe gulp.dest 'public'
 
 		nw = new NwBuilder
-			files: './public/**/*'
+			files: ['./public/**/*', './node_modules/**/*']
 			platforms: ['osx64']
 
 		nw.on 'log', console.log
