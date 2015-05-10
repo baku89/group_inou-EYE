@@ -139,10 +139,12 @@ class GSVHyperlapse
 			@map.setZoom( zoom )
 			@map.setCenter( center )
 
+			console.log @travelMode
+
 			req =
 				origin: origin
 				destination: destination
-				travelMode: travelMode
+				travelMode: @travelMode
 
 			# parse waypoint from data
 			waypoints = []
@@ -253,7 +255,6 @@ class GSVHyperlapse
 					@client.getPanoramaByLocation(rawPts[idx], @searchRadius, onLoad)
 				else
 					# end
-					console.log @panoList
 					@bWaiting = false
 					GSVHyperlapse.onMessage.call @, "total pano id: #{@panoList.length}"
 					GSVHyperlapse.onProgress.call @, idx, rawPts.length

@@ -138,7 +138,7 @@ onAnalyzeComplete = ->
 	$elm = $("#task-#{index}")
 	$p = $elm.children('p')
 
-	$.append('composing..<br>')
+	$p.append('composing..<br>')
 
 	dir = "#{settings.dir}/#{@name}"
 

@@ -4,7 +4,7 @@
 		{
 			"follow_symlinks": true,
 			"path": ".",
-			"folder_exclude_patterns": ["public", "node_modules", ".sass-cache"]
+			"folder_exclude_patterns": ["public", "node_modules", ".sass-cache", "build", "cache"]
 		}
 	]
 }
