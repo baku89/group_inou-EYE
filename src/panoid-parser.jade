@@ -5,6 +5,7 @@ html
 		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
+		script(src='js/common.js')
 		script(src='js/lib/GSVPano.js')
 		script(src='js/lib/sisyphus.js')
 		script(src='js/panoid-parser.js')
@@ -22,7 +23,7 @@ html
 			a(href="./") back to menu
 
 			dl
-				dt load street view
+				dt street view url || pano id
 				dd
 					input(name='url' type='text' value='https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US')
 
@@ -36,7 +37,10 @@ html
 
 			button#laod load
 			button#clear clear
+			button#undo undo
 			button#export export
+			br
+			button#set-pano set pano
 
 			hr
 

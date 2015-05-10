@@ -108,7 +108,11 @@ gulp.task 'build', ->
 
 		nw.on 'log', console.log 
 
-		nw.build().then(->
+		nwArgs =
+			buildType: 'versioned'
+			
+
+		nw.build(nwArgs).then(->
 			console.log "NwBuilder: all done!"
 		).catch( (err) ->
 			console.error err

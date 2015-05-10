@@ -5,6 +5,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/lib/GSVPano.js"></script>
     <script src="js/lib/sisyphus.js"></script>
     <script src="js/panoid-parser.js"></script>
@@ -21,7 +22,7 @@
     <nav id="panoid-parser">
       <h1>Pano ID Parser</h1><a href="./">back to menu</a>
       <dl>
-        <dt>load street view</dt>
+        <dt>street view url || pano id</dt>
         <dd>
           <input name="url" type="text" value="https://www.google.com/maps/@46.83622,9.854884,3a,75y,3.59h,33.55t/data=!3m5!1e1!3m3!1sHfxFYUWRjrFi_z2d-iLXtQ!2e0!3e5?hl=en-US"/>
         </dd>
@@ -36,7 +37,9 @@
       </dl>
       <button id="laod">load</button>
       <button id="clear">clear</button>
-      <button id="export">export</button>
+      <button id="undo">undo</button>
+      <button id="export">export</button><br/>
+      <button id="set-pano">set pano</button>
       <hr/>
       <div id="status" class="container">
         count: 0<br>

@@ -26,10 +26,13 @@ prevId = ''
 cntMarker = null
 
 bLinkUpdate = false
+bThrough = false
 
 prevDate = null
 
 service = new google.maps.StreetViewService()
+
+markerList = []
 
 
 #------------------------------------------------------------
@@ -38,7 +41,6 @@ service = new google.maps.StreetViewService()
 updateSettings = ->
 	$form.find('input, textarea').each ->
 		type = $(this).attr('type')
-		console.log type
 		if type == 'checkbox' || type == 'radio'
 			settings[this.name] = $(this).is(':checked')
 		else
@@ -55,7 +57,10 @@ $ ->
 
 	$('#laod').on 'click', load
 	$('#clear').on 'click', clear
+	$('#undo').on 'click', undo
+	$('#set-pano').on 'click', setPano
 	$('#export').on 'click', exportJson
+
 	$('input, textarea').on 'change', updateSettings
 
 	$form.sisyphus()
@@ -83,8 +88,29 @@ $ ->
 
 json = "" 
 
+undo = ->
+	if list.length <= 1
+		alert("cannot undo anymore")
+		return
+
+	markerList[markerList.length-1].setMap(null)
+	markerList.pop()
+	list.pop()
+	
+	prevId = if list.length >= 2 then list[list.length-2] else ""
+
+	bThrough = true
+	svp.setPano( list[list.length-1] )
+
+	updateSettings()
+
 clear = ->
-	list = []
+	console.log "clear"
+	list.length = 0
+	for m in markerList
+		console.log m
+		m.setMap(null)
+	markerList.length = 0
 	prevId = ''
 	updateStatus()
 
@@ -98,14 +124,21 @@ load = ->
 	updateSettings()
 
 	result = urlReg.exec( settings.url )
-	panoId = result[1]
-	
+
+	if result?
+		panoId = result[1]
+	else
+		panoId = settings.url
+
 	svp.setPano( panoId )
 
 
 updateStatus = ->
 	$status.html("count: #{list.length}<br>duration: #{(list.length / FPS).toPrecision(2)}")
 
+setPano = ->
+	newPano = map.getStreetView().getPano()
+	svp.setPano( newPano )
 
 #------------------------------------------------------------
 # evt
@@ -126,6 +159,12 @@ onLinksChanged = ->
 	pos = svp.getPosition()
 	id = svp.getPano()
 
+	if bThrough
+		map.setCenter( pos )
+		cntMarker.setPosition( pos )
+		bThrough = false
+		return
+		
 	service.getPanoramaById id, (data, status) =>
 
 		if status != google.maps.StreetViewStatus.OK 
@@ -137,6 +176,7 @@ onLinksChanged = ->
 		if prevDate? && date != prevDate
 			if !confirm('imageDate changed. continue?')
 				prevDate = date
+				svp.setPano(prevId)
 				return
 		prevDate = date
 
@@ -152,6 +192,8 @@ onLinksChanged = ->
 				position: pos
 				map: map
 				title: "#{list.length - 1}"
+
+			markerList.push( marker )
 
 			updateStatus()
 

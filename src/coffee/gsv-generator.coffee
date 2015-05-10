@@ -129,42 +129,37 @@ onAnalyzeComplete = ->
 	$elm = $("#task-#{index}")
 	$p = $elm.children('p')
 
-	$btnGen = $('<button>generate hyperlapse</button><br>');
+	$elm.children('.control').remove()
+	@name = $elm.find('[name=name]').prop('disabled', true).val()
+	@compose()
 
-	$elm.children('p').append( $btnGen )
+	# save data
+	index = tasks.indexOf( @ )
+	$elm = $("#task-#{index}")
+	$p = $elm.children('p')
 
-	# on click "compose" button
-	$btnGen.on 'click', =>
-		$elm.children('.control').remove()
-		@compose()
+	$.append('composing..<br>')
 
-		# save data
-		index = tasks.indexOf( @ )
-		$elm = $("#task-#{index}")
-		$p = $elm.children('p')
+	dir = "#{settings.dir}/#{@name}"
 
-		@name = $elm.find('[name=name]').prop('disabled', true).val()
+	if @method == GSVHyperlapseMethod.DIRECTION
+		txtReport = """
+					method: direction
+					url: #{@sourceUrl}
+					step: #{@step}
+					searchRadius: #{@searchRadius}
+					"""
+	else if @method = GSVHyperlapseMethod.PANOID 
+		txtReport = "method: panoid"
 
-		dir = "#{settings.dir}/#{@name}"
+	txtPanoIds = JSON.stringify( (pano.id for pano in @panoList) )
 
-		if @method == GSVHyperlapseMethod.DIRECTION
-			txtReport = """
-						method: direction
-						url: #{@sourceUrl}
-						step: #{@step}
-						searchRadius: #{@searchRadius}
-						"""
-		else if @method = GSVHyperlapseMethod.PANOID 
-			txtReport = "method: panoid"
+	mkdirp dir, ->
+		fs.writeFile "#{dir}/_report.txt", txtReport, ->
+			$p.append('report saved<br>')
 
-		txtPanoIds = JSON.stringify( (pano.id for pano in @panoList) )
-
-		mkdirp dir, ->
-			fs.writeFile "#{dir}/_report.txt", txtReport, ->
-				$p.append('report saved<br>')
-
-			fs.writeFile "#{dir}/_pano-ids.json", txtPanoIds, ->
-				$p.append('pano-ids.json saved<br>')
+		fs.writeFile "#{dir}/_pano-ids.json", txtPanoIds, ->
+			$p.append('pano-ids.json saved<br>')
 
 #------------------------------------------------------------
 onComposeComplete = ->
