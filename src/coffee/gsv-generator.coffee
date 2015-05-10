@@ -3,13 +3,6 @@
 MAX_PTS = 100
 DIST_BETWEEN_PTS = 5
 
-API_KEY = "AIzaSyBQ2dzDfyF8Y0Dwe-Q6Jzx4_G62ANrTotQ"
-VERSION = '0.3'
-
-TAG_HEIGHT = 40.0
-PROXY_HEIGHT = 832.0
-V_SCALE = (TAG_HEIGHT + PROXY_HEIGHT) / PROXY_HEIGHT
-
 #------------------------------------------------------------
 # variables
 loader = null
@@ -31,16 +24,11 @@ settings = {}
 storage = localStorage
 
 #------------------------------------------------------------
-# init
-
-
-#------------------------------------------------------------
 # functions
 
 updateSettings = ->
 	$('#gsv-generator').find('input, textarea').each ->
 		type = $(this).attr('type')
-		console.log type
 		if type == 'checkbox'
 			settings[this.name] = $(this).is(':checked')
 		else if type == 'radio'
@@ -70,6 +58,10 @@ $ ->
 
 	sisyphus = $('#gsv-generator').sisyphus()
 
+	$('[name=dirFile]').on 'change', ->
+		$('[name=dir]').val( $('[name=dirFile]').val() )
+		sisyphus.saveAllData()
+
 	$('#gsv-generator').find('[data-parent]').each ->
 
 		$this = $(@)
@@ -86,38 +78,36 @@ create = (e)->
 
 	updateSettings()
 
-	FILE.exists "#{settings.dir}/#{settings.name}", (flg) ->
+	if fs.existsSync("#{settings.dir}/#{settings.name}")
+		alert 'destination folder is already exists.'
+		return
 
-		if flg
-			alert 'destination folder is already exists.'
-			return
+	index = tasks.length
 
-		index = tasks.length
+	$('.tasks').append("
+		<li id='task-#{index}'>
+			<h1><input type='text' name='name' value='#{settings.name}'></h1>
+			<button class='cancel action' data-index='#{index}'>Cancel</button>
+			<p>mode: #{settings.method}<br></p>
+			<div id='map-#{index}' style='width: 48%; height: 0; padding-top: 26%; background:gray; display: inline-block;'></div>
+		</li>
+	")
 
-		$('.tasks').append("
-			<li id='task-#{index}'>
-				<h1><input type='text' name='name' value='#{settings.name}'></h1>
-				<button class='cancel action' data-index='#{index}'>Cancel</button>
-				<p>mode: #{settings.method}<br></p>
-				<div id='map-#{index}' style='width: 48%; height: 0; padding-top: 26%; background:gray; display: inline-block;'></div>
-			</li>
-		")
+	hyperlapse = new GSVHyperlapse(settings.name, $("#map-#{index}")[0])
+	hyperlapse.setParameters(settings)
 
-		hyperlapse = new GSVHyperlapse(settings.name, $("#map-#{index}")[0])
-		hyperlapse.setParameters(settings)
+	if settings.method == 'direction'
+		hyperlapse.createFromDirection( settings.url )
 
-		if settings.method == 'direction'
-			hyperlapse.createFromDirection( settings.url )
+	else if settings.method == 'panoid'
+		list = $.parseJSON( settings.panoid )
+		hyperlapse.createFromPanoId(list)
 
-		else if settings.method == 'panoid'
-			list = $.parseJSON( settings.panoid )
-			hyperlapse.createFromPanoId(list)
+	$("#task-#{index} .cancel").on 'click', ->
+		index = $(@).attr('data-index')
+		tasks[index].cancel()
 
-		$("#task-#{index} .cancel").on 'click', ->
-			index = $(@).attr('data-index')
-			tasks[index].cancel()
-
-		tasks.push( hyperlapse )
+	tasks.push( hyperlapse )
 
 #------------------------------------------------------------
 onCancel = ->
@@ -146,7 +136,35 @@ onAnalyzeComplete = ->
 	# on click "compose" button
 	$btnGen.on 'click', =>
 		$elm.children('.control').remove()
-		@compose(settings)
+		@compose()
+
+		# save data
+		index = tasks.indexOf( @ )
+		$elm = $("#task-#{index}")
+		$p = $elm.children('p')
+
+		@name = $elm.find('[name=name]').prop('disabled', true).val()
+
+		dir = "#{settings.dir}/#{@name}"
+
+		if @method == GSVHyperlapseMethod.DIRECTION
+			txtReport = """
+						method: direction
+						url: #{@sourceUrl}
+						step: #{@step}
+						searchRadius: #{@searchRadius}
+						"""
+		else if @method = GSVHyperlapseMethod.PANOID 
+			txtReport = "method: panoid"
+
+		txtPanoIds = JSON.stringify( (pano.id for pano in @panoList) )
+
+		mkdirp dir, ->
+			fs.writeFile "#{dir}/_report.txt", txtReport, ->
+				$p.append('report saved<br>')
+
+			fs.writeFile "#{dir}/_pano-ids.json", txtPanoIds, ->
+				$p.append('pano-ids.json saved<br>')
 
 #------------------------------------------------------------
 onComposeComplete = ->
@@ -154,31 +172,16 @@ onComposeComplete = ->
 	$elm = $("#task-#{index}")
 	$p = $elm.children('p')
 
-	@name = $elm.find('[name=name]').prop('disabled', true).val()
-
 	dir = "#{settings.dir}/#{@name}"
-
-	if @method == GSVHyperlapseMethod.DIRECTION
-		txtReport = """
-					method: direction
-					url: #{@sourceUrl}
-					step: #{@step}
-					searchRadius: #{@searchRadius}
-					"""
-	else if @method = GSVHyperlapseMethod.PANOID 
-		txtReport = "method: panoid"
-
-	txtPanoIds = JSON.stringify( (pano.id for pano in @panoList) )
 	txtPanoList = JSON.stringify( @panoList )
 
-	FILE.saveText txtReport, "#{dir}/_report.txt", (res) =>
-		$p.append('report saved<br>')
-
-	FILE.saveText txtPanoIds, "#{dir}/_pano-ids.json", (res) =>
-		$p.append('pano-ids.json saved<br>')
-
-	FILE.saveText txtPanoList, "#{dir}/_pano-data.json", (res) =>
+	fs.writeFile "#{dir}/_pano-data.json", txtPanoList, ->
 		$p.append('pano-data.json saved<br>')
+
+		notifier.notify
+			title: "GSV Generator"
+			message: "All done!"
+			sound: true
 
 #------------------------------------------------------------
 onProgress = (loaded, total) ->
@@ -218,28 +221,12 @@ onPanoramaLoad = (idx, pano, data) ->
 		uid: @uid
 		id: data.id
 		heading: data.heading
-		rotation: data.rotation
-		pitch: data.pitch
-		date: data.date
 		latLng: data.latLng.toString()
 
 	CanvasMatrixCode.draw(canvas, tag, 0, pano.height + 10, canvas.width, TAG_HEIGHT - 10)
 
 	$elm.append(canvas)
 
-	# save image
-	params =
-		name: @name
-		directory: settings.dir
-		number: idx
-		image: canvas.toDataURL('image/png')
+	path = "#{settings.dir}/#{@name}/#{@name}_#{('000000' + idx).substr(-6, 6)}.png"
 
-	$.ajax 
-		type: "POST"
-		url: './save.php'
-		data: params
-		success: (json) =>
-			result = $.parseJSON( json )
-			if result.status != "success"
-				@cancel()
-				$elm.children('p').append("an error occured" + "<br>")
+	saveCanvas(canvas, path)

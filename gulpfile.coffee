@@ -1,5 +1,7 @@
 module.exports = gulp
+
 #----------------------------------------
+
 gulp 	= require 'gulp'
 coffee 	= require 'gulp-coffee'
 compass	= require 'gulp-compass'
@@ -7,15 +9,17 @@ jade	= require 'gulp-jade'
 plumber = require 'gulp-plumber'
 srcmap 	= require 'gulp-sourcemaps'
 util	= require 'gulp-util'
-# run		= require 'gulp-run'
+rename 	= require 'gulp-rename'
 
-# not gulp package
+runseq 	= require 'run-sequence'
 del 	= require 'del'
-# path	= require "path"
-bsync	= require 'browser-sync'
+bsync	= require('browser-sync').create()
 notifier= require 'node-notifier'
+NwBuilder=require 'node-webkit-builder'
 
 #----------------------------------------
+# compile
+
 jadeArgs =
 	pretty: true
 
@@ -23,10 +27,6 @@ compassArgs =
 	css: 'public/css'
 	sass: 'src/sass'
 
-		
-
-
-#----------------------------------------
 gulp.task 'jade', ->
 	gulp.src 'src/*.jade'
 		.pipe plumber()
@@ -62,27 +62,55 @@ gulp.task 'compass', ->
 
 reload = bsync.reload
 
+#----------------------------------------
+# util
+
 gulp.task 'bsync', [], ->
-	bsync
-		proxy: 'gi-eye.local:8080'
-		port: 8080
+	bsync.init
+		server:
+			baseDir: './public'
+		open: false
 		notify: false
+
+gulp.task 'clean', ->
+	del "./public/**/*"
+
 
 gulp.task 'copy', ->
 	gulp.src 'src/package.json'
 		.pipe gulp.dest 'public'
-	gulp.src 'src/*.php'
-		.pipe gulp.dest 'public'
-	gulp.src 'src/file/*.php'
-		.pipe gulp.dest 'public/file'
 	gulp.src 'src/assets/**'
 		.pipe gulp.dest 'public/assets'
 	gulp.src 'src/js/lib/*.js'
 		.pipe gulp.dest 'public/js/lib'
 
+
 #----------------------------------------
-gulp.task 'default', ['jade', 'coffee', 'compass', 'copy', 'bsync'], ->
-	gulp.watch ['src/*.jade', 'src/shader/**'], ['jade', reload]
-	gulp.watch 'src/coffee/*.coffee', ['coffee', reload]
-	gulp.watch 'src/sass/*.sass', ['compass', reload]
-	gulp.watch ['src/package.json', 'src/*.php', 'src/file/*.php', 'src/assets/**', 'src/js/lib/*.js'], ['copy', reload]
+# default & build
+
+gulp.task 'default', ->
+	runseq ['jade', 'coffee', 'compass', 'copy'], 'bsync', ->
+		gulp.watch ['src/*.jade', 'src/shader/**'], ['jade', reload]
+		gulp.watch 'src/coffee/*.coffee', ['coffee', reload]
+		gulp.watch 'src/sass/*.sass', ['compass', reload]
+		gulp.watch ['src/package.json', 'src/assets/**', 'src/js/lib/*.js'], ['copy', reload]
+
+gulp.task 'build', ->
+	runseq ['jade', 'coffee', 'compass', 'copy'], ->
+		gulp.src 'src/package-build.json'
+			.pipe rename 'package.json'
+			.pipe gulp.dest 'public'
+		
+
+		nw = new NwBuilder
+			files: './public/**/*'
+			platforms: ['osx64']
+
+		nw.on 'log', console.log 
+
+		nw.build().then(->
+			console.log "NwBuilder: all done!"
+		).catch( (err) ->
+			console.error err
+		)
+

@@ -1,0 +1,155 @@
+@import "compass"
+@import "compass/css3/user-interface"
+
+@import "compass/reset"
+
+@font-face
+	font-family: "ocr"
+	//src: url(../assets/OCRAStd.otf)
+	src: url(../assets/Consolas.ttf)
+
+
+
+//--------------------------------------------------
+// var
+
+$active: #4196DE
+
+//--------------------------------------------------
+// base
+
+*, ::after, ::before
+	@include box-sizing(border-box)
+
+*:focus
+	outline: none
+
+html, body
+	width: 100%
+	height: 100%
+	font-family: 'ocr'
+
+body
+	font-size: 15px
+	font-family: Helvetica, Arial, "游ゴシック", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", sans-serif
+	line-height: 1.6
+
+
+//--------------------------------------------------
+// inputs
+
+button
+	font-size: 15px
+	background: #777
+	margin: 10px
+	border: 0
+	padding: 8px 20px
+	color: white
+	cursor: pointer
+	letter-spacing: .05em
+
+	&:active
+		backgrond: $active
+
+
+input[type=text], input[type=number], input[type=url], textarea
+	margin: 4px
+	padding: 6px 10px
+	font-size: 15px
+	border: 2px solid #bbb
+
+	@include input-placeholder
+		coolor: #eee
+
+	&:focus
+		border-color: $active
+
+input:disabled, textarea:disabled
+	background-color: #eee
+
+//--------------------------------------------------
+// control
+nav
+	background: #ddd
+	width: 250px
+	height: 100%
+	overflow: scroll
+
+	h1
+		font-size: 24px
+		color: white
+		padding: 8px
+		text-align: center
+		background: #333
+
+	dt
+		padding: 10px 10px 8px
+		font-weight: bold
+
+	dd
+		padding: 0 10px 10px
+		border-bottom: 1px solid #bbb
+
+	hr 
+		border: 0
+		border-bottom: 1px solid #bbb
+
+	div.container
+		padding: 10px
+
+strong
+	font-weight: bold
+
+//--------------------------------------------------
+// article
+article
+	position: absolute
+	top: 0
+	left: 250px
+	bottom: 0
+	right: 0
+	overflow: scroll
+
+//--------------------------------------------------
+// tasks
+.tasks
+	li 
+		position: relative
+		list-style: none
+		margin: 10px
+		border: 1px solid #ccc
+
+	h1
+		padding: 8px 10px
+		background: #aaa
+		font-size: 18px
+		font-weight: bold
+
+	button.action
+		position: absolute
+		top: -4px
+		right: 10px
+
+	canvas
+		width: 50%
+		height: auto
+
+	progress
+		display: block
+		position: relative
+		width: 100%
+		height: 30px
+		#background-color: #bbbbbb
+		border-radius: 0
+
+		&:after 
+			content: attr(data-label)
+			display: block
+			position: absolute
+			#color: white
+			top: 0
+			left: 0
+			width: 100%
+			height: 100%
+			line-height: 30px
+			text-align: center
