@@ -138,11 +138,22 @@ load = () ->
 	#--------------------
 	# 3. merge with matrix code and save
 	savePano = ->
-
 		outCanvas.width = gsvp.width
 		outCanvas.height = (img.height / img.width) * gsvp.width
 
+		# draw
+		outCtx.fillStyle = '#000000'
+		outCtx.fillRect(0, 0, outCanvas.width, outCanvas.height)
 		outCtx.drawImage(gsvp.canvas, 0, 0)
+
+		# filp 
+		outCtx.save()
+		outCtx.translate(0, gsvp.canvas.height * 2)
+		outCtx.scale(1, -1)
+		outCtx.drawImage(gsvp.canvas, 0, 0)
+		outCtx.restore()
+
+		# code
 		outCtx.drawImage(
 			img,
 			0, img.height - TAG_HEIGHT, 		img.width, TAG_HEIGHT,
@@ -169,13 +180,15 @@ load = () ->
 #------------------------------------------------------------
 onComplete = ->
 
-	fs.renameSync(srcDir, "#{srcDir}.proxy")
-	fs.renameSync(destDir, srcDir)
+	setTimeout ->
+		fs.renameSync(srcDir, "#{srcDir}.proxy")
+		fs.renameSync(destDir, srcDir)
 
-	notifier.notify
-		title: "Proxy Replacer"
-		message: "All done!"
-		sound: true
+		notifier.notify
+			title: "Proxy Replacer"
+			message: "All done!"
+			sound: true
+	, 2000
 
 
 	

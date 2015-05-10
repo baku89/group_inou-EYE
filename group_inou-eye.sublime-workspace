@@ -167,22 +167,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/shader/pano-rotation.fs",
-			"settings":
-			{
-				"buffer_size": 1007,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/package.json",
-			"settings":
-			{
-				"buffer_size": 96,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -191,10 +175,22 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 237.0,
-		"last_filter": "pretty",
+		"height": 67.0,
+		"last_filter": "set sntax:json",
 		"selected_items":
 		[
+			[
+				"set sntax:json",
+				"Set Syntax: JSON"
+			],
+			[
+				"json",
+				"Pretty JSON: JSON query with ./jq"
+			],
+			[
+				"ter",
+				"Open in terminal"
+			],
 			[
 				"pretty",
 				"Pretty JSON: Format (Pretty Print) JSON"
@@ -206,14 +202,6 @@
 			[
 				"termina",
 				"Open in terminal"
-			],
-			[
-				"ter",
-				"Open in terminal"
-			],
-			[
-				"json",
-				"Pretty JSON: Format (Pretty Print) JSON"
 			],
 			[
 				"termi",
@@ -374,27 +362,28 @@
 	],
 	"file_history":
 	[
-		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/greenland/_pano-data.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/replace-proxy.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package-build.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVPano.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/replace-proxy.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/greenland/_pano-data.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/skytree/_pano-data.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/aqua_parking/_pano-data.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/replace-proxy.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/sass/simple-gui.sass",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package-build.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/replace-proxy.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVPano.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/canvas-matrix-code.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/js/common.js",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/file/save.php",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib/hyperlapse.min.js",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib/glsl.min.js",
@@ -414,7 +403,6 @@
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib/encoding.min.js",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/parser/decode-tag.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/js/replace-proxy.js",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv-dev/b/_pano-ids.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/parser/tessearct.conf",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/parser/tag-parser.coffee",
@@ -530,6 +518,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"->\n",
+			"analyzeComplete",
+			"clear",
 			"@lookat",
 			"lookAT",
 			"BEGIN",
@@ -654,10 +645,7 @@
 			"toJSON",
 			"pitch",
 			"origin",
-			"pitch",
-			"heading",
-			"[name=",
-			"FILE"
+			"pitch"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -760,196 +748,13 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/shader/pano-rotation.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1007,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 1,
-					"file": "src/package.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 96,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1021,12 +826,68 @@
 		"selected_items":
 		[
 			[
-				".fs",
-				"src/shader/pano-rotation.fs"
+				"replace",
+				"src/coffee/replace-proxy.coffee"
+			],
+			[
+				"common",
+				"src/coffee/common.coffee"
+			],
+			[
+				"gsvpano",
+				"src/coffee/GSVPano.coffee"
+			],
+			[
+				"panoid",
+				"src/panoid-parser.jade"
+			],
+			[
+				"gsv-gene",
+				"src/gsv-generator.jade"
+			],
+			[
+				"gsv-",
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
+				"gsv",
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
+				"index.",
+				"src/index.jade"
+			],
+			[
+				"package.json",
+				"src/package.json"
+			],
+			[
+				"gulp",
+				"gulpfile.coffee"
+			],
+			[
+				"gulpfile",
+				"gulpfile.coffee"
+			],
+			[
+				"package",
+				"src/package-build.json"
+			],
+			[
+				"panoid-",
+				"src/coffee/panoid-parser.coffee"
 			],
 			[
 				"gsv-generator",
-				"src/gsv-generator.jade"
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
+				"panoid-par",
+				"src/coffee/panoid-parser.coffee"
+			],
+			[
+				".fs",
+				"src/shader/pano-rotation.fs"
 			],
 			[
 				"gsvh",
@@ -1037,18 +898,6 @@
 				"src/coffee/gsv-generator.coffee"
 			],
 			[
-				"gsv",
-				"src/coffee/gsv-generator.coffee"
-			],
-			[
-				"replace",
-				"src/replace-proxy.jade"
-			],
-			[
-				"panoid",
-				"src/panoid-parser.jade"
-			],
-			[
 				"panoid-parser",
 				"src/coffee/panoid-parser.coffee"
 			],
@@ -1057,32 +906,12 @@
 				"src/sass/simple-gui.sass.txt"
 			],
 			[
-				"gsv-",
-				"src/gsv-generator.jade"
-			],
-			[
-				"package",
-				"src/package.json"
-			],
-			[
-				"gulpfile",
-				"gulpfile.coffee"
-			],
-			[
-				"common",
-				"src/coffee/common.coffee"
-			],
-			[
 				"gsv-g",
 				"src/gsv-generator.jade"
 			],
 			[
 				"canvas",
 				"src/coffee/canvas-matrix-code.coffee"
-			],
-			[
-				"gulp",
-				"gulpfile.coffee"
 			],
 			[
 				"coomon",
@@ -1119,10 +948,6 @@
 			[
 				"gsv-genera",
 				"src/coffee/gsv-generator.coffee"
-			],
-			[
-				"gsvpano",
-				"src/js/lib/GSVPano.js"
 			],
 			[
 				"pano",
@@ -1203,10 +1028,6 @@
 			[
 				"tag",
 				"src/coffee/write-tag.coffee"
-			],
-			[
-				"gsv-gene",
-				"src/gsv-generator.jade"
 			],
 			[
 				"pano-",
@@ -1515,22 +1336,6 @@
 			[
 				"setti",
 				"user/settings.php"
-			],
-			[
-				"movie",
-				"user/new/movie.php"
-			],
-			[
-				"message",
-				"user/new/message.php"
-			],
-			[
-				"messa",
-				"user/new/message.php"
-			],
-			[
-				"uploa",
-				"api/upload-photo.php"
 			]
 		],
 		"width": 0.0
