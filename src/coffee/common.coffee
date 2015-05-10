@@ -33,4 +33,4 @@ saveCanvas = (canvas, dest) ->
 		if err
 			console.error err
 		else
-			fs.writeFile(dest, base64, 'base64')
+			fs.writeFileSync(dest, base64, 'base64')

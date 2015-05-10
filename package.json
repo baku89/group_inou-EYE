@@ -1,12 +1,7 @@
 {
   "name": "gi-eye",
   "version": "0.0.0",
-  "description": "",
   "main": "public/index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nw"
-  },
   "author": "baku89",
   "license": "ISC",
   "devDependencies": {
