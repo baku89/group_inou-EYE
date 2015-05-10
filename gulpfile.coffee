@@ -1,7 +1,7 @@
 module.exports = gulp
 
-#----------------------------------------
 
+#----------------------------------------
 gulp 	= require 'gulp'
 coffee 	= require 'gulp-coffee'
 compass	= require 'gulp-compass'
@@ -16,6 +16,7 @@ del 	= require 'del'
 bsync	= require('browser-sync').create()
 notifier= require 'node-notifier'
 NwBuilder=require 'node-webkit-builder'
+
 
 #----------------------------------------
 # compile
@@ -62,6 +63,7 @@ gulp.task 'compass', ->
 
 reload = bsync.reload
 
+
 #----------------------------------------
 # util
 
@@ -100,21 +102,26 @@ gulp.task 'build', ->
 		gulp.src 'src/package-build.json'
 			.pipe rename 'package.json'
 			.pipe gulp.dest 'public'
-		
 
 		nw = new NwBuilder
 			files: './public/**/*'
 			platforms: ['osx64']
 
-		nw.on 'log', console.log 
+		nw.on 'log', console.log
 
 		nwArgs =
 			buildType: 'versioned'
-			
 
 		nw.build(nwArgs).then(->
 			console.log "NwBuilder: all done!"
 		).catch( (err) ->
 			console.error err
 		)
+
+
+
+
+
+
+
 
