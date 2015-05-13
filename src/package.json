@@ -1,9 +1,10 @@
 {
-	"name": "GSVH",
-	"main": "index.html",
-	"version": "1.4.1",
+	"name": "GSVH v1.4.2",
+	"node-remote": "http://localhost:3000",
+	"main": "http://localhost:3000",
+	"version": "1.4.2",
 	"window": {
-		"title": "GSVH v1.4.1"
+		"title": "GSVH v1.4.2"
 	},
 	"chromium-args": "--child-clean-exit --enable-webgl --ignore-gpu-blacklist --disable-pinch",
 	"webkit": {
