@@ -78,9 +78,18 @@ create = (e)->
 
 	updateSettings()
 
-	if fs.existsSync("#{settings.dir}/#{settings.name}")
-		alert 'destination folder is already exists.'
-		return
+	dirname = "#{settings.dir}/#{settings.name}"
+	if fs.existsSync(dirname)
+
+		suffix = 2
+		loop
+			dirname = "#{settings.dir}/#{settings.name}_#{suffix}"
+			if !fs.existsSync(dirname)
+				settings.name = "#{settings.name}_#{suffix}"
+				break
+			suffix++
+
+	mkdirp.sync(dirname)
 
 	index = tasks.length
 
@@ -152,6 +161,13 @@ onAnalyzeComplete = ->
 	else if @method = GSVHyperlapseMethod.PANOID 
 		txtReport = "method: panoid"
 
+	txtReport += """
+
+				 headingMode: #{@headingMode}
+				 lookat: #{@lookat}
+				 zoom: #{@zoom}
+				 """
+
 	txtPanoIds = JSON.stringify( (pano.id for pano in @panoList) )
 
 	mkdirp dir, ->
@@ -212,13 +228,21 @@ onPanoramaLoad = (idx, pano, data) ->
 	ctx.fillRect(0, 0, canvas.width, canvas.height)
 	ctx.drawImage(pano, 0, 0)
 
+	# heading marker
+	ctx.fillStyle = '#ffffff'
+	ctx.fillRect(0, pano.height + 3, 12, 3)
+
+	# code
 	tag =
 		uid: @uid
 		id: data.id
 		heading: data.heading
 		latLng: data.latLng.toString()
-
+	
 	CanvasMatrixCode.draw(canvas, tag, 0, pano.height + 10, canvas.width, TAG_HEIGHT - 10)
+
+
+
 
 	$elm.append(canvas)
 

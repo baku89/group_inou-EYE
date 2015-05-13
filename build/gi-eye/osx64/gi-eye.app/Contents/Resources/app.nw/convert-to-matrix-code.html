@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Replace Proxy</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="js/lib/glsl.min.js"></script>
+    <script src="js/lib/sisyphus.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/GSVPano.js"></script>
+    <script src="js/canvas-matrix-code.js"></script>
+    <script src="js/GSVHyperlapse.js"></script>
+    <script src="js/replace-proxy.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script id="pano-rotation" type="x-shader/x-fragment">#ifdef GL_ES
+precision highp float;
+#endif
+
+#define PI 3.14159265358979323846264
+#define PI_2 (PI * 2.0)
+
+uniform vec2 resolution;
+uniform sampler2D original;
+uniform float pitch;
+uniform float heading;
+
+uniform vec2 size;
+uniform vec2 offset;
+
+void main (void) {
+
+	vec2 p = gl_FragCoord.xy / resolution;
+	p = p * (resolution / size) + (offset / size);
+
+	// cab heading
+	p = vec2(fract(p.x + heading / PI_2), clamp(p.y, 0.0, 1.0));
+
+	// //(u,v) -> (θ,φ)
+	// p = vec2(
+	// 	p.x * PI_2,
+	// 	PI * (p.y - 0.5)
+	// );
+
+	// // (θ,φ) -> (x, y, z)
+	// vec3 c = vec3(
+	// 	cos(p.x) * cos(p.y),
+	// 	sin(p.x) * cos(p.y),
+	// 	sin(p.y)
+	// );
+
+	// // (x, y, x) -rot-> (x', y', z')
+	// c = vec3(
+	// 	cos(-pitch) * c.x - sin(-pitch) * c.z,
+	// 	c.y,
+	// 	sin(-pitch) * c.x + cos(-pitch) * c.z
+	// );
+
+	// // (x', y', z') -> (θ',φ')
+	// p = vec2(
+	// 	atan(c.y, c.x),
+	// 	atan(c.z, length(c.xy))
+	// );
+
+	// // (θ',φ') -> (u',v')
+	// p = vec2(
+	// 	p.x / PI_2,
+	// 	p.y / PI + 0.5
+	// );
+	// p = fract(p);
+
+	vec4 color = texture2D(original, p);
+
+	gl_FragColor = color;
+}
+    </script>
+    <style>
+      #pano * {
+      	width: 100%;
+      	height: auto;
+      }
+      
+      canvas {
+      	width: 100%;
+      	float:left;
+      }
+      
+      progress {
+      	width: 100%;
+      	display: block;
+      	margin-bottom: 10px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <h1>Replace Proxy</h1><a href="./index.html">back to menu</a>
+    <dl id="replace-proxy">
+      <dt>Select Directory</dt>
+      <dd>
+        <input name="file" type="file" webkitdirectory>
+      </dd>
+      <dt>Source</dt>
+      <dd>
+        <input name="source" type="text">
+      </dd>
+      <dt>Quality</dt>
+      <dd><small>4 = 6656px, 5 = 13312px</small>
+        <input name="zoom" type="number" min="1" max="5" value="5">
+      </dd>
+      <dt>Progress
+        <div id="stat-seq" style="text-align:center;">(0/0)</div>
+        <progress id="prog-seq" max="100"></progress>
+        <div id="stat-pano" style="text-align:center;">0%</div>
+        <progress id="prog-pano" max="100"></progress>
+      </dt>
+    </dl>
+    <button id="decode">Decode</button>
+    <hr>
+    <canvas id="src" style="width:50%;float:left;background:pink;"></canvas>
+    <canvas id="out" style="width:50%;float:left;background:black;"></canvas>
+    <hr>
+    <p id="console" style="width:100%;height:120px;"></p>
+  </body>
+</html>

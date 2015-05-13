@@ -61,7 +61,13 @@ CanvasMatrixCode.decode = (canvas, x, y, width, height) ->
         if end then break
 
     str = CanvasMatrixCode.buffToStr( buff )
-    return JSON.parse( str )
+    try
+        json = JSON.parse( str )
+    catch e
+        alert('tag is brocken')
+        return null
+
+    return json
 
 CanvasMatrixCode.buffToStr =  (buff) ->
 	return String.fromCharCode.apply(null, new Uint8Array(buff))

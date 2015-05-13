@@ -20,7 +20,8 @@ html
 	body
 		nav#panoid-parser
 			h1 Pano ID Parser
-			a(href="./index.html") back to menu
+			a(href="./index.html") [back to menu]
+			a(href="./index.html" target="_blank") [new window]
 
 			dl
 				dt street view url || pano id
@@ -50,12 +51,15 @@ html
 
 			hr
 
+			p#console
+
 			dl
 				dt pano data
 				dd
 					textarea#json(name="json" style='height:300px;')
 					br
 					a(href='gsv-generator.html') GSV Generator
+
 
 		article
 			div#svp svp

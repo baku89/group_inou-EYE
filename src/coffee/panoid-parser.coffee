@@ -174,10 +174,11 @@ onLinksChanged = ->
 		# check if date is correct
 		date = data.imageDate
 		if prevDate? && date != prevDate
-			if !confirm('imageDate changed. continue?')
-				prevDate = date
-				svp.setPano(prevId)
-				return
+			# if !confirm('imageDate changed. continue?')
+			# 	prevDate = date
+			# 	svp.setPano(prevId)
+			# 	return
+			$('#console').append("date changed: #{prevDate} -> #{date}")
 		prevDate = date
 
 		map.setCenter( pos )

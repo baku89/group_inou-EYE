@@ -90,9 +90,10 @@ load = () ->
 	# make new directory
 	destDir = "#{path.dirname(srcDir)}/#{basename}.HQ"
 	try
-		fs.mkdirSync(destDir)
+		mkdirp.sync(destDir)
+		#fs.mkdirSync(destDir)
 	catch err
-		console.log err
+		alert("Destination directory already exists. Please delete '#{destDir}' to continue.")
 
 	img = new Image()
 
@@ -119,21 +120,49 @@ load = () ->
 	#--------------------
 	# 2. read matrix code and setup gsvh and run compose()
 	onLoadImg = ->
+
+		width = img.width
+		height = img.height
+
 		srcCanvas.width = img.width
 		srcCanvas.height = img.height
 
-		# decode pano matrix code
+
 		srcCtx.drawImage(img, 0, 0)
+
+		# read heading offset
+		headingOffset = 0
+		x = 0
+		for i in [0..srcCanvas.width-1]
+			pixel = srcCtx.getImageData(i, 836, 1, 1).data
+			if pixel[0] >= 128
+				x = i
+				headingOffset = (x / srcCanvas.width) * 360
+				break
+
+		console.log headingOffset
+
+		console.log x
+
+		# fix tag offset
+		srcCtx.drawImage(img,
+			0, height - TAG_HEIGHT, width, TAG_HEIGHT,
+			-x, height - TAG_HEIGHT, width, TAG_HEIGHT)
+		srcCtx.drawImage(img,
+			0, height - TAG_HEIGHT, width, TAG_HEIGHT,
+			-x + width, height - TAG_HEIGHT, width, TAG_HEIGHT)
+
+		# decode pano matrix code
 		pano = CanvasMatrixCode.decode(
 			srcCanvas,
 			0,
 			srcCanvas.height - TAG_HEIGHT + 10,
 			1664, TAG_HEIGHT - 10)#srcCanvas.width, TAG_HEIGHT - 10)
 
-		console.log pano
+		#console.log pano
 
 		# generate pano
-		gsvp.composePanorama( pano.id, pano.heading )
+		gsvp.composePanorama( pano.id, pano.heading + headingOffset )
 
 	#--------------------
 	# 3. merge with matrix code and save

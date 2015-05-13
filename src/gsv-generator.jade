@@ -23,7 +23,8 @@ html
 	body
 		nav#gsv-generator
 			h1 GSV Generator
-			a(href="./index.html") back to menu
+			a(href="./index.html") [back to menu]
+			a(href="./index.html" target="_blank") [new window]
 
 			dl
 				dt name
@@ -38,9 +39,9 @@ html
 
 				dt heading
 				dd
-					input#heading-1(name='headingMode' type='radio' value='backward')
-					label(for='heading-1') backward 
-					br
+					//- input#heading-1(name='headingMode' type='radio' value='backward')
+					//- label(for='heading-1') backward 
+					//- br
 
 					input#heading-2(name='headingMode' type='radio' value='lookat')
 					label(for='heading-2') lookat
