@@ -17,6 +17,8 @@ gsvp = null
 
 startTime = null
 
+changedList = []
+
 ss = new google.maps.StreetViewService()
 
 log = (str) ->
@@ -92,6 +94,8 @@ load = () ->
 
 	idx = 0
 	filename = ""
+
+	changedList = []
 
 	#--------------------
 	# 1. load image
@@ -189,6 +193,8 @@ load = () ->
 				bChanged = false
 				gsvp.composePanorama( pano.id, pano.heading + headingOffset )
 			else
+
+
 				console.log "invalid pano id: #{pano.id}"
 				bChanged = true
 
@@ -204,6 +210,18 @@ load = () ->
 					ss.getPanoramaByLocation latLng, radius, (data, status) ->
 						if status == google.maps.StreetViewStatus.OK
 							id = data.location.pano
+
+
+							changedInfo = 
+								filename: filename
+								oldId: pano.id
+								newId: id
+								oldLatLng: latLng.toString()
+								newLatLng: data.location.latLng.toString()
+								radius: radius
+
+							changedList.push( changedInfo )
+
 							console.log "nearest pano: #{pano.id} -> #{id}, radius: #{radius}"
 							gsvp.composePanorama( id, pano.heading + headingOffset )
 						else
@@ -224,12 +242,11 @@ load = () ->
 		outCtx.fillStyle = '#000000'
 		outCtx.fillRect(0, 0, outCanvas.width, outCanvas.height)
 
-
 		if bFlip
 			console.log "fliped"
 			outCtx.save()
 			outCtx.scale(-1, 1)
-			outCtx.translate(gsvp.canvas.width)
+			outCtx.translate(gsvp.canvas.width, 0)
 
 		outCtx.drawImage(gsvp.canvas, 0, 0)
 
@@ -249,13 +266,15 @@ load = () ->
 			0, img.height - TAG_HEIGHT, 		img.width, TAG_HEIGHT,
 			0, outCanvas.height - TAG_HEIGHT, 	img.width, TAG_HEIGHT)
 
-		dest = "#{destDir}/#{filename}"
-		saveCanvas( outCanvas, dest )
-
 		# changed
 		if bChanged
 			outCtx.fillStyle = '#ff0000'
-			coutCtx.fillRect(outCanvas.width-10, outCanvas.height-10, 10, 10)
+			outCtx.fillRect(outCanvas.width-40, outCanvas.height-40, 40, 40)
+
+		dest = "#{destDir}/#{filename}"
+		saveCanvas( outCanvas, dest )
+
+		
 
 		# next
 		if ++idx < fileList.length
@@ -275,6 +294,11 @@ load = () ->
 onComplete = ->
 
 	setTimeout ->
+
+		changedTxt = JSON.stringify( changedList )
+
+		fs.writeFile("#{destDir}/_report.txt", changedTxt)
+
 		fs.renameSync(srcDir, "#{srcDir}.proxy")
 		fs.renameSync(destDir, srcDir)
 
@@ -282,7 +306,7 @@ onComplete = ->
 			title: "Proxy Replacer"
 			message: "All done!"
 			sound: true
-	, 2000
+	, 3000
 
 
 	
