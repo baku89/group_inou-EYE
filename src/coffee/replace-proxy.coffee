@@ -17,6 +17,8 @@ gsvp = null
 
 startTime = null
 
+ss = new google.maps.StreetViewService()
+
 log = (str) ->
 	$console.append("#{str}\n")
 	$console.scrollTop = $console.scrollHeight
@@ -36,25 +38,6 @@ $ ->
 		$('[name=source]')
 			.val( $('[name=file]').val() )
 		sisyphus.saveAllData()
-
-	# #test
-
-	# pl = new GSVPANO.PanoLoader
-	# 	zoom: 2
-
-	# pl.onProgress = (p)->
-	# 	console.log(p)
-
-	# pl.onPanoramaLoad = ->
-	# 	$('body').append(pl.canvas)
-	# 	$('body').append(pl.c2)
-
-	# 	saveCanvas( pl.canvas, "/Users/mugi/mod_2.png" )
-	# 	saveCanvas( pl.c2, "/Users/mugi/original_slope.png" )
-
-	# dogen = "FZLqNO1SUIh3FQrcWTm8xg"
-	# slope = "-Prcca354HvtEovP8iymRQ"
-	# pl.composePanorama(slope, 0)
 
 	gsvp = new GSVPANO.PanoLoader
 		zoom: parseInt( $('[name=zoom]').val() )
@@ -77,8 +60,6 @@ decode = ->
 
 	fileList = (f for f in files when /\.png$/.test(f))
 	basename = path.basename( srcDir )
-
-	#console.log fileList
 
 	load()
 
@@ -140,10 +121,6 @@ load = () ->
 				headingOffset = (x / srcCanvas.width) * 360
 				break
 
-		console.log headingOffset
-
-		console.log x
-
 		# fix tag offset
 		srcCtx.drawImage(img,
 			0, height - TAG_HEIGHT, width, TAG_HEIGHT,
@@ -159,14 +136,30 @@ load = () ->
 			srcCanvas.height - TAG_HEIGHT + 10,
 			1664, TAG_HEIGHT - 10)#srcCanvas.width, TAG_HEIGHT - 10)
 
-		#console.log pano
+		console.log pano
 
-		# generate pano
-		gsvp.composePanorama( pano.id, pano.heading + headingOffset )
+
+		# check if the pano id is valid
+		ss.getPanoramaById pano.id, (data, status) ->
+
+			if status == google.maps.StreetViewStatus.OK
+				# generate pano
+				gsvp.composePanorama( pano.id, pano.heading + headingOffset )
+			else
+				console.log "invalid pano id: #{pano.id}"
+
+				# next
+				if ++idx < fileList.length
+					loadImg()
+				else
+					onComplete()
 
 	#--------------------
 	# 3. merge with matrix code and save
 	savePano = ->
+		console.log "save pano"
+
+
 		outCanvas.width = gsvp.width
 		outCanvas.height = (img.height / img.width) * gsvp.width
 

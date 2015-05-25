@@ -167,6 +167,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/coffee/replace-proxy.coffee",
+			"settings":
+			{
+				"buffer_size": 4392,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -175,10 +183,30 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 67.0,
-		"last_filter": "set sntax:json",
+		"height": 203.0,
+		"last_filter": "termi",
 		"selected_items":
 		[
+			[
+				"termi",
+				"Open in terminal"
+			],
+			[
+				"ter",
+				"Open in terminal"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"delete",
+				"File: Delete"
+			],
+			[
+				"rename",
+				"File: Rename"
+			],
 			[
 				"set sntax:json",
 				"Set Syntax: JSON"
@@ -188,23 +216,11 @@
 				"Pretty JSON: JSON query with ./jq"
 			],
 			[
-				"ter",
-				"Open in terminal"
-			],
-			[
 				"pretty",
 				"Pretty JSON: Format (Pretty Print) JSON"
 			],
 			[
-				"rename",
-				"File: Rename"
-			],
-			[
 				"termina",
-				"Open in terminal"
-			],
-			[
-				"termi",
 				"Open in terminal"
 			],
 			[
@@ -353,36 +369,39 @@
 	},
 	"expanded_folders":
 	[
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/assets",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/sass"
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b"
 	],
 	"file_history":
 	[
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/test-map.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/test-map.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/replace-proxy.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package-build.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/peru-mountain-pass/_pano-ids.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv-2/colorful/_pano-ids.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/build/gi-eye/osx64/gi-eye.app/Contents/Resources/app.nw/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package-build.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/replace-proxy.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/canvas-matrix-code.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/package.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/tatsumaki-france.old/_pano-ids.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/matrix-code-encoder.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/group_inou-eye.sublime-project",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVPano.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/replace-proxy.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/greenland/_pano-data.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/skytree/_pano-data.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/aqua_parking/_pano-data.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/sass/simple-gui.sass",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/canvas-matrix-code.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/js/common.js",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/file/save.php",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/js/lib/hyperlapse.min.js",
@@ -481,15 +500,7 @@
 		"/Users/mugi/Sites/com.one-timeoflove/todo.mdown",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/settings.php",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_util.scss",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset_complete.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/index.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset copy.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/maxmin/node_modules/gzip-size/node_modules/concat-stream/node_modules/readable-stream/passthrough.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/package.json",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/api/update-post.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/config.rb",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/inc/class.post.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset_complete copy.php"
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset_complete.php"
 	],
 	"find":
 	{
@@ -518,6 +529,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"savePano",
+			"idx",
+			"name=name",
+			"imageDate",
+			"date",
+			"alert",
+			"setParameters",
+			"callback",
+			"DIRECTION",
+			"travelMode",
 			"->\n",
 			"analyzeComplete",
 			"clear",
@@ -635,17 +656,7 @@
 			"elevation",
 			"getElevation",
 			"elevation",
-			"loader.",
-			"elevation",
-			"tiles",
-			"originPitch",
-			"h_points",
-			".heading",
-			"origin",
-			"toJSON",
-			"pitch",
-			"origin",
-			"pitch"
+			"loader."
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -748,8 +759,100 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/coffee/replace-proxy.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3284,
+								3284
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1496.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -830,6 +933,90 @@
 				"src/coffee/replace-proxy.coffee"
 			],
 			[
+				"test-",
+				"src/test-map.jade"
+			],
+			[
+				"panoid-parser",
+				"src/coffee/panoid-parser.coffee"
+			],
+			[
+				"pano-id",
+				"src/panoid-parser.jade"
+			],
+			[
+				"jade",
+				"src/gsv-generator.jade"
+			],
+			[
+				"package.",
+				"src/package-build.json"
+			],
+			[
+				"package",
+				"src/package.json"
+			],
+			[
+				"gsv-ge",
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
+				"gsvhy",
+				"src/coffee/GSVHyperlapse.coffee"
+			],
+			[
+				"canvas",
+				"src/coffee/canvas-matrix-code.coffee"
+			],
+			[
+				"panid",
+				"src/panoid-parser.jade"
+			],
+			[
+				"panoid",
+				"src/coffee/panoid-parser.coffee"
+			],
+			[
+				"gsvh",
+				"src/coffee/GSVHyperlapse.coffee"
+			],
+			[
+				"gsv",
+				"src/gsv-generator.jade"
+			],
+			[
+				"gulpo",
+				"gulpfile.coffee"
+			],
+			[
+				"encoe",
+				"src/matrix-code-encoder.jade"
+			],
+			[
+				"proxy",
+				"src/coffee/replace-proxy.coffee"
+			],
+			[
+				"sublime",
+				"group_inou-eye.sublime-project"
+			],
+			[
+				"pacckage",
+				"build/gi-eye/osx64/gi-eye.app/Contents/Resources/app.nw/package.json"
+			],
+			[
+				"gs-",
+				"src/gsv-generator.jade"
+			],
+			[
+				"gsv-generator",
+				"src/coffee/gsv-generator.coffee"
+			],
+			[
+				"gsvhyperlapse",
+				"src/coffee/GSVHyperlapse.coffee"
+			],
+			[
 				"common",
 				"src/coffee/common.coffee"
 			],
@@ -838,19 +1025,11 @@
 				"src/coffee/GSVPano.coffee"
 			],
 			[
-				"panoid",
-				"src/panoid-parser.jade"
-			],
-			[
 				"gsv-gene",
 				"src/gsv-generator.jade"
 			],
 			[
 				"gsv-",
-				"src/coffee/gsv-generator.coffee"
-			],
-			[
-				"gsv",
 				"src/coffee/gsv-generator.coffee"
 			],
 			[
@@ -870,16 +1049,8 @@
 				"gulpfile.coffee"
 			],
 			[
-				"package",
-				"src/package-build.json"
-			],
-			[
 				"panoid-",
 				"src/coffee/panoid-parser.coffee"
-			],
-			[
-				"gsv-generator",
-				"src/coffee/gsv-generator.coffee"
 			],
 			[
 				"panoid-par",
@@ -890,28 +1061,12 @@
 				"src/shader/pano-rotation.fs"
 			],
 			[
-				"gsvh",
-				"src/coffee/GSVHyperlapse.coffee"
-			],
-			[
-				"gsv-ge",
-				"src/coffee/gsv-generator.coffee"
-			],
-			[
-				"panoid-parser",
-				"src/coffee/panoid-parser.coffee"
-			],
-			[
 				"simple",
 				"src/sass/simple-gui.sass.txt"
 			],
 			[
 				"gsv-g",
 				"src/gsv-generator.jade"
-			],
-			[
-				"canvas",
-				"src/coffee/canvas-matrix-code.coffee"
 			],
 			[
 				"coomon",
@@ -974,20 +1129,12 @@
 				"src/js/lib/sisyphus.js"
 			],
 			[
-				"jade",
-				"src/replace-proxy.jade"
-			],
-			[
 				"gsvn",
 				"src/coffee/gsv-generator.coffee"
 			],
 			[
 				"sisy",
 				"src/js/lib/sisyphus.min.js"
-			],
-			[
-				"proxy",
-				"src/replace-proxy.jade"
 			],
 			[
 				"gupfi",
@@ -1035,10 +1182,6 @@
 			],
 			[
 				"gsvhyper",
-				"src/coffee/GSVHyperlapse.coffee"
-			],
-			[
-				"gsvhy",
 				"src/coffee/GSVHyperlapse.coffee"
 			],
 			[
@@ -1296,46 +1439,6 @@
 			[
 				"post.scss",
 				"assets/scss/module/_post.scss"
-			],
-			[
-				"style.scss",
-				"assets/scss/style.scss"
-			],
-			[
-				"up",
-				"api/upload-photo.php"
-			],
-			[
-				"_base",
-				"assets/scss/_base.scss"
-			],
-			[
-				"update-se",
-				"api/update-settings.php"
-			],
-			[
-				"update",
-				"api/update-settings.php"
-			],
-			[
-				"new",
-				"user/new/message.php"
-			],
-			[
-				"function",
-				"api/functions-user.php"
-			],
-			[
-				"funct",
-				"api/functions-user.php"
-			],
-			[
-				"edit",
-				"user/edit/message.php"
-			],
-			[
-				"setti",
-				"user/settings.php"
 			]
 		],
 		"width": 0.0
