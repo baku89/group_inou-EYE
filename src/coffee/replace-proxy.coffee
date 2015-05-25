@@ -84,6 +84,12 @@ load = () ->
 	srcCtx = srcCanvas.getContext('2d')
 	outCtx = outCanvas.getContext('2d')
 
+	flipCanvas = document.createElement('canvas')
+	flipCtx = flipCanvas.getContext('2d')
+
+	bFlip = false
+	bChanged = false
+
 	idx = 0
 	filename = ""
 
@@ -121,11 +127,38 @@ load = () ->
 				headingOffset = (x / srcCanvas.width) * 360
 				break
 
+		# read if fliped
+		pt =
+			x: ((img.width + x) - 3) % img.width
+			y: 843
+
+		pixel = srcCtx.getImageData(pt.x, pt.y, 1, 1).data
+		if pixel[0] > 128
+			bFlip = true
+			x = img.width - (x+12)
+			headingOffset = (x / srcCanvas.width) * 360
+		else
+			bFlip = false
+
 		# fix tag offset
-		srcCtx.drawImage(img,
+		flipCanvas.width = img.width
+		flipCanvas.height = img.height
+
+		if bFlip
+			flipCtx.save()
+			flipCtx.scale(-1, 1)
+			flipCtx.translate(img.width, 0)
+			flipCtx.drawImage( img, 0, 0 )
+			flipCtx.restore()
+
+		else
+			flipCtx.drawImage( img, 0, 0 )
+
+
+		srcCtx.drawImage(flipCanvas,
 			0, height - TAG_HEIGHT, width, TAG_HEIGHT,
 			-x, height - TAG_HEIGHT, width, TAG_HEIGHT)
-		srcCtx.drawImage(img,
+		srcCtx.drawImage(flipCanvas,
 			0, height - TAG_HEIGHT, width, TAG_HEIGHT,
 			-x + width, height - TAG_HEIGHT, width, TAG_HEIGHT)
 
@@ -134,41 +167,50 @@ load = () ->
 			srcCanvas,
 			0,
 			srcCanvas.height - TAG_HEIGHT + 10,
-			1664, TAG_HEIGHT - 10)#srcCanvas.width, TAG_HEIGHT - 10)
+			1664, TAG_HEIGHT - 10)
 
+		if pano == null
+			dest = "#{destDir}/#{filename}"
+			saveCanvas( srcCanvas, dest )
 
-		console.log pano
+			setTimeout ->
+				if ++idx < fileList.length
+					loadImg()
+				else
+					onComplete()
+			, 1
+			return
 
 		# check if the pano id is valid
 		ss.getPanoramaById pano.id, (data, status) ->
 
-			if status == google.maps.StreetViewStatus.OK
+			if status == google.maps.StreetViewStatus.OK 
 				# generate pano
+				bChanged = false
 				gsvp.composePanorama( pano.id, pano.heading + headingOffset )
 			else
 				console.log "invalid pano id: #{pano.id}"
+				bChanged = true
 
 				result = /([\-0-9.]+), ([\-0-9.]+)/.exec(pano.latLng)
-
-				console.log result
-
 				lat = result[1]
 				lng = result[2]
-
 				latLng = new google.maps.LatLng(lat, lng)
 
-				console.log latLng
+				# search nearest pano
+				radius = 1
 
-				ss.getPanoramaByLocation latLng, 10, (data, status) ->
+				searchNearestPano = ->
+					ss.getPanoramaByLocation latLng, radius, (data, status) ->
+						if status == google.maps.StreetViewStatus.OK
+							id = data.location.pano
+							console.log "nearest pano: #{pano.id} -> #{id}, radius: #{radius}"
+							gsvp.composePanorama( id, pano.heading + headingOffset )
+						else
+							radius++
+							setTimeout(searchNearestPano, 500)
 
-					if status == google.maps.StreetViewStatus.OK
-
-						id = data.location.pano
-
-						gsvp.composePanorama( id, pano.heading + headingOffset )
-
-					else
-						alert("muri")
+				searchNearestPano()
 
 	#--------------------
 	# 3. merge with matrix code and save
@@ -181,7 +223,18 @@ load = () ->
 		# draw
 		outCtx.fillStyle = '#000000'
 		outCtx.fillRect(0, 0, outCanvas.width, outCanvas.height)
+
+
+		if bFlip
+			console.log "fliped"
+			outCtx.save()
+			outCtx.scale(-1, 1)
+			outCtx.translate(gsvp.canvas.width)
+
 		outCtx.drawImage(gsvp.canvas, 0, 0)
+
+		if bFlip
+			outCtx.restore()
 
 		# filp 
 		outCtx.save()
@@ -198,6 +251,11 @@ load = () ->
 
 		dest = "#{destDir}/#{filename}"
 		saveCanvas( outCanvas, dest )
+
+		# changed
+		if bChanged
+			outCtx.fillStyle = '#ff0000'
+			coutCtx.fillRect(outCanvas.width-10, outCanvas.height-10, 10, 10)
 
 		# next
 		if ++idx < fileList.length

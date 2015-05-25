@@ -64,7 +64,7 @@ CanvasMatrixCode.decode = (canvas, x, y, width, height) ->
     try
         json = JSON.parse( str )
     catch e
-        alert('tag is brocken')
+        console.log('invalid tag')
         return null
 
     return json
