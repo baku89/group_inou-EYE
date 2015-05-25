@@ -136,8 +136,8 @@ load = () ->
 			srcCanvas.height - TAG_HEIGHT + 10,
 			1664, TAG_HEIGHT - 10)#srcCanvas.width, TAG_HEIGHT - 10)
 
-		console.log pano
 
+		console.log pano
 
 		# check if the pano id is valid
 		ss.getPanoramaById pano.id, (data, status) ->
@@ -148,17 +148,32 @@ load = () ->
 			else
 				console.log "invalid pano id: #{pano.id}"
 
-				# next
-				if ++idx < fileList.length
-					loadImg()
-				else
-					onComplete()
+				result = /([\-0-9.]+), ([\-0-9.]+)/.exec(pano.latLng)
+
+				console.log result
+
+				lat = result[1]
+				lng = result[2]
+
+				latLng = new google.maps.LatLng(lat, lng)
+
+				console.log latLng
+
+				ss.getPanoramaByLocation latLng, 10, (data, status) ->
+
+					if status == google.maps.StreetViewStatus.OK
+
+						id = data.location.pano
+
+						gsvp.composePanorama( id, pano.heading + headingOffset )
+
+					else
+						alert("muri")
 
 	#--------------------
 	# 3. merge with matrix code and save
 	savePano = ->
 		console.log "save pano"
-
 
 		outCanvas.width = gsvp.width
 		outCanvas.height = (img.height / img.width) * gsvp.width
@@ -189,7 +204,6 @@ load = () ->
 			loadImg()
 		else
 			onComplete()
-
 
 	#--------------------
 	# trigger
