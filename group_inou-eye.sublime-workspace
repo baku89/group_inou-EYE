@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"outC",
+				"outCanvas"
+			],
+			[
 				"out",
 				"outCtx"
 			],
@@ -180,10 +184,18 @@
 	"buffers":
 	[
 		{
+			"file": "src/gsv-generator.jade",
+			"settings":
+			{
+				"buffer_size": 2962,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "gulpfile.coffee",
 			"settings":
 			{
-				"buffer_size": 2724,
+				"buffer_size": 2723,
 				"line_ending": "Unix"
 			}
 		}
@@ -195,20 +207,20 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 237.0,
-		"last_filter": "pretty",
+		"height": 400.0,
+		"last_filter": "ter",
 		"selected_items":
 		[
+			[
+				"ter",
+				"Open in terminal"
+			],
 			[
 				"pretty",
 				"Pretty JSON: Format (Pretty Print) JSON"
 			],
 			[
 				"termi",
-				"Open in terminal"
-			],
-			[
-				"ter",
 				"Open in terminal"
 			],
 			[
@@ -385,13 +397,16 @@
 	],
 	"file_history":
 	[
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Applications/Adobe After Effects CC 2014/Scripts/Script Launcher/PasteMultipleKeyframes_v1-3.jsx",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/replace-proxy.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/canvas-matrix-code.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/replace-proxy.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/test-map.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/test-map.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/canvas-matrix-code.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/test-map.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/peru-mountain-pass/_pano-ids.json",
@@ -402,13 +417,11 @@
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/public/package.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVHyperlapse.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/package.json",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/tatsumaki-france.old/_pano-ids.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/matrix-code-encoder.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/group_inou-eye.sublime-project",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVPano.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/greenland/_pano-data.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/skytree/_pano-data.json",
@@ -511,8 +524,7 @@
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset.php",
 		"/Users/mugi/Sites/com.one-timeoflove/todo.mdown",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/settings.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_util.scss",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset_complete.php"
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_util.scss"
 	],
 	"find":
 	{
@@ -541,6 +553,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"copy",
+			"destDir",
+			"next()",
+			"onLoadImg",
+			"tagCtx",
+			"log",
+			"tagCtx",
+			"zoom",
+			"try",
 			"bchanged",
 			"changedList",
 			"brocken",
@@ -659,16 +680,7 @@
 			"@report",
 			"zoom",
 			"headingMode",
-			"step",
-			"searchRadius",
-			"step",
-			"rotation",
-			"spheri",
-			"sphere",
-			"sphe",
-			"position.x",
-			"position",
-			"position.x"
+			"step"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -676,6 +688,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"saveAndNext()",
 			"@gsvp",
 			"GL_MAX_WIDTH",
 			"_rotFx",
@@ -771,24 +784,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "gulpfile.coffee",
+					"file": "src/gsv-generator.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2724,
+						"buffer_size": 2962,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								869,
-								869
+								1781,
+								1781
 							]
 						],
 						"settings":
@@ -796,61 +809,152 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 334.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "gulpfile.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								762,
+								762
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
 							],
 							"incomplete_sync": null,
 							"remote_loading": false,
@@ -929,6 +1033,26 @@
 		"selected_items":
 		[
 			[
+				"",
+				"src/gsv-generator.jade"
+			],
+			[
+				"common",
+				"src/coffee/common.coffee"
+			],
+			[
+				"replace",
+				"src/replace-proxy.jade"
+			],
+			[
+				"jade",
+				"src/gsv-generator.jade"
+			],
+			[
+				"test",
+				"src/test-map.jade"
+			],
+			[
 				"gsv-g",
 				"src/coffee/gsv-generator.coffee"
 			],
@@ -945,10 +1069,6 @@
 				"src/coffee/canvas-matrix-code.coffee"
 			],
 			[
-				"replace",
-				"src/replace-proxy.jade"
-			],
-			[
 				"test-",
 				"src/test-map.jade"
 			],
@@ -959,10 +1079,6 @@
 			[
 				"pano-id",
 				"src/panoid-parser.jade"
-			],
-			[
-				"jade",
-				"src/gsv-generator.jade"
 			],
 			[
 				"package.",
@@ -1031,10 +1147,6 @@
 			[
 				"gsvhyperlapse",
 				"src/coffee/GSVHyperlapse.coffee"
-			],
-			[
-				"common",
-				"src/coffee/common.coffee"
 			],
 			[
 				"gsvpano",
@@ -1113,10 +1225,6 @@
 				"src/js/lib/GSVPano.js"
 			],
 			[
-				"test",
-				"test.json"
-			],
-			[
 				"gsvp",
 				"src/js/lib/GSVPano.js"
 			],
@@ -1191,10 +1299,6 @@
 			[
 				"hyperlapse",
 				"src/js/lib/hyperlapse.min.js"
-			],
-			[
-				"",
-				"src/js/lib/GSVPano.js"
 			],
 			[
 				"test.j",

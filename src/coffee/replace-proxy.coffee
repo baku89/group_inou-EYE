@@ -108,6 +108,23 @@ load = () ->
 
 	changedList = []
 
+	reportPath = "#{destDir}/_report.txt"
+	if fs.existsSync(reportPath)
+		changedList = JSON.parse( fs.readFileSync(reportPath) )
+
+	destFiles = fs.readdirSync(destDir)
+	destFileList = (f for f in destFiles when /\.png$/.test(f))
+
+	subFileList = []
+
+	for f in fileList
+		if !(f in destFileList)
+			subFileList.push( f )
+
+	fileList = subFileList
+
+	console.log fileList
+
 	#--------------------
 	# 1. load image
 	loadImg = () ->
