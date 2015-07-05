@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"TAG",
+				"TAG_WIDTH"
+			],
+			[
 				"outC",
 				"outCanvas"
 			],
@@ -184,18 +188,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/gsv-generator.jade",
+			"file": "src/coffee/replace-proxy.coffee",
 			"settings":
 			{
-				"buffer_size": 2962,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "gulpfile.coffee",
-			"settings":
-			{
-				"buffer_size": 2723,
+				"buffer_size": 6827,
 				"line_ending": "Unix"
 			}
 		}
@@ -393,22 +389,33 @@
 	},
 	"expanded_folders":
 	[
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b"
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src"
 	],
 	"file_history":
 	[
-		"/Applications/Adobe After Effects CC 2014/Scripts/Script Launcher/PasteMultipleKeyframes_v1-3.jsx",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/replace-proxy.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/seq-replacer.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv-5/daipei-dawn_lighter:ba/_pano-ids.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv-5/daipei-dawn_lighter:ba/daipei-dawn_lighter_000000.png",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv-5/daipei-dawn_3/_pano-ids.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/replace-proxy.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/test-map.jade",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/replace-proxy.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/gsv-generator.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/timeline/test/_pano-list.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/timeline/test_pano-list.json",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/common.coffee",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/seq-replacer.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
+		"/Users/mugi/Library/Preferences/Adobe/After Effects/13.2/Adobe After Effects 13.2 Mac en_US Shortcuts.txt",
+		"/Users/mugi/Library/Caches/Cleanup At Startup/Transmit/EB8012B9-2F8F-4BCB-828C-81122D18CF91/index.php",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/gsv-generator.jade",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/gulpfile.coffee",
+		"/Applications/Adobe After Effects CC 2014/Scripts/Script Launcher/PasteMultipleKeyframes_v1-3.jsx",
+		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/test-map.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/canvas-matrix-code.coffee",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/test-map.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/panoid-parser.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/panoid-parser.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/peru-mountain-pass/_pano-ids.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv-2/colorful/_pano-ids.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/build/gi-eye/osx64/gi-eye.app/Contents/Resources/app.nw/package.json",
@@ -421,7 +428,6 @@
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/matrix-code-encoder.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/group_inou-eye.sublime-project",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/coffee/GSVPano.coffee",
-		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/index.jade",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/0b/src/shader/pano-rotation.fs",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/greenland/_pano-data.json",
 		"/Volumes/MugiRAID1/Works/2015/09_eye/gsv/skytree/_pano-data.json",
@@ -515,16 +521,7 @@
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/js/base.js",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_site-settings.scss",
 		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_mixins.scss",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/exit/.jshintrc",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/css/jscrollpane.css",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uri-path/test/main.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt-contrib-uglify/node_modules/uglify-js/lib/mozilla-ast.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/iconv-lite/encodings/singlebyte.js",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/css/style.css",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/password_reset/reset.php",
-		"/Users/mugi/Sites/com.one-timeoflove/todo.mdown",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/user/settings.php",
-		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/scss/_util.scss"
+		"/Users/mugi/Sites/com.one-timeoflove/src-public/assets/node_modules/grunt/node_modules/exit/.jshintrc"
 	],
 	"find":
 	{
@@ -553,6 +550,19 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tif",
+			"destDir",
+			"encode",
+			"panoJson",
+			"srcDir",
+			"saveAndNext",
+			"JSON",
+			"headingOffset",
+			"1664",
+			"nearest",
+			"WorkArea",
+			"Trim",
+			"WorkArea",
 			"copy",
 			"destDir",
 			"next()",
@@ -667,20 +677,7 @@
 			"@uniqueId",
 			"glsl",
 			"tag",
-			"@ldr",
-			"onMessage",
-			"_class",
-			"ldrStack",
-			"undo",
-			"updateSettings",
-			"onChangeP",
-			"GSVHyperlapseHeading.backward",
-			"forward",
-			"headingMode",
-			"@report",
-			"zoom",
-			"headingMode",
-			"step"
+			"@ldr"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -688,6 +685,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"TAG_WIDTH",
 			"saveAndNext()",
 			"@gsvp",
 			"GL_MAX_WIDTH",
@@ -784,24 +782,29 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/gsv-generator.jade",
+					"file": "src/coffee/replace-proxy.coffee",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2962,
+						"buffer_size": 6827,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1781,
-								1781
+								3393,
+								3393
 							]
 						],
 						"settings":
@@ -809,41 +812,51 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -853,108 +866,7 @@
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content"
-							],
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 334.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "gulpfile.coffee",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2723,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								762,
-								762
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
+								"bh_tag_content"
 							],
 							"incomplete_sync": null,
 							"remote_loading": false,
@@ -963,7 +875,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1797.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -989,11 +901,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -1033,16 +952,32 @@
 		"selected_items":
 		[
 			[
-				"",
-				"src/gsv-generator.jade"
+				"replace",
+				"src/coffee/replace-proxy.coffee"
+			],
+			[
+				"seq",
+				"src/coffee/seq-replacer.coffee"
+			],
+			[
+				"gsv-g",
+				"src/coffee/gsv-generator.coffee"
 			],
 			[
 				"common",
 				"src/coffee/common.coffee"
 			],
 			[
-				"replace",
-				"src/replace-proxy.jade"
+				"panoid-parser",
+				"src/coffee/panoid-parser.coffee"
+			],
+			[
+				"index",
+				"src/index.jade"
+			],
+			[
+				"",
+				"src/gsv-generator.jade"
 			],
 			[
 				"jade",
@@ -1051,10 +986,6 @@
 			[
 				"test",
 				"src/test-map.jade"
-			],
-			[
-				"gsv-g",
-				"src/coffee/gsv-generator.coffee"
 			],
 			[
 				"gsv-gene",
@@ -1071,10 +1002,6 @@
 			[
 				"test-",
 				"src/test-map.jade"
-			],
-			[
-				"panoid-parser",
-				"src/coffee/panoid-parser.coffee"
 			],
 			[
 				"pano-id",
@@ -1275,10 +1202,6 @@
 			[
 				"package.s",
 				"src/package.json"
-			],
-			[
-				"index",
-				"src/index.jade"
 			],
 			[
 				"sass",
@@ -1538,10 +1461,6 @@
 			],
 			[
 				"edit/me",
-				"user/edit/message.php"
-			],
-			[
-				"message.php",
 				"user/edit/message.php"
 			]
 		],

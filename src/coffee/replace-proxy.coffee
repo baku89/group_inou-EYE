@@ -305,48 +305,6 @@ load = () ->
 	loadImg()
 
 
-# search nearest pano
-searchRadius = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-searchNearestPano = (origin, callback) ->
-
-	radius = 1
-
-	result = []
-	remain = searchRadius.length
-
-	console.log "searchNearestPano: #{origin}"
-
-	for i, r in searchRadius
-		setTimeout ->
-			ss.getPanoramaByLocation origin, r, (data, status) ->
-				if status == google.maps.StreetViewStatus.OK
-					data =
-						id: data.location.pano
-						latLng: data.location.latLng
-						distance: google.maps.geometry.spherical.computeDistanceBetween(origin, data.location.latLng)
-
-					result.push( data )
-
-				if --remain == 0
-					complete()
-
-		, 50 * i
-
-	complete = ->
-		
-		minDist = 100000000
-		pano = null
-		latLng = null
-
-		for r in result
-			if r.distance < minDist
-				minDist = r.distance
-				pano = r.id
-				latLng = r.latLng
-
-		callback(pano, latLng, minDist)
-
-
 #------------------------------------------------------------
 onComplete = ->
 
