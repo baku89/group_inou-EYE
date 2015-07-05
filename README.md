@@ -1,1 +1,6 @@
-for g_i e
+tool for making group_inou "EYE"
+
+```
+npm install
+gulp build
+```
