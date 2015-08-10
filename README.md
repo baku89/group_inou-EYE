@@ -5,8 +5,7 @@ Tool for making group_inou "EYE".
 
 [YouTube](https://www.youtube.com/watch?v=WSFeje8-4Vc) [Vimeo](https://vimeo.com/132051052)
 
-[Making of (en)](http://baku89.com/article/2216)
-[Making of (ja)](http://baku89.com/article/2118)
+making of: [en](http://baku89.com/article/2216) [ja](http://baku89.com/article/2118)
 
 ## How to build
 
