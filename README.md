@@ -14,7 +14,7 @@ making of: [en](http://baku89.com/article/2216) / [ja](http://baku89.com/article
 
 ## How to build
 
-build using gulp
+to build using gulp:
 ```
 npm install
 gulp build
