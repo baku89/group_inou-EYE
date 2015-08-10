@@ -1,0 +1,78 @@
+doctype html
+html
+	head
+		title Seq Replacer
+
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+		script(src='js/lib/glsl.min.js')
+		script(src='js/lib/sisyphus.js')
+		script(src='js/common.js')
+		script(src='js/GSVPano.js')
+		script(src='js/canvas-matrix-code.js')
+		script(src='js/GSVHyperlapse.js')
+		script(src='js/seq-reader.js')
+
+		link(rel='stylesheet', href='css/main.css')
+
+		script#pano-rotation(type='x-shader/x-fragment')
+			include shader/pano-rotation.fs
+
+		style.
+			#pano * {
+				width: 100%;
+				height: auto;
+			}
+
+			canvas {
+				width: 100%;
+				float:left;
+			}
+
+			progress {
+				width: 100%;
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			#svp, #map {
+				width: 100%;
+				height: 50%;
+			}
+
+			#svp {
+				background: red;
+			}
+
+			#map {
+				background: yellow;
+			}
+
+	body
+		h1 Seq Replacer
+
+		a(href="./index.html") [back to menu]
+			a(href="./index.html" target="_blank") [new window]
+
+		dl#replace-proxy
+			dt Select Directory
+			dd
+				input(name="file" type="file", webkitdirectory)
+			dt Source
+			dd
+				input(name="source" type="text")
+
+			//- dt Progress
+			//- 	div#stat-seq(style='text-align:center;') (0/0)
+			//- 	progress#prog-seq(max="100")
+			//- 	div#stat-pano(style='text-align:center;') 0%
+			//- 	progress#prog-pano(max="100")
+
+		button(id="decode") Decode
+
+		hr
+
+		canvas#tag
+
+		div#map map
+		div#svp svp
