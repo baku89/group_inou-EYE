@@ -15,7 +15,7 @@ runseq 	= require 'run-sequence'
 del 	= require 'del'
 bsync	= require('browser-sync').create()
 notifier= require 'node-notifier'
-NwBuilder=require 'node-webkit-builder'
+NwBuilder=require 'nw-builder'
 
 #----------------------------------------
 # compile
