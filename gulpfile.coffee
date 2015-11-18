@@ -43,6 +43,7 @@ gulp.task 'coffee', ->
 		.pipe plumber()
 		.pipe srcmap.init()
 		.pipe coffee({bare: true}).on 'error', (err) ->
+			console.log err.message
 			notifier.notify
 				title: err.message
 				message: "#{err.filename}:#{err.location.first_line}"
@@ -54,6 +55,7 @@ gulp.task 'compass', ->
 	gulp.src 'src/sass/*.sass'
 		.pipe plumber()
 		.pipe compass(compassArgs).on 'error', (err) ->
+			console.log err.message
 			notifier.notify
 				title: "[sass] compile error"
 				message:"#{err.fileName}"

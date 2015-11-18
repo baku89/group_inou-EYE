@@ -49,6 +49,7 @@ class GSVHyperlapse
 	# static var
 	@dirService = new google.maps.DirectionsService({})
 	@dirRegex = /dir\/([0-9.-]*),([0-9.-]*)\/([0-9.-]*),([0-9.-]*)\/@([0-9.-]*),([0-9.-]*),([0-9]*)z(.*)(\/data=(.*))?$/
+	# @dirRegex = /\/@([0-9.-]*),([0-9.-]*),([0-9]*)z(.*)(\/data=(.*))?$/
 	@dataRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/g
 	@dataLatLngRegex = /!1d([0-9.-]*)!2d([0-9.-]*)/
 

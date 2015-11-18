@@ -6,4 +6,6 @@ public/*
 *.sublime-workspace
 .sass-cache
 
+node_modules
+
 cache
