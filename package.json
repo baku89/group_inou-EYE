@@ -5,7 +5,8 @@
   "author": "baku89",
   "license": "ISC",
   "scripts": {
-    "dev": "nw public | gulp"
+    "dev": "nw public | gulp",
+    "nw": "nw public | gulp bsync"
   },
   "devDependencies": {
     "browser-sync": "^2.6.4",
