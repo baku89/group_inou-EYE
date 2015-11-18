@@ -114,31 +114,56 @@ class GSVHyperlapse
 			@lookat = new google.maps.LatLng( result[1], result[2] )
 
 	# --------------------------------------------------------
-	createFromDirection: (url)->
+	createFromDirection: (originName, destinationName)->
 
 		rawPts = []
 		routeRes = null
 		prevId = ''
 		@method = GSVHyperlapseMethod.DIRECTION
-		@sourceUrl = url
+		
+		origin = destination = null
+
+		# ===================================
+		# 0. retrieve lat lng from place name
+
+		createRequest = =>
+
+			geocoder = new google.maps.Geocoder()
+
+			geocoder.geocode {'address': originName}, (results, status) =>
+				if status == google.maps.GeocoderStatus.OK
+					origin = results[0].geometry.location
+
+					console.log results[0].geometry.location.lat
+					window.origin = results
+					checkRetrieved()
+				else
+					alert "origin returns ZERO_RESULTS"
+			
+			geocoder.geocode {'address': destinationName}, (results, status) =>
+				if status == google.maps.GeocoderStatus.OK
+					destination = results[0].geometry.location
+				else
+					alert "destination returns ZERO_RESULTS"
+				checkRetrieved()
+
+			checkRetrieved = () =>
+				if origin != null && destination != null
+					console.log "Unco"
+					requestRoute()
+
 
 		# ===================================
 		# 1. request route
 		requestRoute = =>
-			# parse url
-			result = GSVHyperlapse.dirRegex.exec( url )
 
-			if !result?
-				alert "cannot parse url"
-				return
+			# calc bounds
+			bounds = new google.maps.LatLngBounds()
 
-			origin      = new google.maps.LatLng( result[1], result[2] )
-			destination	= new google.maps.LatLng( result[3], result[4] )
-			center      = new google.maps.LatLng( result[5], result[6] )
-			zoom        = parseInt(result[7])
+			bounds.extend(origin)
+			bounds.extend(destination)
 
-			@map.setZoom( zoom )
-			@map.setCenter( center )
+			@map.fitBounds(bounds)
 
 			console.log @travelMode
 
@@ -148,17 +173,17 @@ class GSVHyperlapse
 				travelMode: @travelMode
 
 			# parse waypoint from data
-			waypoints = []
+			# waypoints = []
 			
-			if (result = result[8].match( GSVHyperlapse.dataRegex ))?
-				for i, r of result
-					m = GSVHyperlapse.dataLatLngRegex.exec( r )
-					wp = new google.maps.LatLng( m[2], m[1] )
-					waypoints.push
-						location: wp.toString()
-						stopover: false
+			# if (result = result[8].match( GSVHyperlapse.dataRegex ))?
+			# 	for i, r of result
+			# 		m = GSVHyperlapse.dataLatLngRegex.exec( r )
+			# 		wp = new google.maps.LatLng( m[2], m[1] )
+			# 		waypoints.push
+			# 			location: wp.toString()
+			# 			stopover: false
 
-				req.waypoints = waypoints
+			# 	req.waypoints = waypoints
 
 			GSVHyperlapse.dirService.route req, (res, status) =>
 
@@ -267,7 +292,7 @@ class GSVHyperlapse
 			@client.getPanoramaByLocation(rawPts[idx], @searchRadius, onLoad)
 
 		# trigger
-		requestRoute()
+		createRequest()
 
 	# --------------------------------------------------------
 	createFromPanoId: (list) ->

@@ -106,7 +106,7 @@ create = (e)->
 	hyperlapse.setParameters(settings)
 
 	if settings.method == 'direction'
-		hyperlapse.createFromDirection( settings.url )
+		hyperlapse.createFromDirection( settings.originName, settings.destinationName )
 
 	else if settings.method == 'panoid'
 		list = $.parseJSON( settings.panoid )

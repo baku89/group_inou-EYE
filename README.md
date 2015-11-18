@@ -14,9 +14,10 @@ making of: [en](http://baku89.com/article/2216) / [ja](http://baku89.com/article
 ## How to build
 
 ```
-npm install
-gulp build
+npm run dev
 ```
+
+NOTE: you have to reload when Browser Sync launched.
 
 ## Panorama Info
 

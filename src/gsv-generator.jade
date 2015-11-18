@@ -74,9 +74,13 @@ html
 
 			//- direction
 			dl(data-parent='#method-1' style="background:#bdd;")
-				dt direction url
+				dt origin / destination name
 				dd
-					input(name='url' type='url' value='https://www.google.co.jp/maps/dir/-3.8627398,-32.4155203/-3.8623602,-32.4207532/@-3.8621801,-32.4174875,17z/data=!4m2!4m1!3e2')
+					p from
+					input(name='originName' type='text' value='恵比寿駅')
+					p to
+					input(name='destinationName' type='text' value='永福町駅')
+
 
 				dt travel mode
 				dd

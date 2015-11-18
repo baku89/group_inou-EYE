@@ -10,6 +10,7 @@ plumber = require 'gulp-plumber'
 srcmap 	= require 'gulp-sourcemaps'
 util	= require 'gulp-util'
 rename 	= require 'gulp-rename'
+shell 	= require 'gulp-shell'
 
 runseq 	= require 'run-sequence'
 del 	= require 'del'
@@ -67,6 +68,8 @@ reload = bsync.reload
 
 #----------------------------------------
 # util
+
+gulp.task 'openNw', [], ->
 
 gulp.task 'bsync', [], ->
 	bsync.init
