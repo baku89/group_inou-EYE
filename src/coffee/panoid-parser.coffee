@@ -116,7 +116,16 @@ clear = ->
 
 exportJson = ->
 	console.log "export"
-	json = JSON.stringify( list )
+
+	interval = parseInt($('[name=interval]').val())
+
+	# recontrust lists
+	exportList = []
+
+	for i in [0...list.length] by interval
+		exportList.push list[i]
+
+	json = JSON.stringify( exportList )
 	$('#json').val( json )
 
 
