@@ -14,6 +14,8 @@ making of: [en](http://baku89.com/article/2216) / [ja](http://baku89.com/article
 ## How to build
 
 ```
+cd gsvh-util
+npm install
 npm run dev
 ```
 
@@ -23,6 +25,6 @@ NOTE: you have to reload when Browser Sync launched.
 
 See [pano-list.json](./assets/pano-list.json).
 
-## Lisence
+## License
 
 This repository is published under a MIT License. See the included LISENCE file.

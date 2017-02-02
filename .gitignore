@@ -1,11 +1,9 @@
 .DS_Store
 
-node_modules
-public/*
-*.sublime-project
-*.sublime-workspace
-.sass-cache
+gsvh-util/public
 
 node_modules
+
+.sass-cache
 
 cache
