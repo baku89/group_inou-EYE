@@ -33,23 +33,25 @@ gulp.task('pug', () =>
 		.pipe(gulp.dest('public'))
 );
 
-gulp.task('coffee', () =>
-	gulp
-		.src('src/coffee/*.coffee')
-		.pipe($.plumber())
-		.pipe($.sourcemaps.init())
-		.pipe(
-			$.coffee({ bare: true }).on('error', function(err) {
-				console.log(err.message);
-				return notifier.notify({
-					title: err.message,
-					message: `${err.filename}:${err.location.first_line}`,
-					sound: true
-				});
-			})
-		)
-		.pipe($.sourcemaps.write())
-		.pipe(gulp.dest('public/js'))
+gulp.task(
+	'coffee',
+	() => gulp.src('src/coffee/*.js').pipe(gulp.dest('public/js'))
+	// gulp
+	// 	.src('src/coffee/*.coffee')
+	// 	.pipe($.plumber())
+	// 	.pipe($.sourcemaps.init())
+	// 	.pipe(
+	// 		$.coffee({ bare: true }).on('error', function(err) {
+	// 			console.log(err.message);
+	// 			return notifier.notify({
+	// 				title: err.message,
+	// 				message: `${err.filename}:${err.location.first_line}`,
+	// 				sound: true
+	// 			});
+	// 		})
+	// 	)
+	// 	.pipe($.sourcemaps.write())
+	// 	.pipe(gulp.dest('public/js'))
 );
 
 gulp.task('sass', () =>
@@ -69,8 +71,6 @@ gulp.task('sass', () =>
 		.pipe(gulp.dest('public/css'))
 );
 
-const { reload } = bsync;
-
 //----------------------------------------
 // util
 
@@ -84,6 +84,10 @@ gulp.task('bsync', () =>
 	})
 );
 
+gulp.task('reload', () => {
+	bsync.reload();
+});
+
 gulp.task('clean', () => del('./public/**/*'));
 
 gulp.task('copy', function() {
@@ -92,21 +96,25 @@ gulp.task('copy', function() {
 	return gulp.src('src/js/lib/*.js').pipe(gulp.dest('public/js/lib'));
 });
 
+gulp.task('watch', () => {
+	gulp.watch(['src/*.pug', 'src/shader/**'], gulp.series('pug', 'reload'));
+	gulp.watch('src/coffee/*.js', gulp.series('coffee', 'reload'));
+	gulp.watch('src/sass/*.sass', gulp.series('sass', 'reload'));
+	gulp.watch(
+		['src/package.json', 'src/assets/**', 'src/js/lib/*.js'],
+		gulp.series('copy', 'reload')
+	);
+});
+
 //----------------------------------------
 // default & build
 
 gulp.task(
 	'default',
-	gulp.series(gulp.parallel('pug', 'coffee', 'sass', 'copy'), 'bsync'),
-	() => {
-		gulp.watch(['src/*.pug', 'src/shader/**'], gulp.series('pug', reload));
-		gulp.watch('src/coffee/*.coffee', gulp.series('coffee', reload));
-		gulp.watch('src/sass/*.sass', gulp.series('sass', reload));
-		gulp.watch(
-			['src/package.json', 'src/assets/**', 'src/js/lib/*.js'],
-			gulp.series('copy', reload)
-		);
-	}
+	gulp.series(
+		gulp.parallel('pug', 'coffee', 'sass', 'copy'),
+		gulp.parallel('bsync', 'watch')
+	)
 );
 
 gulp.task('build', gulp.parallel('pug', 'coffee', 'sass', 'copy'), () => {
