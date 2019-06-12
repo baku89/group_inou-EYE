@@ -1,7 +1,7 @@
-@import "compass"
-@import "compass/css3/user-interface"
+@import "../../node_modules/compass-mixins/lib/compass"
+@import "../../node_modules/compass-mixins/lib/compass/css3/user-interface"
 
-@import "compass/reset"
+@import "../../node_modules/compass-mixins/lib/compass/reset"
 
 @font-face
 	font-family: "ocr"
@@ -139,14 +139,14 @@ article
 		position: relative
 		width: 100%
 		height: 30px
-		#background-color: #bbbbbb
+		// background-color: #bbbbbb
 		border-radius: 0
 
 		&:after 
 			content: attr(data-label)
 			display: block
 			position: absolute
-			#color: white
+			// color: white
 			top: 0
 			left: 0
 			width: 100%
