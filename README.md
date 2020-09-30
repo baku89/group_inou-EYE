@@ -27,4 +27,4 @@ See [pano-list.json](./assets/pano-list.json).
 
 ## License
 
-This repository is published under a MIT License. See the included LISENCE file.
+This repository is published under a MIT License. See the included LICENCE file.
