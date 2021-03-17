@@ -31,7 +31,7 @@
 		"node-notifier": "^4.2.1",
 		"nw": "0.39.0-sdk",
 		"nw-builder": "^3.5.7",
-		"pug": "^2.0.3",
+		"pug": "^3.0.1",
 		"run-sequence": "^1.1.0"
 	},
 	"window": {
